@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_world">Reactr</string>
+
+    <string name="app_name">Reactr</string>
+    <string name="action_settings">Settings</string>
+
+    <!--login layout-->
+    <string name="password_text">Password</string>
+    <string name="login_button_text">Log In</string>
+    <string name="email_text">Email Address</string>
+
+    <!--Signup1 layout-->
+    <string name="signup1_text">By creating an account, you agree to the <u>Terms of Use</u> and you acknowledge that you have read the <u>Privacy Policy.</u></string>
+    <string name="continue_button">Continue</string>
+    <string name="birthday_text">Birthday</string>
+
+    <!--Signup2 layout-->
+    <string name="signup2_text">Please select a unique username. Your username identifies you on Reactr.</string>
+    <string name="username_text">Username</string>
+
+    <!--Signup3 layout-->
+    <string name="signup3_text_top">Enter your mobile phone number to find friends and help them find you.</string>
+    <string name="signup3_text_center">Reactr uses phone numbers from your address book to find the Reactr usernames of your friends.</string>
+    <string name="signup3_text_bottom">
+        - We will not spam or auto-add your friends.\n
+        - We will not show your phone # to other users.\n
+        - Phone # will only be used to find your friends\n
+        - Phone # will be stored as unique mathematical\n
+        representation (or "hashes"), which ca be used\n
+        to see which users match, but are not the actual\n
+        phone numbers themselves.
+    </string>
+    <string name="phone_text">Mobile #</string>
+
+    <!--Signup3 layout-->
+    <string name="sign_up_button">Sign Up</string>
+
+
+
+</resources>

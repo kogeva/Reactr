@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+        <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:id="@+id/photo_view"/>
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Hello world"
+                android:alpha="0.7"
+                android:background="#000"
+                android:textColor="#fff"
+                android:id="@+id/message_text"
+                android:layout_gravity="center"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"/>
+
+        <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp"
+                android:id="@+id/reaction_photo_view"
+                android:layout_above="@+id/message_text"
+                android:layout_alignParentLeft="true"/>
+
+        <SurfaceView
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:id="@+id/hiddenPreview"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@+id/reaction_photo_view"
+            android:layout_alignParentLeft="true">
+
+        <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="fill_parent"
+                android:background="#ffeaeaea"
+                android:src="@drawable/x"
+                android:id="@+id/closeButton"
+                android:layout_weight="1"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"/>
+
+        <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="fill_parent"
+                android:background="#ffeaeaea"
+                android:src="@drawable/rsz_download"
+                android:id="@+id/downloadPhoto"
+                android:layout_weight="1"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"/>
+
+        <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="fill_parent"
+                android:background="#00dcee"
+                android:src="@drawable/rsz_arrow_backward_white"
+                android:id="@+id/replyButton"
+                android:layout_weight="1"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="77dp"
+                android:id="@+id/editText"
+                android:layout_weight="0.5"/>
+
+        <ListView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/friend_list"
+                android:layout_weight="1"/>
+
+        <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50dp">
+
+            <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/shoot_button_background"
+                    android:src="@drawable/rsz_double_arrow_forward_black"
+                    android:id="@+id/sendButton"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"/>
+
+            <ImageButton
+                    android:layout_width="60dp"
+                    android:layout_height="fill_parent"
+                    android:background="#ffeaeaea"
+                    android:src="@drawable/x"
+                    android:id="@+id/closeButton"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
