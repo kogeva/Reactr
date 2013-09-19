@@ -1,6 +1,7 @@
 package reactr.adaptor;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +62,23 @@ public class MessageAdapter extends BaseAdapter {
         ImageView typeMessage = (ImageView) view.findViewById(R.id.typeMessage);
 
 
+
+
+
+
         final MessageEntity message = (MessageEntity) getItem(position);
+
+
+        //*******
+        if(!message.getIsRead()&&!message.getFromMe()){
+            view.setBackgroundColor(Color.rgb(101, 167, 210));
+        }
+        else{
+            view.setBackgroundColor(Color.WHITE);
+        }
+        //*******
+
+
         message.setUsernameWithFriends(friends);
 
         if(message.getFromMe()){

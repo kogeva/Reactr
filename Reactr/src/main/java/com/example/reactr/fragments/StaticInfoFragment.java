@@ -40,7 +40,6 @@ public class StaticInfoFragment extends SherlockFragment {
     private ArrayList<FriendEntity> friendEntities;
     private MessageAdapter adapter;
     private ListView messageList;
-int  variableblebelebele=15151;
     private WebView tvPage;
     final String mimeType = "text/html";
     final String encoding = "UTF-8";

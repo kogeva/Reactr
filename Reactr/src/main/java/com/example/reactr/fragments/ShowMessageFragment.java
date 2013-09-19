@@ -6,6 +6,8 @@ import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
@@ -14,8 +16,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.example.reactr.MainActivity;
 import com.example.reactr.R;
 import com.example.reactr.ReactrBase;
 import com.example.reactr.reactr.models.MessageEntity;
@@ -24,6 +28,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import reactr.network.ReactorApi;
 import reactr.utils.TakePhotoWithoutPreview;
 
 public class ShowMessageFragment extends SherlockFragment{
@@ -33,13 +38,16 @@ public class ShowMessageFragment extends SherlockFragment{
     private ImageView reactionPhotoView;
     private ImageButton replyButton;
     private ImageButton closeButton;
+    private ImageButton saveButton;
+
     private SurfaceView surfaceView;
     private Bitmap photo;
     private Bitmap reactionPhoto;
     private Handler handler;
     private Camera camera;
     private TakePhotoWithoutPreview ph;
-
+    private TextView text;
+    private boolean reaction=false;
     public ShowMessageFragment(MessageEntity message) {
         this.message = message;
     }
@@ -47,7 +55,7 @@ public class ShowMessageFragment extends SherlockFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.show_message_layout, container, false);
-        TextView text = (TextView) view.findViewById(R.id.message_text);
+         text = (TextView) view.findViewById(R.id.message_text);
         photoView = (ImageView) view.findViewById(R.id.photo_view);
         reactionPhotoView = (ImageView) view.findViewById(R.id.reaction_photo_view);
         surfaceView = (SurfaceView) view.findViewById(R.id.hiddenPreview);
@@ -55,6 +63,9 @@ public class ShowMessageFragment extends SherlockFragment{
         closeButton = (ImageButton) view.findViewById(R.id.closeButton);
         replyButton.setOnClickListener(replyMessage);
         closeButton.setOnClickListener(closeClickListener);
+        reactionPhotoView.setOnClickListener(switchPhotos);
+        saveButton = (ImageButton) view.findViewById(R.id.downloadPhoto);
+        saveButton.setOnClickListener(saveToGallery);
 
         handler = new Handler();
 
@@ -97,6 +108,19 @@ public class ShowMessageFragment extends SherlockFragment{
             if (reactionPhoto != null)
                 reactionPhotoView.setImageBitmap(RotateBitmap(reactionPhoto, 90));
 
+            //***********************************************
+            if((message.getIsRead()==false)&&(message.getFromMe()==false))
+            {
+                ReactorApi ra= ((MainActivity) getActivity()).getReactorApi();
+                ra.readMess(String.valueOf(message.getId()));
+
+
+            }
+            //****************************************************
+     //       MenuFragment frag2 = (MenuFragment) getFragmentManager().findFragmentById(R.id.slidingmenumain);
+       //     frag2.hi();
+
+
             if(!message.getIsRead())
                 ph.takeReaction(message.getId());
             ReactrBase.hideLoader();
@@ -131,4 +155,38 @@ public class ShowMessageFragment extends SherlockFragment{
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
+
+
+    //************
+    private View.OnClickListener saveToGallery = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            String str=text.getText().toString();//????
+            photoView.buildDrawingCache();
+            Bitmap bm = photoView.getDrawingCache();
+            Toast.makeText(getActivity().getBaseContext(), "Saved to GALLERY!", Toast.LENGTH_SHORT).show();
+            MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bm, str, "description");
+        }
+    };
+
+    private View.OnClickListener switchPhotos = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            Toast.makeText(getActivity().getBaseContext(), "switchPhotos!", Toast.LENGTH_SHORT).show();
+            if(!reaction)
+            {
+            photoView.setImageBitmap(RotateBitmap(reactionPhoto, 90));
+            reactionPhotoView.setImageBitmap(RotateBitmap(photo, 90));
+            }
+            else{
+                photoView.setImageBitmap(RotateBitmap(photo, 90));
+                reactionPhotoView.setImageBitmap(RotateBitmap(reactionPhoto, 90));
+            }
+            reaction=!reaction;
+        }
+    };
+
+    //*************
+
 }

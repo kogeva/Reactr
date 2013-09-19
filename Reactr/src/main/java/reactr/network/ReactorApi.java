@@ -43,7 +43,7 @@ public class ReactorApi {
     private final String GET_MESSAGES             = apiUrl + "/getMessages/";
     private final String LOGIN                    = apiUrl + "/login/";
     private final String ST_INFO           = apiUrl + "/getStaticInfo/";
-
+    private final String READ_MSG           = apiUrl + "/readMessages/";
 
     private ReactorApi(int userId, String session_token) {
         this.userId = userId;
@@ -380,6 +380,64 @@ public class ReactorApi {
             System.out.println("Exp=" + e);
         }
         return st_info_hm;
+    }
+
+    public int newMessages()
+    {
+        postParams = new HashMap<String, ContentBody>();
+        int toRet=0;
+        try {
+            postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
+            postParams.put("session_hash", new StringBody(session_token));
+        } catch (UnsupportedEncodingException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+
+        try {
+            jsonData = new JSONObject(networkManager.sendRequest(GET_MESSAGES, postParams));
+            if(jsonData.get("status").equals("success"))
+            {
+                JSONArray messageJSONArray = (JSONArray) jsonData.getJSONArray("messages");
+
+                for (int i = 0; i < messageJSONArray.length(); i++)
+                {
+                    JSONObject messageJson = messageJSONArray.getJSONObject(i);
+
+                    if(messageJson.getString("is_read").equals("null")&&!messageJson.getBoolean("from_me")){
+                        toRet++;
+                    }
+
+
+
+                }
+            }
+        } catch (JSONException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+        return toRet;
+    }
+
+
+    public boolean readMess(String id_mes)
+    {
+        postParams = new HashMap<String, ContentBody>();
+        try {
+            postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
+            postParams.put("session_hash", new StringBody(session_token));
+            postParams.put("message_id", new StringBody(id_mes));
+        } catch (UnsupportedEncodingException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+        try {
+            jsonData = new JSONObject(networkManager.sendRequest(READ_MSG, postParams));
+            Boolean result = (jsonData.get("status").equals("success")) ? true : false;
+            return result ;
+
+        } catch (JSONException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+
+        return false;
     }
 
 

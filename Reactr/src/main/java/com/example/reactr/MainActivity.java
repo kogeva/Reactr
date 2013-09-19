@@ -3,6 +3,9 @@ package com.example.reactr;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.view.ViewParent;
+import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -28,6 +31,7 @@ public class MainActivity extends SlidingFragmentActivity  {
 
     private HashMap<String, String> st_info_hm;
 
+    SlidingMenu sm;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,18 @@ public class MainActivity extends SlidingFragmentActivity  {
         getSlidingMenu().setShadowWidth(20);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
+
+/*        sm = getSlidingMenu();
+        sm.setOnOpenListener(new SlidingMenu.OnOpenListener() {
+            @Override
+            public void onOpen() {
+                Toast.makeText(getBaseContext(), "onOpen", Toast.LENGTH_SHORT).show();
+                View v=sm.getMenu();
+               ViewParent fr= v.getParent();
+                v.hasOnClickListeners();
+            }
+        });*/
+
     }
 
     @Override
