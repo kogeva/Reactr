@@ -6,9 +6,13 @@ import android.util.Log;
 import com.example.reactr.reactr.models.FriendEntity;
 import com.example.reactr.reactr.models.MessageEntity;
 
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +21,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import reactr.utils.ReactrConstants;
 
 public class ReactorApi {
     private int userId;
@@ -36,6 +42,8 @@ public class ReactorApi {
     private final String SEND_MESSAGES            = apiUrl + "/sendMessages/";
     private final String GET_MESSAGES             = apiUrl + "/getMessages/";
     private final String LOGIN                    = apiUrl + "/login/";
+    private final String ST_INFO           = apiUrl + "/getStaticInfo/";
+
 
     private ReactorApi(int userId, String session_token) {
         this.userId = userId;
@@ -341,4 +349,38 @@ public class ReactorApi {
         }
         return messageArray;
     }
+
+    public HashMap<String, String> loadStInfo()
+    {
+
+        String toRet="";
+        HashMap<String, String> st_info_hm = new HashMap<String, String>();
+        try {
+
+            DefaultHttpClient hc = new DefaultHttpClient();
+            ResponseHandler<String> res = new BasicResponseHandler();
+            HttpPost postMethod = new HttpPost(ST_INFO);
+            String response = hc.execute(postMethod, res);
+
+            JSONObject json = new JSONObject(response);
+
+            JSONObject urls = json.getJSONObject("static_info");
+
+
+            st_info_hm.put(ReactrConstants.ABOUT_REACTR,urls.getString(ReactrConstants.ABOUT_REACTR));
+
+            st_info_hm.put(ReactrConstants.PRIVACY,urls.getString(ReactrConstants.PRIVACY));
+
+            st_info_hm.put(ReactrConstants.TERMS,urls.getString(ReactrConstants.TERMS));
+
+            st_info_hm.put(ReactrConstants.CONTACT_US,urls.getString(ReactrConstants.CONTACT_US));
+
+
+        } catch (Exception e) {
+            System.out.println("Exp=" + e);
+        }
+        return st_info_hm;
+    }
+
+
 }

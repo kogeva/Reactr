@@ -13,6 +13,8 @@ import com.example.reactr.fragments.MessageFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
+import java.util.HashMap;
+
 import reactr.network.ReactorApi;
 
 public class MainActivity extends SlidingFragmentActivity  {
@@ -24,9 +26,15 @@ public class MainActivity extends SlidingFragmentActivity  {
     private static String username;
     private SharedPreferences preferences;
 
+    private HashMap<String, String> st_info_hm;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        st_info_hm = new HashMap<String, String>();
+
 
         sessionHash = getSharedPreferences("reactrPrefer", MODE_PRIVATE).getString("session_hash", null);
         userId = getSharedPreferences("reactrPrefer", MODE_PRIVATE).getInt("user_id", 0);
@@ -101,5 +109,21 @@ public class MainActivity extends SlidingFragmentActivity  {
         SharedPreferences.Editor prefEditor = preferences.edit();
         prefEditor.putString("session_hash", "");
         prefEditor.commit();
+    }
+
+
+
+    //*************************
+    public String getStInfoByParameter(String p)
+    {
+        return st_info_hm.get(p);
+    }
+    public int getSizeStInfo()
+    {
+        return st_info_hm.size();
+    }
+    public void loadStInfo()
+    {
+        st_info_hm= reactorApi.loadStInfo();
     }
 }

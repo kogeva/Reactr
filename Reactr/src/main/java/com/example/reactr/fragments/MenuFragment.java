@@ -19,6 +19,7 @@ import com.example.reactr.reactr.models.MenuItem;
 import java.util.ArrayList;
 
 import reactr.adaptor.MenuAdapter;
+import reactr.utils.ReactrConstants;
 
 public class MenuFragment extends ListFragment {
     @Override
@@ -61,6 +62,20 @@ public class MenuFragment extends ListFragment {
             case 3:
  //               newContent = new AddMessageFragment();
                 break;
+
+            case 4:
+                newContent = new StaticInfoFragment(ReactrConstants.ABOUT_REACTR);
+                break;
+            case 5:
+                newContent = new StaticInfoFragment(ReactrConstants.PRIVACY);
+                break;
+            case 6:
+                newContent = new StaticInfoFragment(ReactrConstants.TERMS);
+                break;
+            case 7:
+                newContent = new StaticInfoFragment(ReactrConstants.CONTACT_US);
+                break;
+
             case 8:
                 ((MainActivity ) getActivity()).removeSessionHash();
                 ((MainActivity ) getActivity()).startActivity(new Intent(getActivity(), StartActivity.class));
