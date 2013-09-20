@@ -1,8 +1,14 @@
 package com.example.reactr;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewParent;
 import android.widget.Toast;
@@ -142,4 +148,11 @@ public class MainActivity extends SlidingFragmentActivity  {
     {
         st_info_hm= reactorApi.loadStInfo();
     }
+    //пытался сделать что-либо для оповещения меню о том, что сообщение прочитано
+    public void some(){
+        SlidingMenu sm= getSlidingMenu();
+       View v = sm.getMenu();
+        v.setClickable(true);
+    }
+
 }

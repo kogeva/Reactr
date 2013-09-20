@@ -1,10 +1,17 @@
 package com.example.reactr;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import reactr.network.ReactorApi;
 
@@ -22,7 +29,7 @@ public class SignInActivity extends Activity {
     private String password = null;
     private String username;
     private String phone;
-
+private TextView st_tv;
 
 
     @Override
@@ -36,7 +43,14 @@ public class SignInActivity extends Activity {
         emailEditText = (EditText) findViewById(R.id.emailText);
         passwordEditText = (EditText) findViewById(R.id.epasswordText);
         toStepTwoButton.setOnClickListener(toStepTwoClick);
+
+        //настройки для перехождения по ссылке
+        st_tv = (TextView)findViewById(R.id.textView);
+        st_tv.setLinksClickable(true);
+        st_tv.setMovementMethod(new LinkMovementMethod());
+
     }
+
 
     View.OnClickListener toStepTwoClick = new View.OnClickListener() {
         @Override
@@ -60,7 +74,7 @@ public class SignInActivity extends Activity {
     Runnable validationRequest = new Runnable() {
         @Override
         public void run() {
-            this.toString();
+         //   this.toString();
             api.checkUsernameAndEmail(email, password);
         }
     };

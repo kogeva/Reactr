@@ -1,20 +1,28 @@
 package com.example.reactr.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.text.format.Time;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +35,10 @@ import com.example.reactr.reactr.models.MessageEntity;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import reactr.network.ReactorApi;
+import reactr.utils.ImageHelper;
 import reactr.utils.TakePhotoWithoutPreview;
 
 public class ShowMessageFragment extends SherlockFragment{
@@ -106,21 +116,26 @@ public class ShowMessageFragment extends SherlockFragment{
         public void run() {
             photoView.setImageBitmap(RotateBitmap(photo, 90));
             if (reactionPhoto != null)
-                reactionPhotoView.setImageBitmap(RotateBitmap(reactionPhoto, 90));
+            {
+          //      reactionPhoto=ImageHelper.getRoundedCornerBitmap(reactionPhoto, 300);
+            //    Bitmap rounded_bm=ImageHelper.getCircularBitmap(reactionPhoto);
+              //  Bitmap rounded_bm= ImageHelper.myRoundBitmap(reactionPhoto);
+                //для округления изображения
+                Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, 1500, 30, getActivity().getApplicationContext());
+                reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
+            }
 
             //***********************************************
             if((message.getIsRead()==false)&&(message.getFromMe()==false))
             {
+                //прочтение сообщения
                 ReactorApi ra= ((MainActivity) getActivity()).getReactorApi();
                 ra.readMess(String.valueOf(message.getId()));
-
-
             }
             //****************************************************
-     //       MenuFragment frag2 = (MenuFragment) getFragmentManager().findFragmentById(R.id.slidingmenumain);
+            MenuFragment.setMenuItem();
        //     frag2.hi();
-
-
+            //       MenuFragment frag2 = (MenuFragment) getFragmentManager().findFragmentById(R.id.slidingmenumain);
             if(!message.getIsRead())
                 ph.takeReaction(message.getId());
             ReactrBase.hideLoader();
@@ -161,32 +176,98 @@ public class ShowMessageFragment extends SherlockFragment{
     private View.OnClickListener saveToGallery = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            String str=text.getText().toString();//????
+            //***************************
+            //сохранение в галерею (диалог для выбора какое изображение сохранить)
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Select a photo to save");
+
+            CharSequence[]cs;
+            if(reactionPhoto!=null)
+                cs= new CharSequence[]{getResources().getString(R.string.sv_ph_mes), getResources().getString(R.string.sv_ph_react),
+                        getResources().getString(R.string.cancel)};
+            else
+                cs= new CharSequence[]{getResources().getString(R.string.sv_ph_mes), getResources().getString(R.string.cancel)};
+            builder.setItems(cs, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Time now = new Time();
+                    now.setToNow();
+                    String str="IMG_"+now.year+"_"+now.month+"."+now.monthDay+"_"+now.hour+":"+now.minute+":"+now.second;
+                    if(which==0){
+                        Toast.makeText(getActivity().getBaseContext(), "Saved photo to GALLERY as "+str, Toast.LENGTH_SHORT).show();
+                        MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), photo, str, "description");
+                    }
+                    if(which==1&&reactionPhoto!=null){
+                        Toast.makeText(getActivity().getBaseContext(), "Saved reaction to GALLERY as "+str, Toast.LENGTH_SHORT).show();
+                        MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), reactionPhoto, str, "description");
+                    }
+                    if(which==2||(which==1&&reactionPhoto==null)){
+                    dialog.cancel();
+                    }
+                }
+            });
+            builder.setInverseBackgroundForced(true);
+
+            AlertDialog dialog = builder.create();
+            WindowManager.LayoutParams wmlp = dialog.getWindow().getAttributes();
+            wmlp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+            wmlp.x = 25;   //x position
+            wmlp.y = 100;   //y position
+            dialog.show();
+            //***************************
+        /*    Time now = new Time();
+            now.setToNow();
+            String str="IMG_"+now.year+"_"+now.month+"."+now.monthDay+"_"+now.hour+":"+now.minute;
             photoView.buildDrawingCache();
             Bitmap bm = photoView.getDrawingCache();
-            Toast.makeText(getActivity().getBaseContext(), "Saved to GALLERY!", Toast.LENGTH_SHORT).show();
-            MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bm, str, "description");
+            Toast.makeText(getActivity().getBaseContext(), "Saved to GALLERY as "+str, Toast.LENGTH_SHORT).show();
+             MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bm, str, "description");*/
         }
     };
-
+//переключение фото с "маленького на большое"
     private View.OnClickListener switchPhotos = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
-            Toast.makeText(getActivity().getBaseContext(), "switchPhotos!", Toast.LENGTH_SHORT).show();
             if(!reaction)
             {
             photoView.setImageBitmap(RotateBitmap(reactionPhoto, 90));
-            reactionPhotoView.setImageBitmap(RotateBitmap(photo, 90));
+         //   reactionPhotoView.setImageBitmap(RotateBitmap(photo, 90));
+              //  Bitmap rounded_bm=ImageHelper.getCircularBitmap(photo);
+          //      Bitmap rounded_bm=ImageHelper.myRoundBitmap(photo);
+                Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(photo, Color.WHITE, 1500, 30, getActivity().getApplicationContext());
+
+                reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
             }
             else{
                 photoView.setImageBitmap(RotateBitmap(photo, 90));
-                reactionPhotoView.setImageBitmap(RotateBitmap(reactionPhoto, 90));
+          //      reactionPhotoView.setImageBitmap(RotateBitmap(reactionPhoto, 90));
+           //     Bitmap rounded_bm=ImageHelper.getCircularBitmap(reactionPhoto);
+              //  Bitmap rounded_bm=ImageHelper.myRoundBitmap(reactionPhoto);
+                Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, 1500, 30, getActivity().getApplicationContext());
+
+                reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
+
             }
             reaction=!reaction;
         }
     };
 
-    //*************
+    //*************пытался сделать сохранение фото через PopupMenu - оно не поддерживается этой версией апи
+    private void showPopupMenu(View v){
+      /*  PopupMenu popupMenu = new PopupMenu(getActivity(), v);
+        popupMenu.getMenuInflater().inflate(R.menu.popup_save_photo, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Toast.makeText(getActivity(),
+                        item.toString(),
+                        Toast.LENGTH_LONG).show();
+                return true;
+            }
+        });
+
+        popupMenu.show();*/
+    }
 
 }

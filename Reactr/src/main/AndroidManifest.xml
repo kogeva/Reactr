@@ -30,6 +30,15 @@
                   android:screenOrientation="portrait"
                   android:configChanges="orientation" ></activity>
         <activity android:label="StartActivity" android:name=".StartActivity"></activity>
+
+        <activity android:name=".AnotherActivity" android:exported="false">
+            <intent-filter>
+                <data android:scheme="activity-run" android:host="AnotherActivityHost" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />

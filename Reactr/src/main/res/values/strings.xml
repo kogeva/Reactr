@@ -11,7 +11,15 @@
     <string name="email_text">Email Address</string>
 
     <!--Signup1 layout-->
-    <string name="signup1_text">By creating an account, you agree to the <u>Terms of Use</u> and you acknowledge that you have read the <u>Privacy Policy.</u></string>
+    <string name="signup1_text">By creating an account, you agree to the
+         <a href="activity-run://AnotherActivityHost?caption=Another%20Activity&amp;text=terms">Terms of Use </a>
+        and you acknowledge that you have read the
+        <a href="activity-run://AnotherActivityHost?caption=Another%20Activity&amp;text=privacy">Privacy Policy</a>.
+
+
+
+
+    </string>
     <string name="continue_button">Continue</string>
     <string name="birthday_text">Birthday</string>
 
@@ -36,6 +44,9 @@
     <!--Signup3 layout-->
     <string name="sign_up_button">Sign Up</string>
 
+    <string name="sv_ph_mes"> Save photo message</string>
+    <string name="sv_ph_react">Save photo reaction</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>

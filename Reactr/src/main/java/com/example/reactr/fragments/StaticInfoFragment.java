@@ -33,6 +33,7 @@ import reactr.adaptor.MessageAdapter;
 import reactr.network.ReactorApi;
 
 //CHANGES
+//мой фрагмент для отображения статической информации
 public class StaticInfoFragment extends SherlockFragment {
 
     private ReactorApi api;
