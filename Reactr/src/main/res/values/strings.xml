@@ -11,7 +11,7 @@
     <string name="email_text">Email Address</string>
 
     <!--Signup1 layout-->
-    <string name="signup1_text">By creating an account, you agree to the    <a href="activity-run://AnotherActivityHost?caption=Another%20Activity&amp;text=terms">Terms of Use</a>
+    <string name="signup1_text">By creating an account, you agree to the    <a style="color: #FFF" href="activity-run://AnotherActivityHost?caption=Another%20Activity&amp;text=terms">Terms of Use</a>
         and you acknowledge that you have read the   <a href="activity-run://AnotherActivityHost?caption=Another%20Activity&amp;text=privacy">Privacy Policy</a>.
 
     </string>
