@@ -130,12 +130,9 @@ public class ShowMessageFragment extends SherlockFragment{
             {
                 //прочтение сообщения
                 ReactorApi ra= ((MainActivity) getActivity()).getReactorApi();
-                ra.readMess(String.valueOf(message.getId()));
+                ra.readMessage(String.valueOf(message.getId()));
+                ((MainActivity)getActivity()).updateMenu();
             }
-            //****************************************************
-            MenuFragment.setMenuItem();
-       //     frag2.hi();
-            //       MenuFragment frag2 = (MenuFragment) getFragmentManager().findFragmentById(R.id.slidingmenumain);
             if(!message.getIsRead())
                 ph.takeReaction(message.getId());
             ReactrBase.hideLoader();

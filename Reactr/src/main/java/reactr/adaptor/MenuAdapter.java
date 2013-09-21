@@ -1,6 +1,7 @@
 package reactr.adaptor;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,12 +49,13 @@ public class MenuAdapter extends BaseAdapter {
         MenuItem menu = getMenuItem(position);
 
         ((TextView) view.findViewById(R.id.menuNameText)).setText(menu.getName());
-        if (menu.getIndex() == MenuItem.MAILBOX)
+        if (menu.getIndex() == MenuItem.MAILBOX&&(menu.getCountNewMessage()!="0"))
             ((TextView) view.findViewById(R.id.counterText)).setText(menu.getCountNewMessage());
         else
             ((TextView) view.findViewById(R.id.counterText)).setVisibility(view.INVISIBLE);
 
-
+    if(position>=4)
+        view.setBackgroundColor(Color.LTGRAY);
         return view;
     }
 

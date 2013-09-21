@@ -1,20 +1,15 @@
 package com.example.reactr.fragments;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.reactr.MainActivity;
 import com.example.reactr.R;
@@ -24,12 +19,11 @@ import com.example.reactr.reactr.models.MenuItem;
 import java.util.ArrayList;
 
 import reactr.adaptor.MenuAdapter;
-import reactr.utils.ReactrConstants;
+import com.example.reactr.reactr.models.ReactrConstants;
 
 public class MenuFragment extends ListFragment {
 
-static MenuAdapter st_m_adptr;
-
+     MenuAdapter st_m_adptr;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.main_menu, null);
@@ -46,7 +40,7 @@ static MenuAdapter st_m_adptr;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        Integer mes=((MainActivity) getActivity()).getReactorApi().newMessages();
+        Integer mes=((MainActivity) getActivity()).getReactorApi().countOfnewMessages();
         if(mes!=0)
             menuItems.add(new MenuItem("Mailbox", mes.toString(), 1));
         else
@@ -59,8 +53,6 @@ static MenuAdapter st_m_adptr;
         menuItems.add(new MenuItem("Terms", "0" , 6));
         menuItems.add(new MenuItem("Contact Us", "0" , 7));
         menuItems.add(new MenuItem("Logout", "0" , 8));
-
-     //   MenuAdapter menuAdapter = new MenuAdapter(getActivity(), menuItems);
         st_m_adptr=new MenuAdapter(getActivity(), menuItems);
         setListAdapter(st_m_adptr);
 
@@ -117,39 +109,12 @@ static MenuAdapter st_m_adptr;
             ma.switchContent(fragment);
         }
     }
-    @Override
-    public void onResume() {
-
-    /*  Toast.makeText(getActivity().getBaseContext(), "onResume", Toast.LENGTH_SHORT).show();
-
-        MenuAdapter menuAdapter;
-        menuAdapter= (MenuAdapter) getListAdapter();
-
-        MenuItem mi= (MenuItem)menuAdapter.getItem(1);
-        mi.setName("NAMRRWrwrwr");
-        mi.setCountNewMessage("911");
-
-        View vw= (View)menuAdapter.getItem(1);
-        vw.setBackgroundColor(Color.RED);
-*/
-        super.onResume();
-
-    }
-
-
-    public void hi() {
-
-        Toast.makeText(getActivity().getBaseContext(), "hi", Toast.LENGTH_SHORT).show();
-
-    }
-
-//*****************************************************
-    //с помощью этого метода я пытался оповестить MenuFragment
-    // о том, что сообщения прочитано, но измененний не произошло
-    public static void setMenuItem(){
+    public void updateMenu() {
 
         MenuItem mi= (MenuItem)st_m_adptr.getItem(1);
-        mi.setName("NEW NAME");
-        mi.setCountNewMessage("911");
+        Integer mes=((MainActivity) getActivity()).getReactorApi().countOfnewMessages();
+            mi.setCountNewMessage(String.valueOf(mes));
+        setListAdapter(st_m_adptr);
     }
+
 }

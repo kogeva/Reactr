@@ -22,7 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import reactr.utils.ReactrConstants;
+import com.example.reactr.reactr.models.ReactrConstants;
 
 public class ReactorApi {
     private int userId;
@@ -356,33 +356,23 @@ public class ReactorApi {
         String toRet="";
         HashMap<String, String> st_info_hm = new HashMap<String, String>();
         try {
-
             DefaultHttpClient hc = new DefaultHttpClient();
             ResponseHandler<String> res = new BasicResponseHandler();
             HttpPost postMethod = new HttpPost(ST_INFO);
             String response = hc.execute(postMethod, res);
-
             JSONObject json = new JSONObject(response);
-
             JSONObject urls = json.getJSONObject("static_info");
-
-
             st_info_hm.put(ReactrConstants.ABOUT_REACTR,urls.getString(ReactrConstants.ABOUT_REACTR));
-
             st_info_hm.put(ReactrConstants.PRIVACY,urls.getString(ReactrConstants.PRIVACY));
-
             st_info_hm.put(ReactrConstants.TERMS,urls.getString(ReactrConstants.TERMS));
-
             st_info_hm.put(ReactrConstants.CONTACT_US,urls.getString(ReactrConstants.CONTACT_US));
-
-
         } catch (Exception e) {
             System.out.println("Exp=" + e);
         }
         return st_info_hm;
     }
 
-    public int newMessages()
+    public int countOfnewMessages()
     {
         postParams = new HashMap<String, ContentBody>();
         int toRet=0;
@@ -398,17 +388,12 @@ public class ReactorApi {
             if(jsonData.get("status").equals("success"))
             {
                 JSONArray messageJSONArray = (JSONArray) jsonData.getJSONArray("messages");
-
                 for (int i = 0; i < messageJSONArray.length(); i++)
                 {
                     JSONObject messageJson = messageJSONArray.getJSONObject(i);
-
                     if(messageJson.getString("is_read").equals("null")&&!messageJson.getBoolean("from_me")){
                         toRet++;
                     }
-
-
-
                 }
             }
         } catch (JSONException exp) {
@@ -418,7 +403,7 @@ public class ReactorApi {
     }
 
 
-    public boolean readMess(String id_mes)
+    public boolean readMessage(String id_mes)
     {
         postParams = new HashMap<String, ContentBody>();
         try {
@@ -439,6 +424,4 @@ public class ReactorApi {
 
         return false;
     }
-
-
 }

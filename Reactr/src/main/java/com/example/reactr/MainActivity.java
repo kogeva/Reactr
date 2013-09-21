@@ -1,24 +1,13 @@
 package com.example.reactr;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewParent;
-import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.example.reactr.fragments.FriendsFragment;
 import com.example.reactr.fragments.MailBoxFragment;
 import com.example.reactr.fragments.MenuFragment;
-import com.example.reactr.fragments.MessageFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -34,7 +23,7 @@ public class MainActivity extends SlidingFragmentActivity  {
     private int userId;
     private static String username;
     private SharedPreferences preferences;
-
+    private MenuFragment menuFragment;
     private HashMap<String, String> st_info_hm;
 
     SlidingMenu sm;
@@ -44,7 +33,7 @@ public class MainActivity extends SlidingFragmentActivity  {
         super.onCreate(savedInstanceState);
 
         st_info_hm = new HashMap<String, String>();
-
+        menuFragment = new MenuFragment();
 
         sessionHash = getSharedPreferences("reactrPrefer", MODE_PRIVATE).getString("session_hash", null);
         userId = getSharedPreferences("reactrPrefer", MODE_PRIVATE).getInt("user_id", 0);
@@ -60,7 +49,7 @@ public class MainActivity extends SlidingFragmentActivity  {
         setBehindContentView(R.layout.menu_frame);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.menu_frame, new MenuFragment())
+                .replace(R.id.menu_frame, menuFragment)
                 .commit();
 
         setContentView(R.layout.content_fragment);
@@ -74,18 +63,6 @@ public class MainActivity extends SlidingFragmentActivity  {
         getSlidingMenu().setShadowWidth(20);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
-
-/*        sm = getSlidingMenu();
-        sm.setOnOpenListener(new SlidingMenu.OnOpenListener() {
-            @Override
-            public void onOpen() {
-                Toast.makeText(getBaseContext(), "onOpen", Toast.LENGTH_SHORT).show();
-                View v=sm.getMenu();
-               ViewParent fr= v.getParent();
-                v.hasOnClickListeners();
-            }
-        });*/
-
     }
 
     @Override
@@ -148,11 +125,9 @@ public class MainActivity extends SlidingFragmentActivity  {
     {
         st_info_hm= reactorApi.loadStInfo();
     }
-    //пытался сделать что-либо для оповещения меню о том, что сообщение прочитано
-    public void some(){
-        SlidingMenu sm= getSlidingMenu();
-       View v = sm.getMenu();
-        v.setClickable(true);
+    public void updateMenu()
+    {
+        menuFragment.updateMenu();
     }
 
 }
