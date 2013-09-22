@@ -1,12 +1,15 @@
 package com.example.reactr.fragments;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
@@ -31,11 +34,36 @@ public class MyFriendsFragment extends SherlockFragment{
     private ReactorApi api;
     private Handler mainHandler;
     private HashMap<Long, String> contacts;
-
+    private EditText searchText;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = (View) inflater.inflate(R.layout.my_friends_layout, container, false);
         myFriendList = (ListView) view.findViewById(R.id.my_friends_list);
+        searchText=(EditText)view.findViewById(R.id.editText);
+
+        searchText.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                String str= String.valueOf(searchText.getText());
+                ArrayList<FriendEntity> filterList=new ArrayList<FriendEntity>();
+                for(int i=0;i<friends.size();i++){
+                    if(friends.get(i).getUsername().indexOf(str)!=-1){
+                        filterList.add(friends.get(i));
+
+                    }
+
+                }
+                myFrendsAdapter = new MyFrendsAdapter(getActivity(),filterList);
+                mainHandler.post(updateFrendlist);
+
+            }
+        });
 
         setHasOptionsMenu(true);
         mainHandler = new Handler();
@@ -74,7 +102,7 @@ public class MyFriendsFragment extends SherlockFragment{
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == 0)
         {
-            ReactrBase.switchFraagment(getSherlockActivity(), new FriendsFragment());
+            ReactrBase.switchFraagment(getSherlockActivity(), new MyFriendsFragment());
         }
         return true;
     }

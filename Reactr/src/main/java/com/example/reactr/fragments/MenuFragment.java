@@ -1,8 +1,6 @@
 package com.example.reactr.fragments;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
@@ -12,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.reactr.MainActivity;
 import com.example.reactr.R;
@@ -22,10 +19,11 @@ import com.example.reactr.reactr.models.MenuItem;
 import java.util.ArrayList;
 
 import reactr.adaptor.MenuAdapter;
-import reactr.utils.ReactrConstants;
+import com.example.reactr.reactr.models.ReactrConstants;
 
 public class MenuFragment extends ListFragment {
 
+     MenuAdapter st_m_adptr;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.main_menu, null);
@@ -42,7 +40,7 @@ public class MenuFragment extends ListFragment {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        Integer mes=((MainActivity) getActivity()).getReactorApi().newMessages();
+        Integer mes=((MainActivity) getActivity()).getReactorApi().countOfnewMessages();
         if(mes!=0)
             menuItems.add(new MenuItem("Mailbox", mes.toString(), 1));
         else
@@ -55,9 +53,9 @@ public class MenuFragment extends ListFragment {
         menuItems.add(new MenuItem("Terms", "0" , 6));
         menuItems.add(new MenuItem("Contact Us", "0" , 7));
         menuItems.add(new MenuItem("Logout", "0" , 8));
+        st_m_adptr=new MenuAdapter(getActivity(), menuItems);
+        setListAdapter(st_m_adptr);
 
-        MenuAdapter menuAdapter = new MenuAdapter(getActivity(), menuItems);
-        setListAdapter(menuAdapter);
     }
 
     @Override
@@ -111,25 +109,12 @@ public class MenuFragment extends ListFragment {
             ma.switchContent(fragment);
         }
     }
-    @Override
-    public void onResume() {
+    public void updateMenu() {
 
-       /* Toast.makeText(getActivity().getBaseContext(), "onResume", Toast.LENGTH_SHORT).show();
-
-        MenuAdapter menuAdapter;
-        menuAdapter= (MenuAdapter) getListAdapter();
-
-        MenuItem mi= (MenuItem)menuAdapter.getItem(1);
-        mi.setName("NAMRRWrwrwr");
-        mi.setCountNewMessage("911");*/
-        super.onResume();
-
+        MenuItem mi= (MenuItem)st_m_adptr.getItem(1);
+        Integer mes=((MainActivity) getActivity()).getReactorApi().countOfnewMessages();
+            mi.setCountNewMessage(String.valueOf(mes));
+        setListAdapter(st_m_adptr);
     }
 
-
-    public void hi() {
-
-        Toast.makeText(getActivity().getBaseContext(), "hi", Toast.LENGTH_SHORT).show();
-
-    }
 }

@@ -42,6 +42,7 @@
             android:layout_height="wrap_content"
             android:text="@string/signup1_text"
             android:layout_marginTop="10pt"
+            android:textColorLink="#FFF"
             android:textSize="7pt"
             android:textColor="#fff"
             android:width="135pt"

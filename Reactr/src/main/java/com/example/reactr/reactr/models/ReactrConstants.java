@@ -1,4 +1,4 @@
-package reactr.utils;
+package com.example.reactr.reactr.models;
 
 /**
  * Created by Kykmyrna on 19.09.13.

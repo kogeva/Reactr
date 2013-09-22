@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import reactr.utils.ReactrConstants;
+import com.example.reactr.reactr.models.ReactrConstants;
 
 public class ReactorApi {
     private int userId;
@@ -370,6 +370,7 @@ public class ReactorApi {
                             messageJson.getJSONObject("created_at").getString("date"),
                             messageJson.getBoolean("from_me"),
                             (!messageJson.getString("is_read").equals("null")) ? messageJson.getBoolean("is_read") : false
+
                     );
                     messageArray.add(i, messageEntity);
                 }
@@ -382,6 +383,7 @@ public class ReactorApi {
 
     public HashMap<String, String> loadStInfo()
     {
+
         String toRet="";
         HashMap<String, String> st_info_hm = new HashMap<String, String>();
         try {
@@ -389,9 +391,7 @@ public class ReactorApi {
             ResponseHandler<String> res = new BasicResponseHandler();
             HttpPost postMethod = new HttpPost(ST_INFO);
             String response = hc.execute(postMethod, res);
-
             JSONObject json = new JSONObject(response);
-
             JSONObject urls = json.getJSONObject("static_info");
 
             st_info_hm.put(ReactrConstants.ABOUT_REACTR,urls.getString(ReactrConstants.ABOUT_REACTR));
@@ -404,7 +404,7 @@ public class ReactorApi {
         return st_info_hm;
     }
 
-    public int newMessages()
+    public int countOfnewMessages()
     {
         postParams = new HashMap<String, ContentBody>();
         int toRet=0;
@@ -420,11 +420,9 @@ public class ReactorApi {
             if(jsonData.get("status").equals("success"))
             {
                 JSONArray messageJSONArray = (JSONArray) jsonData.getJSONArray("messages");
-
                 for (int i = 0; i < messageJSONArray.length(); i++)
                 {
                     JSONObject messageJson = messageJSONArray.getJSONObject(i);
-
                     if(messageJson.getString("is_read").equals("null")&&!messageJson.getBoolean("from_me")){
                         toRet++;
                     }

@@ -24,7 +24,7 @@ public class MainActivity extends SlidingFragmentActivity  {
     private int userId;
     private static String username;
     private SharedPreferences preferences;
-
+    private MenuFragment menuFragment;
     private HashMap<String, String> st_info_hm;
 
     SlidingMenu sm;
@@ -35,6 +35,7 @@ public class MainActivity extends SlidingFragmentActivity  {
         TestFlight.takeOff(getApplication(), "3f105bbc-e217-4c64-b4cd-2d43e1c22971");
 
         st_info_hm = new HashMap<String, String>();
+        menuFragment = new MenuFragment();
 
         sessionHash = getSharedPreferences("reactrPrefer", MODE_PRIVATE).getString("session_hash", null);
         userId = getSharedPreferences("reactrPrefer", MODE_PRIVATE).getInt("user_id", 0);
@@ -50,7 +51,7 @@ public class MainActivity extends SlidingFragmentActivity  {
         setBehindContentView(R.layout.menu_frame);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.menu_frame, new MenuFragment())
+                .replace(R.id.menu_frame, menuFragment)
                 .commit();
 
         setContentView(R.layout.content_fragment);
@@ -64,18 +65,6 @@ public class MainActivity extends SlidingFragmentActivity  {
         getSlidingMenu().setShadowWidth(20);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
-
-/*        sm = getSlidingMenu();
-        sm.setOnOpenListener(new SlidingMenu.OnOpenListener() {
-            @Override
-            public void onOpen() {
-                Toast.makeText(getBaseContext(), "onOpen", Toast.LENGTH_SHORT).show();
-                View v=sm.getMenu();
-               ViewParent fr= v.getParent();
-                v.hasOnClickListeners();
-            }
-        });*/
-
     }
 
     @Override
@@ -136,4 +125,9 @@ public class MainActivity extends SlidingFragmentActivity  {
     {
         st_info_hm= reactorApi.loadStInfo();
     }
+    public void updateMenu()
+    {
+        menuFragment.updateMenu();
+    }
+
 }
