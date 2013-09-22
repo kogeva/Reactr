@@ -1,10 +1,22 @@
 package com.example.reactr;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.testflightapp.lib.TestFlight;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import reactr.network.ReactorApi;
 
@@ -12,8 +24,11 @@ import reactr.network.ReactorApi;
 public class SignInActivity extends Activity {
 
     private ReactorApi api;
+    private ArrayList<String> errors;
+    private Handler handler;
     private Button toStepTwoButton;
     private Button toStepThreeButton;
+    private Button registrationComplete;
     private EditText emailEditText;
     private EditText passwordEditText;
     private EditText usernameEditTexts;
@@ -22,13 +37,21 @@ public class SignInActivity extends Activity {
     private String password = null;
     private String username;
     private String phone;
-
-
+    private Context context;
+    private JSONObject result;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor prefEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TestFlight.takeOff(getApplication(), "3f105bbc-e217-4c64-b4cd-2d43e1c22971");
         setContentView(R.layout.sign_up1);
+        handler = new Handler();
+        context = this;
+
+        preferences = getSharedPreferences("reactrPrefer", MODE_PRIVATE);
+        prefEditor = preferences.edit();
 
         api = ReactorApi.init(0,"");
 
@@ -43,25 +66,117 @@ public class SignInActivity extends Activity {
         public void onClick(View view) {
             email = emailEditText.getText().toString();
             password = passwordEditText.getText().toString();
-            new Thread(validationRequest).start();
-            setContentView(R.layout.sign_up2);
-            toStepThreeButton = (Button) findViewById(R.id.toStepThreeButton);
-            toStepThreeButton.setOnClickListener(toStepThreeClick);
+            if(email.isEmpty() || password.isEmpty())
+                Toast.makeText(context, "Email and password a required", Toast.LENGTH_LONG).show();
+            else {
+                ReactrBase.showLoader(context);
+                new Thread(validationRequest).start();
+            }
+
         }
     };
 
     View.OnClickListener toStepThreeClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            setContentView(R.layout.sign_up3);
+            username = usernameEditTexts.getText().toString();
+            if(username.isEmpty())
+                Toast.makeText(context, "Username a required", Toast.LENGTH_LONG).show();
+            else {
+                ReactrBase.showLoader(context);
+                new Thread(validationRequestTwo).start();
+            }
         }
     };
 
     Runnable validationRequest = new Runnable() {
         @Override
         public void run() {
-            this.toString();
-            api.checkUsernameAndEmail(email, password);
+            errors = api.checkUsernameAndEmail(null, email);
+            handler.post(updateView);
+        }
+    };
+
+    Runnable updateView = new Runnable() {
+        @Override
+        public void run() {
+            ReactrBase.hideLoader();
+            if(errors.size() < 1) {
+                ((SignInActivity) context).setContentView(R.layout.sign_up2);
+                usernameEditTexts = (EditText) findViewById(R.id.usernameEditText);
+                toStepThreeButton = (Button) findViewById(R.id.toStepThreeButton);
+                toStepThreeButton.setOnClickListener(toStepThreeClick);
+            } else {
+                Toast.makeText(context, "Email exist in system", Toast.LENGTH_LONG).show();
+            }
+        }
+    };
+
+    Runnable validationRequestTwo = new Runnable() {
+        @Override
+        public void run() {
+            errors = api.checkUsernameAndEmail(username, null);
+            handler.post(vupdateViewTwo);
+        }
+    };
+
+    Runnable vupdateViewTwo = new Runnable() {
+        @Override
+        public void run() {
+            ReactrBase.hideLoader();
+            if(errors.size() < 1) {
+                ((SignInActivity) context).setContentView(R.layout.sign_up3);
+                phoneEditText = (EditText) findViewById(R.id.phoneEdiText);
+                registrationComplete = (Button) findViewById(R.id.completeButton);
+                registrationComplete.setOnClickListener(registerClick);
+            } else {
+                Toast.makeText(context, "Username exist in system", Toast.LENGTH_LONG).show();
+            }
+        }
+    };
+
+    View.OnClickListener registerClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            phone = phoneEditText.getText().toString();
+            new Thread(registration).start();
+        }
+    };
+
+    Runnable registration = new Runnable() {
+        @Override
+        public void run() {
+           result = api.registration(email, password, username, phone);
+            try {
+                if (result.get("status").equals("success")) {
+                    prefEditor.putInt("user_id", result.getInt("user_id"));
+                    prefEditor.putString("session_hash", result.getString("session_hash"));
+                    prefEditor.putString("username", username);
+                    prefEditor.commit();
+                    handler.post(switchToMainActivity);
+                }
+                if (result.get("status").equals("failed"))
+                {
+                    if(((JSONObject)result.get("errors")).getString("phone").length() > 0)
+                    {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(context, "This phone exist in system", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    Runnable switchToMainActivity = new Runnable() {
+        @Override
+        public void run() {
+            startActivity(new Intent(SignInActivity.this, MainActivity.class));
         }
     };
 }

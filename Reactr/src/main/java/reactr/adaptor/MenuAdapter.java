@@ -53,7 +53,6 @@ public class MenuAdapter extends BaseAdapter {
         else
             ((TextView) view.findViewById(R.id.counterText)).setVisibility(view.INVISIBLE);
 
-
         return view;
     }
 

@@ -3,18 +3,14 @@ package com.example.reactr;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.View;
-import android.view.ViewParent;
-import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.example.reactr.fragments.FriendsFragment;
 import com.example.reactr.fragments.MailBoxFragment;
 import com.example.reactr.fragments.MenuFragment;
-import com.example.reactr.fragments.MessageFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.testflightapp.lib.TestFlight;
 
 import java.util.HashMap;
 
@@ -36,9 +32,9 @@ public class MainActivity extends SlidingFragmentActivity  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TestFlight.takeOff(getApplication(), "3f105bbc-e217-4c64-b4cd-2d43e1c22971");
 
         st_info_hm = new HashMap<String, String>();
-
 
         sessionHash = getSharedPreferences("reactrPrefer", MODE_PRIVATE).getString("session_hash", null);
         userId = getSharedPreferences("reactrPrefer", MODE_PRIVATE).getInt("user_id", 0);
@@ -126,8 +122,6 @@ public class MainActivity extends SlidingFragmentActivity  {
         prefEditor.putString("session_hash", "");
         prefEditor.commit();
     }
-
-
 
     //*************************
     public String getStInfoByParameter(String p)

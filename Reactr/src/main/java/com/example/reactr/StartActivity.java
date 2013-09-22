@@ -28,7 +28,6 @@ public class StartActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         login = (Button) findViewById(R.id.loginButton);
         signIn = (Button) findViewById(R.id.sigInButton);
         login.setOnClickListener(switchMenu);

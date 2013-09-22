@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/libraries/ABS/ABS.iml" filepath="$PROJECT_DIR$/libraries/ABS/ABS.iml" />
       <module fileurl="file://$PROJECT_DIR$/Reactr/Reactr.iml" filepath="$PROJECT_DIR$/Reactr/Reactr.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ReactrProject.iml" filepath="$PROJECT_DIR$/ReactrProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Reactr/Reactr-Reactr.iml" filepath="$PROJECT_DIR$/Reactr/Reactr-Reactr.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraries/SlideMenu/SlideMenu.iml" filepath="$PROJECT_DIR$/libraries/SlideMenu/SlideMenu.iml" />
     </modules>
   </component>

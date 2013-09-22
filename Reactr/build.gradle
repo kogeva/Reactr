@@ -25,6 +25,7 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:18.0.+'
     compile 'org.apache.httpcomponents:httpmime:4.2.5'
+    compile files('libs/TestFlightLib.jar')
     compile project(':libraries:ABS')
     compile project(':libraries:SlideMenu')
 }

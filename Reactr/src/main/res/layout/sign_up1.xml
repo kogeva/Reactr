@@ -34,7 +34,8 @@
             android:textSize="12pt"
             android:ems="10"
             android:id="@+id/epasswordText"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:inputType="textPassword" />
 
         <TextView
             android:layout_width="wrap_content"

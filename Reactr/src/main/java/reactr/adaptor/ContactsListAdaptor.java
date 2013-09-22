@@ -1,6 +1,8 @@
 package reactr.adaptor;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.reactr.MainActivity;
 import com.example.reactr.R;
 
 import org.json.JSONException;
@@ -119,7 +122,17 @@ public class ContactsListAdaptor extends BaseExpandableListAdapter {
                     new Thread(addFriendTask).start();
                 }
                 else {
-
+                    Uri uri = null;
+                    try {
+                        uri = Uri.parse("smsto:" + user.getString("phone"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+                    String myUsername = ((MainActivity) context).getUsername();
+                    String textMessage = "Add me on Reactr! Username: " + myUsername + "  http://reactrapp.com";
+                    intent.putExtra("sms_body", textMessage);
+                    context.startActivity(intent);
                 }
             }
         });

@@ -21,6 +21,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import reactr.utils.ReactrConstants;
 
@@ -33,7 +35,8 @@ public class ReactorApi {
     private JSONObject jsonData;
     private static ReactorApi reactorApi;
 
-    private final String CHECK_EMAIL_AND_PASSWORD = apiUrl + "/heckUsernameAndEmail/";
+    private final String CHECK_EMAIL_AND_PASSWORD = apiUrl + "/checkUsernameAndEmail/";
+    private final String REGISTRATION             = apiUrl + "/registration/";
     private final String GET_USER_METHOD          = apiUrl + "/getFriends/";
     private final String GET_WHO_ADD_ME           = apiUrl + "/getWhoAddMe/";
     private final String ADD_FRIEND               = apiUrl + "/addFriend/";
@@ -42,8 +45,8 @@ public class ReactorApi {
     private final String SEND_MESSAGES            = apiUrl + "/sendMessages/";
     private final String GET_MESSAGES             = apiUrl + "/getMessages/";
     private final String LOGIN                    = apiUrl + "/login/";
-    private final String ST_INFO           = apiUrl + "/getStaticInfo/";
-    private final String READ_MSG           = apiUrl + "/readMessages/";
+    private final String ST_INFO                  = apiUrl + "/getStaticInfo/";
+    private final String READ_MSG                 = apiUrl + "/readMessages/";
 
     private ReactorApi(int userId, String session_token) {
         this.userId = userId;
@@ -64,14 +67,15 @@ public class ReactorApi {
         return reactorApi;
     }
 
-    public void checkUsernameAndEmail(String username, String email)
+    public ArrayList<String> checkUsernameAndEmail(String username, String email)
     {
+        ArrayList<String> errors = new ArrayList<String>();
         postParams = new HashMap<String, ContentBody>();
 
         try {
             if (username != null)
                 postParams.put("username", new StringBody(username));
-            if (username != null)
+            if (email != null)
                 postParams.put("email", new StringBody(email));
         } catch (UnsupportedEncodingException exp) {
             Log.d("Reactor API: ", exp.getMessage());
@@ -80,11 +84,38 @@ public class ReactorApi {
             jsonData = new JSONObject(networkManager.sendRequest(CHECK_EMAIL_AND_PASSWORD, postParams));
             if(jsonData.get("status").equals("success"))
             {
+                for(int i = 0; i <= jsonData.getJSONArray("fields").length(); i++)
+                    errors.add((String)((JSONObject) jsonData.getJSONArray("fields").get(i)).keys().next());
+                return errors;
             }
         } catch (JSONException exp) {
             Log.d("Reactor API: ", exp.getMessage());
         }
-//        return null;
+        return errors;
+    }
+
+    public JSONObject registration(String email, String password, String username, String phone) {
+        ArrayList<String> errors = new ArrayList<String>();
+        postParams = new HashMap<String, ContentBody>();
+
+        try {
+            postParams.put("email", new StringBody(email));
+            postParams.put("password", new StringBody(password));
+            postParams.put("username", new StringBody(username));
+            postParams.put("phone", new StringBody(phone));
+            postParams.put("device_token", new StringBody("android"));
+        } catch (UnsupportedEncodingException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+        try {
+            jsonData = new JSONObject(networkManager.sendRequest(REGISTRATION, postParams));
+            if (jsonData.get("status").equals("success") || jsonData.get("status").equals("failed")) {
+                return  jsonData;
+            }
+        } catch (JSONException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+        return jsonData;
     }
 
     public JSONObject login(String email, String password)
@@ -339,7 +370,6 @@ public class ReactorApi {
                             messageJson.getJSONObject("created_at").getString("date"),
                             messageJson.getBoolean("from_me"),
                             (!messageJson.getString("is_read").equals("null")) ? messageJson.getBoolean("is_read") : false
-
                     );
                     messageArray.add(i, messageEntity);
                 }
@@ -352,11 +382,9 @@ public class ReactorApi {
 
     public HashMap<String, String> loadStInfo()
     {
-
         String toRet="";
         HashMap<String, String> st_info_hm = new HashMap<String, String>();
         try {
-
             DefaultHttpClient hc = new DefaultHttpClient();
             ResponseHandler<String> res = new BasicResponseHandler();
             HttpPost postMethod = new HttpPost(ST_INFO);
@@ -366,16 +394,10 @@ public class ReactorApi {
 
             JSONObject urls = json.getJSONObject("static_info");
 
-
             st_info_hm.put(ReactrConstants.ABOUT_REACTR,urls.getString(ReactrConstants.ABOUT_REACTR));
-
             st_info_hm.put(ReactrConstants.PRIVACY,urls.getString(ReactrConstants.PRIVACY));
-
             st_info_hm.put(ReactrConstants.TERMS,urls.getString(ReactrConstants.TERMS));
-
             st_info_hm.put(ReactrConstants.CONTACT_US,urls.getString(ReactrConstants.CONTACT_US));
-
-
         } catch (Exception e) {
             System.out.println("Exp=" + e);
         }
@@ -406,9 +428,6 @@ public class ReactorApi {
                     if(messageJson.getString("is_read").equals("null")&&!messageJson.getBoolean("from_me")){
                         toRet++;
                     }
-
-
-
                 }
             }
         } catch (JSONException exp) {
@@ -416,7 +435,6 @@ public class ReactorApi {
         }
         return toRet;
     }
-
 
     public boolean readMess(String id_mes)
     {
@@ -439,6 +457,4 @@ public class ReactorApi {
 
         return false;
     }
-
-
 }
