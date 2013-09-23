@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -33,6 +34,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     private ImageButton switchCamera;
     private ToggleButton toggleFlash;
     private MessageEntity messageEntity;
+    private View actionBarView;
     public int currentCamera;
 
     public CreatePhotoFragment() {
@@ -59,6 +61,11 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
 
         if(currentCamera == Camera.CameraInfo.CAMERA_FACING_FRONT)
             toggleFlash.setBackgroundColor(000);
+
+        actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
+        ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("TAKE PICTURE");
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
+
         return preview;
     }
 

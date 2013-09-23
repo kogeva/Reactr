@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.example.reactr.MainActivity;
@@ -30,6 +31,7 @@ public class SelectFriendsFragment extends SherlockFragment {
     private HashMap<Long, String> contacts;
     private ReactorApi api;
     private Handler handler;
+    private View actionBarView;
 
     public SelectFriendsFragment(Bitmap photo, String text)
     {
@@ -45,6 +47,9 @@ public class SelectFriendsFragment extends SherlockFragment {
         sendMessageButton.setOnClickListener(sendClickListener);
         closeButton = (ImageButton) view.findViewById(R.id.closeButton);
         closeButton.setOnClickListener(closeClick);
+
+        actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
+        ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("SEND TO...");
 
         handler = new Handler();
 

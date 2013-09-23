@@ -1,32 +1,22 @@
 package com.example.reactr;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.Html;
-import android.text.Spannable;
-import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.testflightapp.lib.TestFlight;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-
+import android.text.method.LinkMovementMethod;
+import android.widget.TextView;
 import reactr.network.ReactorApi;
-
 
 public class SignInActivity extends Activity {
 
@@ -44,13 +34,11 @@ public class SignInActivity extends Activity {
     private String password = null;
     private String username;
     private String phone;
-private TextView st_tv;
     private Context context;
     private JSONObject result;
     private SharedPreferences preferences;
     private SharedPreferences.Editor prefEditor;
-
-
+    private TextView st_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +64,7 @@ private TextView st_tv;
         st_tv.setMovementMethod(new LinkMovementMethod());
 
     }
+
 
     View.OnClickListener toStepTwoClick = new View.OnClickListener() {
         @Override
@@ -108,8 +97,92 @@ private TextView st_tv;
     Runnable validationRequest = new Runnable() {
         @Override
         public void run() {
-            this.toString();
-            api.checkUsernameAndEmail(email, password);
+            errors = api.checkUsernameAndEmail(null, email);
+            handler.post(updateView);
+        }
+    };
+
+    Runnable updateView = new Runnable() {
+        @Override
+        public void run() {
+            ReactrBase.hideLoader();
+            if(errors.size() < 1) {
+                ((SignInActivity) context).setContentView(R.layout.sign_up2);
+                usernameEditTexts = (EditText) findViewById(R.id.usernameEditText);
+                toStepThreeButton = (Button) findViewById(R.id.toStepThreeButton);
+                toStepThreeButton.setOnClickListener(toStepThreeClick);
+            } else {
+                Toast.makeText(context, "Email exist in system", Toast.LENGTH_LONG).show();
+            }
+        }
+    };
+
+    Runnable validationRequestTwo = new Runnable() {
+        @Override
+        public void run() {
+            errors = api.checkUsernameAndEmail(username, null);
+            handler.post(vupdateViewTwo);
+        }
+    };
+
+    Runnable vupdateViewTwo = new Runnable() {
+        @Override
+        public void run() {
+            ReactrBase.hideLoader();
+            if(errors.size() < 1) {
+                ((SignInActivity) context).setContentView(R.layout.sign_up3);
+                phoneEditText = (EditText) findViewById(R.id.phoneEdiText);
+                registrationComplete = (Button) findViewById(R.id.completeButton);
+                registrationComplete.setOnClickListener(registerClick);
+            } else {
+                Toast.makeText(context, "Username exist in system", Toast.LENGTH_LONG).show();
+            }
+        }
+    };
+
+    View.OnClickListener registerClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            phone = phoneEditText.getText().toString();
+            new Thread(registration).start();
+        }
+    };
+
+    Runnable registration = new Runnable() {
+        @Override
+        public void run() {
+           result = api.registration(email, password, username, phone);
+            try {
+                if (result.get("status").equals("success")) {
+                    prefEditor.putInt("user_id", result.getInt("user_id"));
+                    prefEditor.putString("session_hash", result.getString("session_hash"));
+                    prefEditor.putString("username", username);
+                    prefEditor.commit();
+                    handler.post(switchToMainActivity);
+                }
+                if (result.get("status").equals("failed"))
+                {
+                    if(((JSONObject)result.get("errors")).getString("phone").length() > 0)
+                    {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(context, "This phone exist in system", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    Runnable switchToMainActivity = new Runnable() {
+        @Override
+        public void run() {
+            startActivity(new Intent(SignInActivity.this, MainActivity.class));
+            //api.checkUsernameAndEmail(email, password);
         }
     };
 }

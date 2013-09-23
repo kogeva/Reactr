@@ -6,7 +6,9 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.example.reactr.MainActivity;
@@ -29,6 +31,7 @@ public class MailBoxFragment extends SherlockFragment {
     private Handler handler;
     private MessageAdapter adapter;
     private ListView messageList;
+    private View actionBarView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,6 +53,13 @@ public class MailBoxFragment extends SherlockFragment {
                 handler.post(updateMessageList);
             }
         }).start();
+
+        actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
+        ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("MAILBOX");
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.VISIBLE);
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.rsz_camera_mailbox_whight);
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToTakePhoto);
+
         return view;
     }
 
@@ -58,6 +68,13 @@ public class MailBoxFragment extends SherlockFragment {
         public void run() {
             messageList.setAdapter(adapter);
             ReactrBase.hideLoader();
+        }
+    };
+
+    View.OnClickListener goToTakePhoto = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            ReactrBase.switchFraagment(getSherlockActivity(), new CreatePhotoFragment());
         }
     };
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:background="#00dcee"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageButton
+        android:scaleType="fitXY"
+        android:background="@null"
+        android:src="@drawable/rsz_menu_white"
+        android:id="@+id/toggleMenu"
+        android:layout_marginLeft="10dp"
+        android:layout_width="35dp"
+        android:layout_height="25dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="22sp"
+        android:text="Hello world"
+        android:id="@+id/barTitle"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:scaleType="fitXY"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:background="@null"
+        android:id="@+id/barItem"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/rsz_camera_mailbox_whight"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>

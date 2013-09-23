@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.example.reactr.MainActivity;
@@ -46,6 +48,7 @@ public class FriendsFragment extends SherlockFragment {
     private HashMap<Long, String> contacts;
     private Handler uiHandler;
     private MainActivity mainActivity;
+    private View actionBarView;
 
     public FriendsFragment() {
     }
@@ -95,6 +98,10 @@ public class FriendsFragment extends SherlockFragment {
         }).start();
 
         friendsAdded.setAdapter(friendsAddedAdapter);
+
+        actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
+        ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("ADD FRIENDS");
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
         return view;
     }
 

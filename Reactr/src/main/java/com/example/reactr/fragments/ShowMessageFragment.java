@@ -33,6 +33,7 @@ import com.example.reactr.ReactrBase;
 import com.example.reactr.reactr.models.MessageEntity;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class ShowMessageFragment extends SherlockFragment{
     private TakePhotoWithoutPreview ph;
     private TextView text;
     private boolean reaction=false;
+
     public ShowMessageFragment(MessageEntity message) {
         this.message = message;
     }
@@ -66,20 +68,28 @@ public class ShowMessageFragment extends SherlockFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.show_message_layout, container, false);
          text = (TextView) view.findViewById(R.id.message_text);
-        photoView = (ImageView) view.findViewById(R.id.photo_view);
+
+        photoView         = (ImageView) view.findViewById(R.id.photo_view);
         reactionPhotoView = (ImageView) view.findViewById(R.id.reaction_photo_view);
-        surfaceView = (SurfaceView) view.findViewById(R.id.hiddenPreview);
-        replyButton = (ImageButton) view.findViewById(R.id.replyButton);
-        closeButton = (ImageButton) view.findViewById(R.id.closeButton);
+        surfaceView       = (SurfaceView) view.findViewById(R.id.hiddenPreview);
+        replyButton       = (ImageButton) view.findViewById(R.id.replyButton);
+        closeButton       = (ImageButton) view.findViewById(R.id.closeButton);
+
         replyButton.setOnClickListener(replyMessage);
         closeButton.setOnClickListener(closeClickListener);
         reactionPhotoView.setOnClickListener(switchPhotos);
+
         saveButton = (ImageButton) view.findViewById(R.id.downloadPhoto);
         saveButton.setOnClickListener(saveToGallery);
 
         handler = new Handler();
 
         ReactrBase.showLoader(getSherlockActivity());
+
+        if(!message.getIsRead())
+            ph = new TakePhotoWithoutPreview(getSherlockActivity(), surfaceView);
+        text.setText(message.getText());
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -90,25 +100,38 @@ public class ShowMessageFragment extends SherlockFragment{
             }
         }).start();
 
-        if(!message.getIsRead())
-            ph = new TakePhotoWithoutPreview(getSherlockActivity(), surfaceView);
-        text.setText(message.getText());
-
         return view;
     }
 
     private Bitmap downloadImage (String url)
     {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        //options.inSampleSize = 1;
+
+        InputStream image = null;
+        Bitmap bmp = null;
+
         try {
             URL address = new URL(url);
-            Bitmap bmp = BitmapFactory.decodeStream(address.openConnection().getInputStream());
-            return bmp;
+            image = address.openConnection().getInputStream();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        for (int i = 2; i < 30 ; i++)
+        {
+            options.inSampleSize = i;
+            try {
+                bmp = BitmapFactory.decodeStream( image , null, options);
+            } catch (Exception e) {
+                e.getMessage();
+            }
+            if (bmp != null)
+                break;
+        }
+        return bmp;
     }
 
     private Runnable updateImageView = new Runnable() {
@@ -117,9 +140,6 @@ public class ShowMessageFragment extends SherlockFragment{
             photoView.setImageBitmap(RotateBitmap(photo, 90));
             if (reactionPhoto != null)
             {
-          //      reactionPhoto=ImageHelper.getRoundedCornerBitmap(reactionPhoto, 300);
-            //    Bitmap rounded_bm=ImageHelper.getCircularBitmap(reactionPhoto);
-              //  Bitmap rounded_bm= ImageHelper.myRoundBitmap(reactionPhoto);
                 //для округления изображения
                 Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, 1500, 30, getActivity().getApplicationContext());
                 reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
@@ -210,14 +230,6 @@ public class ShowMessageFragment extends SherlockFragment{
             wmlp.x = 25;   //x position
             wmlp.y = 100;   //y position
             dialog.show();
-            //***************************
-        /*    Time now = new Time();
-            now.setToNow();
-            String str="IMG_"+now.year+"_"+now.month+"."+now.monthDay+"_"+now.hour+":"+now.minute;
-            photoView.buildDrawingCache();
-            Bitmap bm = photoView.getDrawingCache();
-            Toast.makeText(getActivity().getBaseContext(), "Saved to GALLERY as "+str, Toast.LENGTH_SHORT).show();
-             MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bm, str, "description");*/
         }
     };
 //переключение фото с "маленького на большое"
@@ -226,45 +238,16 @@ public class ShowMessageFragment extends SherlockFragment{
         public void onClick(View view) {
             if(!reaction)
             {
-            photoView.setImageBitmap(RotateBitmap(reactionPhoto, 90));
-         //   reactionPhotoView.setImageBitmap(RotateBitmap(photo, 90));
-              //  Bitmap rounded_bm=ImageHelper.getCircularBitmap(photo);
-          //      Bitmap rounded_bm=ImageHelper.myRoundBitmap(photo);
+                photoView.setImageBitmap(RotateBitmap(reactionPhoto, 90));
                 Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(photo, Color.WHITE, 1500, 30, getActivity().getApplicationContext());
-
                 reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
             }
             else{
                 photoView.setImageBitmap(RotateBitmap(photo, 90));
-          //      reactionPhotoView.setImageBitmap(RotateBitmap(reactionPhoto, 90));
-           //     Bitmap rounded_bm=ImageHelper.getCircularBitmap(reactionPhoto);
-              //  Bitmap rounded_bm=ImageHelper.myRoundBitmap(reactionPhoto);
                 Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, 1500, 30, getActivity().getApplicationContext());
-
                 reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
-
             }
             reaction=!reaction;
         }
     };
-
-    //*************пытался сделать сохранение фото через PopupMenu - оно не поддерживается этой версией апи
-    private void showPopupMenu(View v){
-      /*  PopupMenu popupMenu = new PopupMenu(getActivity(), v);
-        popupMenu.getMenuInflater().inflate(R.menu.popup_save_photo, popupMenu.getMenu());
-
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Toast.makeText(getActivity(),
-                        item.toString(),
-                        Toast.LENGTH_LONG).show();
-                return true;
-            }
-        });
-
-        popupMenu.show();*/
-    }
-
 }

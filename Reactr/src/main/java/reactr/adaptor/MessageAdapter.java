@@ -61,14 +61,8 @@ public class MessageAdapter extends BaseAdapter {
         TextView reaction     = (TextView) view.findViewById(R.id.isReaction);
         ImageView typeMessage = (ImageView) view.findViewById(R.id.typeMessage);
 
-
-
-
-
-
         final MessageEntity message = (MessageEntity) getItem(position);
-
-
+        
         //*******
         if(!message.getIsRead()&&!message.getFromMe()){
          //   view.setBackgroundColor(Color.rgb(101, 167, 210));

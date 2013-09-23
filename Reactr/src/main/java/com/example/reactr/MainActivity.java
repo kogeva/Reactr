@@ -3,7 +3,10 @@ package com.example.reactr;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.ImageButton;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.reactr.fragments.MailBoxFragment;
@@ -26,6 +29,7 @@ public class MainActivity extends SlidingFragmentActivity  {
     private SharedPreferences preferences;
     private MenuFragment menuFragment;
     private HashMap<String, String> st_info_hm;
+    private ImageButton toggleMenuButton;
 
     SlidingMenu sm;
 
@@ -65,6 +69,11 @@ public class MainActivity extends SlidingFragmentActivity  {
         getSlidingMenu().setShadowWidth(20);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+
+        toggleMenuButton = (ImageButton) getSupportActionBar().getCustomView().findViewById(R.id.toggleMenu);
+        toggleMenuButton.setOnClickListener(toogleMenu);
     }
 
     @Override
@@ -86,13 +95,12 @@ public class MainActivity extends SlidingFragmentActivity  {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        toggle();
-        System.out.println(item.getItemId());
-        System.out.println(R.id.slidingmenumain);
-        return super.onOptionsItemSelected(item);
-    }
+    View.OnClickListener toogleMenu = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            toggle();
+        }
+    };
 
     public ReactorApi getReactorApi()
     {

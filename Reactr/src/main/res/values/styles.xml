@@ -21,4 +21,17 @@
     <style name="Theme.AndroidDevelopers" parent="android:style/Theme.Holo.Light">
     </style>
 
+    <style name="Theme.Styled" parent="Theme.Sherlock.Light.DarkActionBar">
+        <item name="actionBarStyle">@style/Widget.Styled.ActionBar</item>
+        <item name="android:actionBarStyle">@style/Widget.Styled.ActionBar</item>
+    </style>
+
+    <style name="Widget.Styled.ActionBar" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
+        <item name="background">#FFF</item>
+        <item name="android:background">#FFF</item>
+
+        <item name="backgroundSplit">#FFF</item>
+        <item name="android:backgroundSplit">#FFF</item>
+    </style>
+
 </resources>

@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.example.reactr.MainActivity;
@@ -35,6 +36,7 @@ public class AddMessageFragment extends SherlockFragment{
     private MessageEntity messageEntity;
     private ReactorApi reactorApi;
     private ImageView reactionPhoto;
+    private View actionBarView;
 
     public AddMessageFragment(byte[] photo) {
         this.photo = BitmapFactory.decodeByteArray(photo, 0, photo.length);
@@ -66,6 +68,10 @@ public class AddMessageFragment extends SherlockFragment{
         text.setVisibility(View.INVISIBLE);
         text.setOnKeyListener(addTextKeyListener);
 
+        actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
+        ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("ADD MESSAGE");
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
+
         return view;
     }
 
@@ -88,7 +94,7 @@ public class AddMessageFragment extends SherlockFragment{
                                 .sendMessages(
                                         new Integer(messageEntity.getFrom_user()).toString(),
                                         text.getText().toString(),
-                                        photo,
+                                        RotateBitmap(photo, 90),
                                         reaction
                                 );
                         ReactrBase.hideLoader();

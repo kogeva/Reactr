@@ -434,7 +434,7 @@ public class ReactorApi {
         return toRet;
     }
 
-    public boolean readMess(String id_mes)
+    public boolean readMessage(String id_mes)
     {
         postParams = new HashMap<String, ContentBody>();
         try {

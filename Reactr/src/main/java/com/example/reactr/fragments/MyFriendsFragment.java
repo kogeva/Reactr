@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -26,7 +28,7 @@ import java.util.HashMap;
 import reactr.adaptor.MyFrendsAdapter;
 import reactr.network.ReactorApi;
 
-public class MyFriendsFragment extends SherlockFragment{
+public class MyFriendsFragment extends SherlockFragment {
 
     private ListView myFriendList;
     private ArrayList<FriendEntity> friends;
@@ -35,11 +37,13 @@ public class MyFriendsFragment extends SherlockFragment{
     private Handler mainHandler;
     private HashMap<Long, String> contacts;
     private EditText searchText;
+    private View actionBarView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = (View) inflater.inflate(R.layout.my_friends_layout, container, false);
         myFriendList = (ListView) view.findViewById(R.id.my_friends_list);
-        searchText=(EditText)view.findViewById(R.id.editText);
+        searchText = (EditText) view.findViewById(R.id.editText);
 
         searchText.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
@@ -50,20 +54,25 @@ public class MyFriendsFragment extends SherlockFragment{
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                String str= String.valueOf(searchText.getText());
-                ArrayList<FriendEntity> filterList=new ArrayList<FriendEntity>();
-                for(int i=0;i<friends.size();i++){
-                    if(friends.get(i).getUsername().indexOf(str)!=-1){
+                String str = String.valueOf(searchText.getText());
+                ArrayList<FriendEntity> filterList = new ArrayList<FriendEntity>();
+                for (int i = 0; i < friends.size(); i++) {
+                    if (friends.get(i).getUsername().indexOf(str) != -1) {
                         filterList.add(friends.get(i));
 
                     }
 
                 }
-                myFrendsAdapter = new MyFrendsAdapter(getActivity(),filterList);
+                myFrendsAdapter = new MyFrendsAdapter(getActivity(), filterList);
                 mainHandler.post(updateFrendlist);
-
             }
         });
+
+        actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
+        ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("FRIENDS");
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.VISIBLE);
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.rsz_add_friend_white);
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToAddFriendClick);
 
         setHasOptionsMenu(true);
         mainHandler = new Handler();
@@ -73,13 +82,11 @@ public class MyFriendsFragment extends SherlockFragment{
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 friends = ReactrBase.addInFriendContactName(api.getFriends(), contacts);
-                myFrendsAdapter = new MyFrendsAdapter(getActivity(),friends);
+                myFrendsAdapter = new MyFrendsAdapter(getActivity(), friends);
                 mainHandler.post(updateFrendlist);
             }
         }).start();
-
 
         return view;
     }
@@ -93,17 +100,17 @@ public class MyFriendsFragment extends SherlockFragment{
     };
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.add("Add Friend")
-                .setIcon(R.drawable.rsz_add_friend_white).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == 0)
-        {
-            ReactrBase.switchFraagment(getSherlockActivity(), new MyFriendsFragment());
+        if (item.getItemId() == 0) {
+            ReactrBase.switchFraagment(getSherlockActivity(), new FriendsFragment());
         }
         return true;
     }
+
+    View.OnClickListener goToAddFriendClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            ReactrBase.switchFraagment(getSherlockActivity(), new FriendsFragment());
+        }
+    };
 }
