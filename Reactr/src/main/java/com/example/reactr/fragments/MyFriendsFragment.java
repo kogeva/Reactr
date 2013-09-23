@@ -54,14 +54,12 @@ public class MyFriendsFragment extends SherlockFragment {
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                String str = String.valueOf(searchText.getText());
+                String str = String.valueOf(searchText.getText()).toLowerCase();
                 ArrayList<FriendEntity> filterList = new ArrayList<FriendEntity>();
                 for (int i = 0; i < friends.size(); i++) {
-                    if (friends.get(i).getUsername().indexOf(str) != -1) {
+                    if (friends.get(i).getUsername().toLowerCase().indexOf(str) != -1) {
                         filterList.add(friends.get(i));
-
                     }
-
                 }
                 myFrendsAdapter = new MyFrendsAdapter(getActivity(), filterList);
                 mainHandler.post(updateFrendlist);

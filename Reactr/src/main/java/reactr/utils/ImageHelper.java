@@ -108,21 +108,19 @@ public class ImageHelper {
 
         return output;
     }
+    //borderDips
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap_in, int color, Context context) {
 
-    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap_in, int color, int cornerDips, int borderDips, Context context) {
-
-        int h=bitmap_in.getHeight();
-        int w=bitmap_in.getWidth();
-        Bitmap bitmap=null;
-        int dif=0;
+        int h = bitmap_in.getHeight();
+        int w = bitmap_in.getWidth();
+        Bitmap bitmap = null;
+        int dif = 0;
          if(h<w){
              dif=w-h;
-         //    bitmap=getCroppedBitmap(bitmap_in,dif/2,0,0,dif/2);
              bitmap=getCroppedBitmap(bitmap_in,dif/2, 0, h, w-dif/2);
          }
         if(h>w){
             dif=h-w;
-        //    bitmap=getCroppedBitmap(bitmap_in,0,dif/2, dif/2,0);
             bitmap=getCroppedBitmap(bitmap_in, 0, dif/2, h-dif/2, w);
         }
         if(w==h){
@@ -130,13 +128,13 @@ public class ImageHelper {
         }
 
 
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(),
-                Bitmap.Config.ARGB_8888);
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(),Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
-
-        final int borderSizePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) borderDips,
+        final int borderSizePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, bitmap.getWidth()/22,
                 context.getResources().getDisplayMetrics());
-        final int cornerSizePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) cornerDips,
+
+
+        final int cornerSizePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) 1500,
                 context.getResources().getDisplayMetrics());
         final Paint paint = new Paint();
         final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());

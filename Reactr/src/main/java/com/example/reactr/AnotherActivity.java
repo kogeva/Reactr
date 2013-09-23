@@ -16,10 +16,10 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-//Активити для отображения статич. инфы (пока не работает, не грузит)
+
 public class AnotherActivity extends Activity {
     private String apiUrl = "http://api.reactrapp.com";
-    private final String ST_INFO           = apiUrl + "/getStaticInfo/";
+    private final String ST_INFO = apiUrl + "/getStaticInfo/";
     private ProgressDialog dialog;
     final String mimeType = "text/html";
     final String encoding = "UTF-8";
@@ -30,20 +30,18 @@ public class AnotherActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         Uri uri = getIntent().getData();
-        tvPage=new WebView(this);
+        tvPage = new WebView(this);
         String caption = uri.getQueryParameter("caption");
-         text = uri.getQueryParameter("text");
+        text = uri.getQueryParameter("text");
         String param="";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         new RequestTask().execute();
         setContentView(tvPage);
     }
-
-
     public String loadStInfo(String tag)
     {
-        String toRet="";
+        String toRet = "";
         HashMap<String, String> st_info_hm = new HashMap<String, String>();
         try {
             DefaultHttpClient hc = new DefaultHttpClient();

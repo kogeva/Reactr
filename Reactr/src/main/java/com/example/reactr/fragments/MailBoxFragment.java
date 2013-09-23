@@ -38,7 +38,6 @@ public class MailBoxFragment extends SherlockFragment {
         View view = inflater.inflate(R.layout.mail_box_layout, container, false);
         messageList = (ListView) view.findViewById(R.id.message_list);
 
-
         handler = new Handler();
         MainActivity ma = (MainActivity) getSherlockActivity();
         api = ma.getReactorApi();

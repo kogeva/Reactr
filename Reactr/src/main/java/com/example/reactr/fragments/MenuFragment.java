@@ -36,16 +36,12 @@ public class MenuFragment extends ListFragment {
         ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
         menuItems.add(new MenuItem("Send Photo", "0", 0));
 
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        Integer mes=((MainActivity) getActivity()).getReactorApi().countOfnewMessages();
-        if(mes!=0)
-            menuItems.add(new MenuItem("Mailbox", mes.toString(), 1));
-        else
-            menuItems.add(new MenuItem("Mailbox", "0", 1));
+        Integer mes = ((MainActivity) getActivity()).getReactorApi().countOfnewMessages();
 
+        menuItems.add(new MenuItem("Mailbox", mes.toString(), 1));
         menuItems.add(new MenuItem("Friends", "0", 2));
         menuItems.add(new MenuItem("Settings", "0", 3));
         menuItems.add(new MenuItem("About Reactr", "0", 4));
@@ -53,9 +49,8 @@ public class MenuFragment extends ListFragment {
         menuItems.add(new MenuItem("Terms", "0" , 6));
         menuItems.add(new MenuItem("Contact Us", "0" , 7));
         menuItems.add(new MenuItem("Logout", "0" , 8));
-        st_m_adptr=new MenuAdapter(getActivity(), menuItems);
+        st_m_adptr = new MenuAdapter(getActivity(), menuItems);
         setListAdapter(st_m_adptr);
-
     }
 
     @Override
@@ -110,10 +105,9 @@ public class MenuFragment extends ListFragment {
         }
     }
     public void updateMenu() {
-
-        MenuItem mi= (MenuItem)st_m_adptr.getItem(1);
-        Integer mes=((MainActivity) getActivity()).getReactorApi().countOfnewMessages();
-            mi.setCountNewMessage(String.valueOf(mes));
+        MenuItem mi = (MenuItem)st_m_adptr.getItem(1);
+        Integer mes = ((MainActivity) getActivity()).getReactorApi().countOfnewMessages();
+        mi.setCountNewMessage(String.valueOf(mes));
         setListAdapter(st_m_adptr);
     }
 

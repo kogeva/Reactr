@@ -72,6 +72,7 @@
     <orderEntry type="module" module-name="ABS" exported="" />
     <orderEntry type="library" exported="" name="support-v4-18.0.0" level="project" />
     <orderEntry type="module" module-name="SlideMenu" exported="" />
+    <orderEntry type="library" exported="" name="TestFlightLib" level="project" />
     <orderEntry type="library" exported="" name="httpcore-4.2.4" level="project" />
     <orderEntry type="library" exported="" name="httpmime-4.2.5" level="project" />
   </component>

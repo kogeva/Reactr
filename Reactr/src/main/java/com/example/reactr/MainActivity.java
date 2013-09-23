@@ -30,8 +30,7 @@ public class MainActivity extends SlidingFragmentActivity  {
     private MenuFragment menuFragment;
     private HashMap<String, String> st_info_hm;
     private ImageButton toggleMenuButton;
-
-    SlidingMenu sm;
+    private SlidingMenu sm;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,7 +118,6 @@ public class MainActivity extends SlidingFragmentActivity  {
         prefEditor.putString("session_hash", "");
         prefEditor.commit();
     }
-
     //*************************
     public String getStInfoByParameter(String p)
     {
@@ -137,5 +135,4 @@ public class MainActivity extends SlidingFragmentActivity  {
     {
         menuFragment.updateMenu();
     }
-
 }

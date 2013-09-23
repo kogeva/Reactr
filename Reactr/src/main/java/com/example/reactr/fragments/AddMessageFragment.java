@@ -3,6 +3,7 @@ package com.example.reactr.fragments;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -26,6 +27,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import reactr.network.ReactorApi;
+import reactr.utils.ImageHelper;
 
 public class AddMessageFragment extends SherlockFragment{
 
@@ -58,7 +60,11 @@ public class AddMessageFragment extends SherlockFragment{
         reactionPhoto = (ImageView) view.findViewById(R.id.reactionPhoto);
 
         if (messageEntity != null && getReactionPhotoFromStorage(messageEntity.getId()) != null)
-            reactionPhoto.setImageBitmap(RotateBitmap(getReactionPhotoFromStorage(messageEntity.getId()), -90));
+        {
+            Bitmap toReactionPhoto = RotateBitmap(getReactionPhotoFromStorage(messageEntity.getId()), -90);
+            toReactionPhoto = ImageHelper.getRoundedCornerBitmap(toReactionPhoto, Color.WHITE, getActivity().getApplicationContext());
+            reactionPhoto.setImageBitmap(toReactionPhoto);
+        }
 
         imageView.setImageBitmap(RotateBitmap(photo, 90));
         sendPhotoButton.setOnClickListener(sendPhotoClick);

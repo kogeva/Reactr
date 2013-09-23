@@ -44,7 +44,7 @@ public class StaticInfoFragment extends SherlockFragment {
     private WebView tvPage;
     final String mimeType = "text/html";
     final String encoding = "UTF-8";
-    String parameter=" ", toWV="";
+    String parameter = " ", toWV = "";
     private ProgressDialog dialog;
     MainActivity ma;
     @Override
@@ -52,10 +52,8 @@ public class StaticInfoFragment extends SherlockFragment {
         View view = inflater.inflate(R.layout.st_info_fragment, container, false);
 
         tvPage = (WebView) view.findViewById(R.id.wv_st_info);
-
         ma = (MainActivity) getSherlockActivity();
         api = ma.getReactorApi();
-
         if(ma.getSizeStInfo()==0)
         {
             new RequestTask().execute();
@@ -65,9 +63,6 @@ public class StaticInfoFragment extends SherlockFragment {
             toWV=ma.getStInfoByParameter(parameter);
             tvPage.loadDataWithBaseURL("", toWV, mimeType, encoding, "");
         }
-
-
-
         return view;
     }
 
@@ -78,17 +73,12 @@ public class StaticInfoFragment extends SherlockFragment {
         }
     };
 
-
-
     public StaticInfoFragment(String param){
         super();
         parameter=param;
     }
-
-
-    //**********************************************************
+     //**********************************************************
     class RequestTask extends AsyncTask<String, String, String> {
-
         @Override
         protected String doInBackground(String... params) {
             try {
@@ -101,7 +91,6 @@ public class StaticInfoFragment extends SherlockFragment {
             }
             return null;
         }
-
 
         @Override
         protected void onPostExecute(String result) {
