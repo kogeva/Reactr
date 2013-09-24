@@ -38,9 +38,7 @@ public class MenuFragment extends ListFragment {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
         Integer mes = ((MainActivity) getActivity()).getReactorApi().countOfnewMessages();
-
         menuItems.add(new MenuItem("Mailbox", mes.toString(), 1));
         menuItems.add(new MenuItem("Friends", "0", 2));
         menuItems.add(new MenuItem("Settings", "0", 3));

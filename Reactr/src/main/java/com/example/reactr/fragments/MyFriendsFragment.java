@@ -53,7 +53,6 @@ public class MyFriendsFragment extends SherlockFragment {
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 String str = String.valueOf(searchText.getText()).toLowerCase();
                 ArrayList<FriendEntity> filterList = new ArrayList<FriendEntity>();
                 for (int i = 0; i < friends.size(); i++) {

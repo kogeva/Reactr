@@ -30,13 +30,11 @@ public class MainActivity extends SlidingFragmentActivity  {
     private MenuFragment menuFragment;
     private HashMap<String, String> st_info_hm;
     private ImageButton toggleMenuButton;
-    private SlidingMenu sm;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TestFlight.takeOff(getApplication(), "3f105bbc-e217-4c64-b4cd-2d43e1c22971");
-
+    //    TestFlight.takeOff(getApplication(), "3f105bbc-e217-4c64-b4cd-2d43e1c22971");
         st_info_hm = new HashMap<String, String>();
         menuFragment = new MenuFragment();
 

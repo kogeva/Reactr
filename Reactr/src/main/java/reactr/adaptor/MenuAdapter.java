@@ -54,7 +54,10 @@ public class MenuAdapter extends BaseAdapter {
         else
             ((TextView) view.findViewById(R.id.counterText)).setVisibility(view.INVISIBLE);
     if(position>=4)
-        view.setBackgroundColor(Color.LTGRAY);
+    {
+       view.setBackgroundColor(Color.LTGRAY);
+        view.setBackgroundResource(R.drawable.menu_item_style_gray);
+    }
         return view;
     }
 

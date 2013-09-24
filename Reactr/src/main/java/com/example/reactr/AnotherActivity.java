@@ -18,7 +18,8 @@ import java.util.HashMap;
 
 
 public class AnotherActivity extends Activity {
-    private String apiUrl = "http://api.reactrapp.com";
+//    private String apiUrl = "http://api.reactrapp.com";
+    private String apiUrl = "http://54.200.74.218";
     private final String ST_INFO = apiUrl + "/getStaticInfo/";
     private ProgressDialog dialog;
     final String mimeType = "text/html";

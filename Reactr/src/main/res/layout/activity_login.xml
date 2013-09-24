@@ -57,7 +57,8 @@
                     android:width="40pt"
                     android:textStyle="bold"
                     android:text="@string/login_button_text"
-                    android:background="@drawable/login_button"
+
+                     android:background="@drawable/login_btn"
                     android:textColor="#fff"
                     android:textSize="14pt"
                     android:layout_gravity="center"
