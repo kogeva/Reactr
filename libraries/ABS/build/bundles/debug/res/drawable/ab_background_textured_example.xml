@@ -18,4 +18,4 @@
 
 <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
     android:src="@drawable/ab_texture_tile_example"
-    android:tileMode="repeat" /><!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/ABS/res/drawable/ab_background_textured_example.xml -->
+    android:tileMode="repeat" /><!-- From: file:/home/vova/androidProjects/Reactr/libraries/ABS/res/drawable/ab_background_textured_example.xml -->

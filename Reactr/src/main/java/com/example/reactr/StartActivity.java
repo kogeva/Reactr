@@ -27,6 +27,7 @@ public class StartActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getActionBar().hide();
 
         login = (Button) findViewById(R.id.loginButton);
         signIn = (Button) findViewById(R.id.sigInButton);

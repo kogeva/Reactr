@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/res/values/attrs.xml -->
+    <!-- From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/res/values/attrs.xml -->
     <declare-styleable name="SlidingMenu">
         <attr name="mode">
             <enum name="left" value="0" />
@@ -27,7 +27,7 @@
         <attr name="selectorEnabled" format="boolean" />
         <attr name="selectorDrawable" format="reference" />
     </declare-styleable>
-    <!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/res/values/ids.xml -->
+    <!-- From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/res/values/ids.xml -->
     <item name="selected_view" type="id"/>
 
 </resources>

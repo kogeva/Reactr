@@ -1,35 +1,26 @@
 package com.example.reactr.fragments;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Point;
 import android.hardware.Camera;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.text.format.Time;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,13 +34,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 
 import reactr.network.ReactorApi;
 import reactr.utils.ImageHelper;
 import reactr.utils.TakePhotoWithoutPreview;
-
-import static java.lang.Thread.sleep;
 
 public class ShowMessageFragment extends SherlockFragment{
 
@@ -66,10 +54,8 @@ public class ShowMessageFragment extends SherlockFragment{
     private Camera camera;
     private TakePhotoWithoutPreview ph;
     private TextView text;
-    private boolean reaction;
-    //********************
-    private Animation animationFadeIn, animationFadeOut;
-    //*******************
+    private boolean reaction=false;
+
     public ShowMessageFragment(MessageEntity message) {
         this.message = message;
     }
@@ -77,33 +63,29 @@ public class ShowMessageFragment extends SherlockFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.show_message_layout, container, false);
-        reaction=false;
-        text = (TextView) view.findViewById(R.id.message_text);
+         text = (TextView) view.findViewById(R.id.message_text);
+
         photoView         = (ImageView) view.findViewById(R.id.photo_view);
         reactionPhotoView = (ImageView) view.findViewById(R.id.reaction_photo_view);
         surfaceView       = (SurfaceView) view.findViewById(R.id.hiddenPreview);
         replyButton       = (ImageButton) view.findViewById(R.id.replyButton);
         closeButton       = (ImageButton) view.findViewById(R.id.closeButton);
-        saveButton = (ImageButton) view.findViewById(R.id.downloadPhoto);
-        animationFadeIn = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in);
-        animationFadeOut = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out);
 
         replyButton.setOnClickListener(replyMessage);
         closeButton.setOnClickListener(closeClickListener);
         reactionPhotoView.setOnClickListener(switchPhotos);
+
+        saveButton = (ImageButton) view.findViewById(R.id.downloadPhoto);
         saveButton.setOnClickListener(saveToGallery);
-        animationFadeIn.setAnimationListener(animationFadeInListener);
-        animationFadeOut.setAnimationListener(animationFadeOutListener);
 
         handler = new Handler();
 
         ReactrBase.showLoader(getSherlockActivity());
 
         if(!message.getIsRead())
-        {
             ph = new TakePhotoWithoutPreview(getSherlockActivity(), surfaceView);
-        }
         text.setText(message.getText());
+        long memory = Runtime.getRuntime().maxMemory();
 
         new Thread(new Runnable() {
             @Override
@@ -115,17 +97,19 @@ public class ShowMessageFragment extends SherlockFragment{
             }
         }).start();
 
-
-
         return view;
     }
 
     private Bitmap downloadImage (String url)
     {
         BitmapFactory.Options options = new BitmapFactory.Options();
-        //options.inSampleSize = 1;
+
         InputStream image = null;
         Bitmap bmp = null;
+
+        Display display = getSherlockActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
 
         try {
             URL address = new URL(url);
@@ -136,13 +120,16 @@ public class ShowMessageFragment extends SherlockFragment{
             e.printStackTrace();
         }
 
-        for (int i = 2; i < 30 ; i++)
+        for (int i = 1; i < 30 ; i++)
         {
-            options.inSampleSize = i;
             try {
                 bmp = BitmapFactory.decodeStream( image , null, options);
+                if (bmp != null)
+                    return bmp;
             } catch (Exception e) {
                 e.getMessage();
+            } catch (Error e2) {
+                e2.getMessage();
             }
             if (bmp != null)
                 break;
@@ -157,9 +144,10 @@ public class ShowMessageFragment extends SherlockFragment{
             if (reactionPhoto != null)
             {
                 //для округления изображения
-                Bitmap rounded_bm = ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, getActivity().getApplicationContext());
+                Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, 1500, 30, getActivity().getApplicationContext());
                 reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
             }
+
             //***********************************************
             if((message.getIsRead()==false)&&(message.getFromMe()==false))
             {
@@ -181,6 +169,13 @@ public class ShowMessageFragment extends SherlockFragment{
         }
     };
 
+
+    private View.OnClickListener switchPhoto = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+        }
+    };
+
     private View.OnClickListener replyMessage = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -199,7 +194,6 @@ public class ShowMessageFragment extends SherlockFragment{
     private View.OnClickListener saveToGallery = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            //***************************
             //сохранение в галерею (диалог для выбора какое изображение сохранить)
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("Select a photo to save");
@@ -214,16 +208,16 @@ public class ShowMessageFragment extends SherlockFragment{
                 public void onClick(DialogInterface dialog, int which) {
                     Time now = new Time();
                     now.setToNow();
-                    String str = "IMG_" + now.year + "_" + now.month + "." + now.monthDay + "_" + now.hour + ":" + now.minute + ":" + now.second;
-                    if(which == 0){
+                    String str="IMG_"+now.year+"_"+now.month+"."+now.monthDay+"_"+now.hour+":"+now.minute+":"+now.second;
+                    if(which==0){
+                        Toast.makeText(getActivity().getBaseContext(), "Saved photo to GALLERY as "+str, Toast.LENGTH_SHORT).show();
                         MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), photo, str, "description");
-                        Toast.makeText(getActivity().getBaseContext(), "Saved photo to GALLERY as " + str, Toast.LENGTH_SHORT).show();
                     }
-                    if(which==1 && reactionPhoto!=null){
+                    if(which==1&&reactionPhoto!=null){
+                        Toast.makeText(getActivity().getBaseContext(), "Saved reaction to GALLERY as "+str, Toast.LENGTH_SHORT).show();
                         MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), reactionPhoto, str, "description");
-                        Toast.makeText(getActivity().getBaseContext(), "Saved reaction to GALLERY as " + str, Toast.LENGTH_SHORT).show();
                     }
-                    if(which==2 || (which==1&&reactionPhoto==null)){
+                    if(which==2||(which==1&&reactionPhoto==null)){
                     dialog.cancel();
                     }
                 }
@@ -242,59 +236,18 @@ public class ShowMessageFragment extends SherlockFragment{
     private View.OnClickListener switchPhotos = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            photoView.startAnimation(animationFadeOut);
-            reactionPhotoView.startAnimation(animationFadeOut);
             if(!reaction)
             {
                 photoView.setImageBitmap(RotateBitmap(reactionPhoto, 90));
-                Bitmap rounded_bm = ImageHelper.getRoundedCornerBitmap(photo, Color.WHITE, getActivity().getApplicationContext());
+                Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(photo, Color.WHITE, 1500, 30, getActivity().getApplicationContext());
                 reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
             }
             else{
                 photoView.setImageBitmap(RotateBitmap(photo, 90));
-                Bitmap rounded_bm = ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, getActivity().getApplicationContext());
+                Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, 1500, 30, getActivity().getApplicationContext());
                 reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
-                }
-            photoView.startAnimation(animationFadeIn);
-            reactionPhotoView.startAnimation(animationFadeIn);
-            reaction = !reaction;
-        }
-    };
-//**************************************************
-    Animation.AnimationListener animationFadeOutListener = new Animation.AnimationListener() {
-
-    @Override
-    public void onAnimationEnd(Animation animation) {
-        // TODO Auto-generated method stub
-     //   photoView.startAnimation(animationFadeIn);
-    }
-
-    @Override
-    public void onAnimationRepeat(Animation animation) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void onAnimationStart(Animation animation) {
-        // TODO Auto-generated method stub
-    }
-};
-
-    Animation.AnimationListener animationFadeInListener = new Animation.AnimationListener() {
-        @Override
-        public void onAnimationEnd(Animation animation) {
-            // TODO Auto-generated method stub
-       //     photoView.startAnimation(animationFadeOut);
-        }
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-            // TODO Auto-generated method stub
-        }
-
-        @Override
-        public void onAnimationStart(Animation animation) {
-            // TODO Auto-generated method stub
+            }
+            reaction=!reaction;
         }
     };
 }

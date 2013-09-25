@@ -26,4 +26,4 @@
         android:drawable="@drawable/spinner_ab_focused_example" />
     <item android:drawable="@drawable/spinner_ab_default_example" />
 </selector>
-<!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/ABS/res/drawable/spinner_background_ab_example.xml -->
+<!-- From: file:/home/vova/androidProjects/Reactr/libraries/ABS/res/drawable/spinner_background_ab_example.xml -->

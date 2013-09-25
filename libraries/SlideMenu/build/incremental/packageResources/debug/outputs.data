@@ -1,5 +1,5 @@
 # incremental data. DO NOT EDIT.
 # format is <lastModified> <length> <SHA-1> <path>
 # Encoding is UTF-8
-1379350927000 383 343686f5650f1942d64b62d2d3baf030be68f75a /home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/bundles/debug/res/layout/slidingmenumain.xml
-1379350927000 1432 b857b25f316e367aab1824e1758ff79289b26a96 /home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/bundles/debug/res/values/values.xml
+1379921837000 1406 5437aeb8eafc8fe743836501a18c756d10fe3f71 /home/vova/androidProjects/Reactr/libraries/SlideMenu/build/bundles/debug/res/values/values.xml
+1379921837000 370 5307bb369c402d126d280b2f92c68e996a0ffda5 /home/vova/androidProjects/Reactr/libraries/SlideMenu/build/bundles/debug/res/layout/slidingmenumain.xml

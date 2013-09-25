@@ -66,7 +66,7 @@ public class MainActivity extends SlidingFragmentActivity  {
         getSlidingMenu().setBehindOffset(200);
         getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
         getSlidingMenu().setShadowDrawable(R.drawable.shadow);
-        getSlidingMenu().setShadowWidth(20);
+        getSlidingMenu().setShadowWidth(15);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);

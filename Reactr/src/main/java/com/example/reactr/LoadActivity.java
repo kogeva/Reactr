@@ -21,6 +21,7 @@ public class LoadActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.load_layout);
+        getActionBar().hide();
         handler = new Handler();
 
         preference = ReactrBase.getAppProperty(getApplicationContext());

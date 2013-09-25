@@ -2,21 +2,21 @@
 <merger>
 
     <dataSet config="main" >
-        <source path="/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/res" >
+        <source path="/home/vova/androidProjects/Reactr/libraries/SlideMenu/res" >
             <file
                 name="slidingmenumain"
-                path="/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/res/layout/slidingmenumain.xml"
+                path="/home/vova/androidProjects/Reactr/libraries/SlideMenu/res/layout/slidingmenumain.xml"
                 qualifiers=""
                 type="layout" />
             <file
-                path="/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/res/values/ids.xml"
+                path="/home/vova/androidProjects/Reactr/libraries/SlideMenu/res/values/ids.xml"
                 qualifiers="" >
                 <item
                     name="selected_view"
                     type="id"/>
             </file>
             <file
-                path="/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/res/values/attrs.xml"
+                path="/home/vova/androidProjects/Reactr/libraries/SlideMenu/res/values/attrs.xml"
                 qualifiers="" >
                 <declare-styleable name="SlidingMenu" >
                     <attr name="mode" >
@@ -79,10 +79,10 @@
                 </declare-styleable>
             </file>
         </source>
-        <source path="/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/res/rs/debug" />
+        <source path="/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/res/rs/debug" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/src/debug/res" />
+        <source path="/home/vova/androidProjects/Reactr/libraries/SlideMenu/src/debug/res" />
     </dataSet>
 
 </merger>

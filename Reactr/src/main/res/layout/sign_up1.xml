@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#d6614d"
-    android:gravity="center">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#d6614d">
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:layout_marginBottom="30pt">
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/text_input"
             android:layout_marginTop="10pt"
@@ -23,10 +22,11 @@
             android:textSize="12pt"
             android:inputType="textEmailAddress"
             android:ems="10"
-            android:id="@+id/emailText" />
+            android:id="@+id/emailText"
+            android:layout_gravity="center" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/text_input"
             android:layout_marginTop="10pt"
@@ -34,29 +34,30 @@
             android:textSize="12pt"
             android:ems="10"
             android:id="@+id/epasswordText"
+            android:layout_gravity="center"
             android:inputType="textPassword" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/signup1_text"
             android:layout_marginTop="10pt"
             android:textColorLink="#FFF"
-            android:textSize="8pt"
+            android:textSize="7pt"
             android:textColor="#fff"
             android:width="135pt"
             android:id="@+id/textView"
-           />
+            android:layout_gravity="center" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/yellow_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/yellow_button"
             android:layout_marginTop="30dp"
             android:textColor="#fff"
             android:textSize="14pt"
             android:text="@string/continue_button"
             android:id="@+id/toStepTwoButton"
-             />
+            android:layout_gravity="center" />
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

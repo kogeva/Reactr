@@ -25,4 +25,4 @@
     <item android:state_enabled="true"
         android:drawable="@drawable/btn_cab_done_default_example" />
 </selector>
-<!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/ABS/res/drawable/btn_cab_done_example.xml -->
+<!-- From: file:/home/vova/androidProjects/Reactr/libraries/ABS/res/drawable/btn_cab_done_example.xml -->

@@ -20,4 +20,4 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
     <solid android:color="@color/pressed_example" />
 </shape>
-<!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/ABS/res/drawable/pressed_background_example.xml -->
+<!-- From: file:/home/vova/androidProjects/Reactr/libraries/ABS/res/drawable/pressed_background_example.xml -->

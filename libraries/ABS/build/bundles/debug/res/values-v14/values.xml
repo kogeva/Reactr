@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/ABS/res/values-v14/styles_example.xml -->
+    <!-- From: file:/home/vova/androidProjects/Reactr/libraries/ABS/res/values-v14/styles_example.xml -->
     <style name="ActionBar.Solid.Example" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@drawable/ab_solid_example</item>
         <item name="android:backgroundStacked">@drawable/ab_stacked_solid_example</item>
@@ -13,7 +13,7 @@
         <item name="android:background">@drawable/ab_transparent_example</item>
         <item name="android:progressBarStyle">@style/ProgressBar.Example</item>
     </style>
-    <!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/ABS/res/values-v14/abs__themes.xml -->
+    <!-- From: file:/home/vova/androidProjects/Reactr/libraries/ABS/res/values-v14/abs__themes.xml -->
     <style name="Sherlock.__Theme" parent="android:Theme.Holo"></style>
 
     <style name="Sherlock.__Theme.DarkActionBar" parent="android:Theme.Holo.Light.DarkActionBar">
@@ -31,7 +31,7 @@
     </style>
 
     <style name="Sherlock.__Theme.Light" parent="android:Theme.Holo.Light"></style>
-    <!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/ABS/res/values-v14/abs__styles.xml -->
+    <!-- From: file:/home/vova/androidProjects/Reactr/libraries/ABS/res/values-v14/abs__styles.xml -->
     <style name="TextAppearance.Sherlock.Light.Widget.PopupMenu.Large" parent="android:TextAppearance.Holo.Widget.PopupMenu.Large"></style>
 
     <style name="TextAppearance.Sherlock.Light.Widget.PopupMenu.Small" parent="android:TextAppearance.Holo.Widget.PopupMenu.Small"></style>
@@ -59,7 +59,7 @@
     <style name="TextAppearance.Sherlock.Widget.PopupMenu.Large" parent="android:TextAppearance.Holo.Widget.PopupMenu.Large"></style>
 
     <style name="TextAppearance.Sherlock.Widget.PopupMenu.Small" parent="android:TextAppearance.Holo.Widget.PopupMenu.Small"></style>
-    <!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/ABS/res/values-v14/styles_example.xml -->
+    <!-- From: file:/home/vova/androidProjects/Reactr/libraries/ABS/res/values-v14/styles_example.xml -->
     <style name="Theme.Example" parent="@style/Theme.Sherlock.Light.DarkActionBar">
         <item name="android:actionBarItemBackground">@drawable/selectable_background_example</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.Example</item>
@@ -79,7 +79,7 @@
         <item name="android:popupMenuStyle">@style/PopupMenu.Example</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Example</item>
     </style>
-    <!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/ABS/res/values-v14/abs__themes.xml -->
+    <!-- From: file:/home/vova/androidProjects/Reactr/libraries/ABS/res/values-v14/abs__themes.xml -->
     <style name="Theme.Sherlock.Light.NoActionBar">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
@@ -89,7 +89,7 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
-    <!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/ABS/res/values-v14/abs__styles.xml -->
+    <!-- From: file:/home/vova/androidProjects/Reactr/libraries/ABS/res/values-v14/abs__styles.xml -->
     <style name="Widget.Sherlock.ActionBar" parent="android:Widget.Holo.ActionBar"></style>
 
     <style name="Widget.Sherlock.ActionBar.Solid" parent="android:Widget.Holo.ActionBar.Solid"></style>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
 
-    <!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values/values.xml -->
+    <!-- From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values/values.xml -->
     <attr name="background" format="reference|color" />
     <attr name="backgroundSplit" format="reference|color" />
     <attr name="divider" format="reference" />
@@ -468,7 +468,7 @@
     <declare-styleable name="SherlockView">
         <attr name="android:focusable" />
     </declare-styleable>
-    <!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/res/values/attrs.xml -->
+    <!-- From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/res/values/attrs.xml -->
     <declare-styleable name="SlidingMenu">
         <attr name="mode">
             <enum name="left" value="0" />
@@ -494,7 +494,7 @@
         <attr name="selectorEnabled" format="boolean" />
         <attr name="selectorDrawable" format="reference" />
     </declare-styleable>
-    <!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values/values.xml -->
+    <!-- From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values/values.xml -->
     <dimen name="abs__action_bar_default_height">48dip</dimen>
     <dimen name="abs__action_bar_icon_vertical_padding">8dip</dimen>
     <dimen name="abs__action_bar_subtitle_bottom_margin">5dip</dimen>
@@ -515,9 +515,9 @@
     <item name="abs__progress_circular" type="id"/>
     <item name="abs__progress_horizontal" type="id"/>
     <item name="abs__up" type="id"/>
-    <!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/res/values/ids.xml -->
+    <!-- From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/res/values/ids.xml -->
     <item name="selected_view" type="id"/>
-    <!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values/values.xml -->
+    <!-- From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values/values.xml -->
     <integer name="abs__max_action_buttons">2</integer>
 
     <string name="abs__action_bar_home_description">Navigate home</string>

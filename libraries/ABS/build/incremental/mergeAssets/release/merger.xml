@@ -2,10 +2,10 @@
 <merger>
 
     <dataSet config="main" >
-        <source path="/home/vova/AndroidStudioProjects/ReactrProject/libraries/ABS/src/main/assets" />
+        <source path="/home/vova/androidProjects/Reactr/libraries/ABS/src/main/assets" />
     </dataSet>
     <dataSet config="release" >
-        <source path="/home/vova/AndroidStudioProjects/ReactrProject/libraries/ABS/src/release/assets" />
+        <source path="/home/vova/androidProjects/Reactr/libraries/ABS/src/release/assets" />
     </dataSet>
 
 </merger>

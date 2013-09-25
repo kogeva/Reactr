@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values-v14/values.xml -->
+    <!-- From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values-v14/values.xml -->
     <style name="ActionBar.Solid.Example" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@drawable/ab_solid_example</item>
         <item name="android:backgroundStacked">@drawable/ab_stacked_solid_example</item>

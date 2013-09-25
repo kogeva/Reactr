@@ -156,7 +156,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static int activityChooserViewStyle=0x7f01005f;
-        /**  From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values/values.xml 
+        /**  From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values/values.xml 
          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
@@ -785,10 +785,10 @@ containing a value of this type.
         public static int windowSplitActionBar=0x7f01005d;
     }
     public static final class bool {
-        /**  From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values-w480dp/values.xml 
+        /**  From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values-w480dp/values.xml 
          */
         public static int abs__action_bar_embed_tabs=0x7f040000;
-        /**  From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values-sw600dp/values.xml 
+        /**  From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values-sw600dp/values.xml 
          */
         public static int abs__action_bar_expanded_action_views_exclusive=0x7f040001;
         public static int abs__config_actionMenuItemAllCaps=0x7f040002;
@@ -810,13 +810,13 @@ containing a value of this type.
         public static int pressed_example=0x7f050006;
     }
     public static final class dimen {
-        /**  From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values/values.xml 
- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values-land/values.xml 
- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values-large-hdpi-1024x600/values.xml 
- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values-large-mdpi-1024x600/values.xml 
- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values-large-land-hdpi-1024x600/values.xml 
- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values-large-land-mdpi-1024x600/values.xml 
- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values-xlarge/values.xml 
+        /**  From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values/values.xml 
+ From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values-land/values.xml 
+ From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values-large-hdpi-1024x600/values.xml 
+ From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values-large-mdpi-1024x600/values.xml 
+ From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values-large-land-hdpi-1024x600/values.xml 
+ From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values-large-land-mdpi-1024x600/values.xml 
+ From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values-xlarge/values.xml 
          */
         public static int abs__action_bar_default_height=0x7f070000;
         public static int abs__action_bar_icon_vertical_padding=0x7f070001;
@@ -1029,7 +1029,7 @@ containing a value of this type.
         public static int margin=0x7f06000c;
         public static int normal=0x7f060000;
         public static int right=0x7f06000b;
-        /**  From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/res/values/ids.xml 
+        /**  From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/res/values/ids.xml 
          */
         public static int selected_view=0x7f060014;
         public static int showCustom=0x7f060007;
@@ -1041,10 +1041,10 @@ containing a value of this type.
         public static int wrap_content=0x7f060009;
     }
     public static final class integer {
-        /**  From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values/values.xml 
- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values-w360dp/values.xml 
- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values-w500dp/values.xml 
- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values-w600dp/values.xml 
+        /**  From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values/values.xml 
+ From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values-w360dp/values.xml 
+ From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values-w500dp/values.xml 
+ From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values-w600dp/values.xml 
          */
         public static int abs__max_action_buttons=0x7f080000;
     }
@@ -1090,7 +1090,7 @@ containing a value of this type.
         public static int abs__shareactionprovider_share_with_application=0x7f09000c;
     }
     public static final class style {
-        /**  From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values-v14/values.xml 
+        /**  From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values-v14/values.xml 
          */
         public static int ActionBar_Solid_Example=0x7f0a0000;
         public static int ActionBar_Transparent_Example=0x7f0a0001;
@@ -1101,7 +1101,7 @@ containing a value of this type.
         public static int PopupMenu_Example=0x7f0a0006;
         public static int ProgressBar_Example=0x7f0a0007;
         public static int Sherlock___TextAppearance_Small=0x7f0a0008;
-        /**  From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/values-v11/values.xml 
+        /**  From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/values-v11/values.xml 
          */
         public static int Sherlock___Theme=0x7f0a0009;
         public static int Sherlock___Theme_DarkActionBar=0x7f0a000a;
@@ -3401,7 +3401,7 @@ containing a value of this type.
           @attr name android:android_focusable
         */
         public static final int SherlockView_android_focusable = 0;
-        /**  From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/res/values/attrs.xml 
+        /**  From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/res/values/attrs.xml 
            <p>Includes the following attributes:</p>
            <table>
            <colgroup align="left" />

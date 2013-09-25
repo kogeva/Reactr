@@ -40,7 +40,6 @@ public class SearchFriendAdapter extends FriendsAddedAdapter {
         username.setText(friend.getUsername());
         addButton.setOnClickListener(addFriendClick);
 
-
         return view;
     }
 

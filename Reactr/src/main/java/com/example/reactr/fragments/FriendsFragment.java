@@ -145,7 +145,6 @@ public class FriendsFragment extends SherlockFragment {
         }
     };
 
-
     View.OnKeyListener searchFriendOutFocus = new View.OnKeyListener() {
         @Override
         public boolean onKey(View view, int keyCode, KeyEvent event) {

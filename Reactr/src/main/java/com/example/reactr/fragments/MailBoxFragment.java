@@ -42,6 +42,8 @@ public class MailBoxFragment extends SherlockFragment {
         MainActivity ma = (MainActivity) getSherlockActivity();
         api = ma.getReactorApi();
         ReactrBase.showLoader(getSherlockActivity());
+        Long maxMemory = Runtime.getRuntime().maxMemory();
+        maxMemory.toString();
 
         new Thread(new Runnable() {
             @Override

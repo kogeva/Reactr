@@ -48,4 +48,4 @@ the Action Bar enabled overlaying application content.
                android:layout_height="wrap_content"
                android:layout_below="@id/abs__action_bar_container" />
 </RelativeLayout>
-<!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/ABS/res/layout-xlarge/abs__screen_action_bar_overlay.xml --><!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/layout-xlarge/abs__screen_action_bar_overlay.xml -->
+<!-- From: file:/home/vova/androidProjects/Reactr/libraries/ABS/res/layout-xlarge/abs__screen_action_bar_overlay.xml --><!-- From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/layout-xlarge/abs__screen_action_bar_overlay.xml -->

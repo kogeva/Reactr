@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.reactr.MainActivity;
 import com.example.reactr.R;
+import com.example.reactr.ReactrBase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,12 +34,15 @@ public class LoginActivity extends Activity {
     private JSONObject responseJson;
     private SharedPreferences preferences;
     SharedPreferences.Editor prefEditor;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getActionBar().hide();
         handler = new Handler();
+        context = this;
 
         preferences = getSharedPreferences("reactrPrefer", MODE_PRIVATE);
         prefEditor = preferences.edit();
@@ -53,6 +57,7 @@ public class LoginActivity extends Activity {
     private View.OnClickListener loginClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            ReactrBase.showLoader(context);
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -79,6 +84,7 @@ public class LoginActivity extends Activity {
     Runnable checkUserDone = new Runnable() {
         @Override
         public void run() {
+            ReactrBase.hideLoader();
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
         }
     };

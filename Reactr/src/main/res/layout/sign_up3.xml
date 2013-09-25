@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d6614d"
-    android:gravity="center">
+    android:background="#d6614d">
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/signup3_text_top"
             android:layout_marginTop="10dp"
-            android:textSize="8pt"
+            android:textSize="7pt"
             android:textColor="#fff"
             android:width="135pt"
             android:id="@+id/textView"
-           />
+            android:layout_gravity="center" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -34,18 +34,18 @@
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/phoneEdiText"
-           />
+            android:layout_gravity="center" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/signup3_text_center"
             android:layout_marginTop="10dp"
-            android:textSize="8pt"
+            android:textSize="7pt"
             android:textColor="#fff"
             android:width="135pt"
             android:id="@+id/textView"
-           />
+            android:layout_gravity="center" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -56,17 +56,17 @@
             android:textColor="#fee7b8"
             android:width="135pt"
             android:id="@+id/textView"
-        />
+            android:layout_gravity="center" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/yellow_btn"
+            android:background="@drawable/yellow_button"
             android:layout_marginTop="10pt"
             android:textColor="#fff"
             android:textSize="14pt"
-            android:text="@string/sign_up"
+            android:text="@string/continue_button"
             android:id="@+id/completeButton"
-        />
+            android:layout_gravity="center" />
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

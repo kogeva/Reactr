@@ -54,4 +54,4 @@
             android:paddingRight="4dip"
             android:focusable="false" />
 </com.actionbarsherlock.internal.view.menu.ActionMenuItemView>
-<!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/ABS/res/layout/abs__action_menu_item_layout.xml --><!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/layout/abs__action_menu_item_layout.xml -->
+<!-- From: file:/home/vova/androidProjects/Reactr/libraries/ABS/res/layout/abs__action_menu_item_layout.xml --><!-- From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/layout/abs__action_menu_item_layout.xml -->

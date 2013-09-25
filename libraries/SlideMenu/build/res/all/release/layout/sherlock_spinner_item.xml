@@ -24,4 +24,4 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:ellipsize="marquee" />
-<!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/ABS/res/layout/sherlock_spinner_item.xml --><!-- From: file:/home/vova/AndroidStudioProjects/ReactrProject/libraries/SlideMenu/build/exploded-bundles/ReactrProjectLibrariesABSUnspecified.aar/res/layout/sherlock_spinner_item.xml -->
+<!-- From: file:/home/vova/androidProjects/Reactr/libraries/ABS/res/layout/sherlock_spinner_item.xml --><!-- From: file:/home/vova/androidProjects/Reactr/libraries/SlideMenu/build/exploded-bundles/ReactrLibrariesABSUnspecified.aar/res/layout/sherlock_spinner_item.xml -->
