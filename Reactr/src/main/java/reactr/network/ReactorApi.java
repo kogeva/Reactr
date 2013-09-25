@@ -302,6 +302,43 @@ public class ReactorApi {
         }
         return friends;
     }
+    public ArrayList<FriendEntity> searchFriendsWithoutMe(String username, String my_name)
+    {
+        ArrayList<FriendEntity> friends = new ArrayList<FriendEntity>();
+        String temp_str="";
+
+        try {
+            postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
+            postParams.put("session_hash", new StringBody(session_token));
+            postParams.put("friend_username", new StringBody(username));
+
+            jsonData = new JSONObject(networkManager.sendRequest(SEARCH_FRIEND, postParams));
+
+            if(jsonData.get("status").equals("success"))
+            {
+                JSONArray friendsJsonArray = jsonData.getJSONArray("friends");
+                for (int i = 0; i < friendsJsonArray.length(); i++)
+                {
+                    JSONObject  friendJsonObject = (JSONObject) friendsJsonArray.get(i);
+                    temp_str=friendJsonObject.getString("username");
+                    if(!temp_str.equals(my_name)){
+                    friends.add(new FriendEntity(
+                            friendJsonObject.getInt("id"),
+                            friendJsonObject.getString("username"),
+                            friendJsonObject.getLong("phone"),
+                            false,
+                            false
+                    ));
+                    }
+                }
+            }
+        } catch (JSONException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        } catch (UnsupportedEncodingException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+        return friends;
+    }
 
     public boolean sendMessages(String friendIds, String text, Bitmap photo, Bitmap reactionPhoto)
     {

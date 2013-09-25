@@ -1,17 +1,20 @@
 package com.example.reactr.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.example.reactr.MainActivity;
@@ -65,7 +68,7 @@ public class FriendsFragment extends SherlockFragment {
         searchEditText = (EditText) view.findViewById(R.id.searchEditText);
 
         searchEditText.setOnKeyListener(searchFriendOutFocus);
-
+        searchEditText.setOnFocusChangeListener( new MyFocusChangeListener());
         setHasOptionsMenu(true);
         tabHost.setup();
         setTabSelector("tag1", "FRIENDS", R.id.tab1);
@@ -135,7 +138,8 @@ public class FriendsFragment extends SherlockFragment {
     Runnable searchFriends = new Runnable() {
         @Override
         public void run() {
-            searchFriendsCollection = api.searchFriends(searchEditText.getText().toString());
+        //    searchFriendsCollection = api.searchFriends(searchEditText.getText().toString());
+            searchFriendsCollection = api.searchFriendsWithoutMe(searchEditText.getText().toString(), ((MainActivity)getActivity()).getUsername());
             searchFriendAdapter = new SearchFriendAdapter(getSherlockActivity(),searchFriendsCollection, api);
             uiHandler.post(updateSearchFrendList);
         }
@@ -155,4 +159,13 @@ public class FriendsFragment extends SherlockFragment {
             return false;
         }
     };
+    private class MyFocusChangeListener implements View.OnFocusChangeListener {
+
+        public void onFocusChange(View v, boolean hasFocus){
+            if(v.getId() == R.id.searchEditText && !hasFocus) {
+                InputMethodManager imm =  (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        }
+    }
 }

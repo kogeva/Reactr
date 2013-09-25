@@ -1,5 +1,6 @@
 package com.example.reactr.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 
 import com.example.reactr.MainActivity;
@@ -61,6 +63,7 @@ public class MenuFragment extends ListFragment {
                 break;
             case 1:
                 newContent = new MailBoxFragment();
+
                 break;
             case 2:
                 newContent = new MyFriendsFragment();

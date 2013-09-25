@@ -13,13 +13,14 @@
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:gravity="center">
 
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center"
+                android:gravity="center"
                 android:layout_marginBottom="30pt">
 
             <EditText
@@ -32,7 +33,6 @@
                     android:width="20pt"
                     android:ems="10"
                     android:id="@+id/emailInput"
-                    android:layout_gravity="center"
                     android:singleLine="true"
                     android:inputType="textEmailAddress"/>
 
@@ -46,7 +46,6 @@
                     android:width="20pt"
                     android:ems="10"
                     android:id="@+id/passwordInput"
-                    android:layout_gravity="center"
                     android:singleLine="true"
                     android:inputType="textPassword"/>
 
@@ -57,11 +56,9 @@
                     android:width="40pt"
                     android:textStyle="bold"
                     android:text="@string/login_button_text"
-
-                     android:background="@drawable/login_btn"
+                    android:background="@drawable/login_btn"
                     android:textColor="#fff"
                     android:textSize="14pt"
-                    android:layout_gravity="center"
                     android:id="@+id/loginButton"
                     />
         </LinearLayout>

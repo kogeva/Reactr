@@ -1,12 +1,16 @@
 package com.example.reactr.fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.hardware.Camera;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -96,7 +100,9 @@ public class ShowMessageFragment extends SherlockFragment{
         ReactrBase.showLoader(getSherlockActivity());
 
         if(!message.getIsRead())
+        {
             ph = new TakePhotoWithoutPreview(getSherlockActivity(), surfaceView);
+        }
         text.setText(message.getText());
 
         new Thread(new Runnable() {
@@ -291,5 +297,4 @@ public class ShowMessageFragment extends SherlockFragment{
             // TODO Auto-generated method stub
         }
     };
-
 }

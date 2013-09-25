@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.example.reactr.MainActivity;
@@ -70,13 +72,15 @@ public class AddMessageFragment extends SherlockFragment{
         sendPhotoButton.setOnClickListener(sendPhotoClick);
         closePhotoPreview.setOnClickListener(closePhotoPreviewClick);
         addText.setOnClickListener(addTextClick);
-
+        text.setOnFocusChangeListener( new MyFocusChangeListener());
         text.setVisibility(View.INVISIBLE);
         text.setOnKeyListener(addTextKeyListener);
 
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("ADD MESSAGE");
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
+
+        text.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 
         return view;
     }
@@ -170,4 +174,16 @@ public class AddMessageFragment extends SherlockFragment{
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
+    private class MyFocusChangeListener implements View.OnFocusChangeListener {
+
+        public void onFocusChange(View v, boolean hasFocus){
+            if(v.getId() == R.id.message_edit_text && !hasFocus) {
+                InputMethodManager imm =  (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                text.setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
+
 }

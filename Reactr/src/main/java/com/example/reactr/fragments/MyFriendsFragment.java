@@ -1,5 +1,6 @@
 package com.example.reactr.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -7,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -45,25 +47,8 @@ public class MyFriendsFragment extends SherlockFragment {
         myFriendList = (ListView) view.findViewById(R.id.my_friends_list);
         searchText = (EditText) view.findViewById(R.id.editText);
 
-        searchText.addTextChangedListener(new TextWatcher() {
-            public void afterTextChanged(Editable s) {
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String str = String.valueOf(searchText.getText()).toLowerCase();
-                ArrayList<FriendEntity> filterList = new ArrayList<FriendEntity>();
-                for (int i = 0; i < friends.size(); i++) {
-                    if (friends.get(i).getUsername().toLowerCase().indexOf(str) != -1) {
-                        filterList.add(friends.get(i));
-                    }
-                }
-                myFrendsAdapter = new MyFrendsAdapter(getActivity(), filterList);
-                mainHandler.post(updateFrendlist);
-            }
-        });
+        searchText.setOnFocusChangeListener( new MyFocusChangeListener());
+        searchText.addTextChangedListener(new MyTextWatcher());
 
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("FRIENDS");
@@ -110,4 +95,33 @@ public class MyFriendsFragment extends SherlockFragment {
             ReactrBase.switchFraagment(getSherlockActivity(), new FriendsFragment());
         }
     };
+
+    private class MyFocusChangeListener implements View.OnFocusChangeListener {
+
+        public void onFocusChange(View v, boolean hasFocus){
+            if(v.getId() == R.id.editText && !hasFocus) {
+                InputMethodManager imm =  (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        }
+    }
+    private class MyTextWatcher implements TextWatcher {
+        public void afterTextChanged(Editable s) {
+        }
+
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        String str = String.valueOf(searchText.getText()).toLowerCase();
+        ArrayList<FriendEntity> filterList = new ArrayList<FriendEntity>();
+        for (int i = 0; i < friends.size(); i++) {
+            if (friends.get(i).getUsername().toLowerCase().indexOf(str) != -1) {
+                filterList.add(friends.get(i));
+            }
+        }
+        myFrendsAdapter = new MyFrendsAdapter(getActivity(), filterList);
+        mainHandler.post(updateFrendlist);
+    }
+}
 }

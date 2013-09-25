@@ -4,13 +4,14 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d6614d">
+    android:background="#d6614d"
+    android:gravity="center">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_gravity="center_horizontal|bottom"
+        android:gravity="center"
         android:layout_marginBottom="30pt">
 
         <EditText
@@ -22,8 +23,7 @@
             android:textSize="12pt"
             android:inputType="textEmailAddress"
             android:ems="10"
-            android:id="@+id/emailText"
-            android:layout_gravity="center" />
+            android:id="@+id/emailText" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -34,7 +34,6 @@
             android:textSize="12pt"
             android:ems="10"
             android:id="@+id/epasswordText"
-            android:layout_gravity="center"
             android:inputType="textPassword" />
 
         <TextView
@@ -43,11 +42,11 @@
             android:text="@string/signup1_text"
             android:layout_marginTop="10pt"
             android:textColorLink="#FFF"
-            android:textSize="7pt"
+            android:textSize="8pt"
             android:textColor="#fff"
             android:width="135pt"
             android:id="@+id/textView"
-            android:layout_gravity="center" />
+           />
 
         <Button
             android:layout_width="wrap_content"
@@ -58,6 +57,6 @@
             android:textSize="14pt"
             android:text="@string/continue_button"
             android:id="@+id/toStepTwoButton"
-            android:layout_gravity="center" />
+             />
     </LinearLayout>
 </LinearLayout>

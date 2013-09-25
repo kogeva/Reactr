@@ -2,6 +2,9 @@ package reactr.utils;
 
 import android.content.Context;
 import android.hardware.Camera;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -38,6 +41,8 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
                 camera.takePicture(null, null ,jpegCallback);
             }
         },700);
+
+        shootSound();
     }
 
     @Override
@@ -84,5 +89,17 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
             camera = null;
         }
     };
-
+    public void shootSound()
+    {
+        AudioManager meng = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        int volume = meng.getStreamVolume( AudioManager.STREAM_NOTIFICATION);
+        MediaPlayer _shootMP=null;
+        if (volume != 0)
+        {
+            if (_shootMP == null)
+                _shootMP = MediaPlayer.create(context.getApplicationContext(), Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
+            if (_shootMP != null)
+                _shootMP.start();
+        }
+    }
 }

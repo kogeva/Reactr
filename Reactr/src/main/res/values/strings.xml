@@ -42,6 +42,7 @@
     <string name="sv_ph_mes"> Save photo</string>
     <string name="sv_ph_react">Save reaction</string>
     <string name="cancel">Cancel</string>
+    <string name="sign_up">Sign Up</string>
 
 
 </resources>
