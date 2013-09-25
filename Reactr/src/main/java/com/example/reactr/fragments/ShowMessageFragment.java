@@ -144,7 +144,7 @@ public class ShowMessageFragment extends SherlockFragment{
             if (reactionPhoto != null)
             {
                 //для округления изображения
-                Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, 1500, 30, getActivity().getApplicationContext());
+                Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, getActivity().getApplicationContext());
                 reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
             }
 
@@ -239,12 +239,12 @@ public class ShowMessageFragment extends SherlockFragment{
             if(!reaction)
             {
                 photoView.setImageBitmap(RotateBitmap(reactionPhoto, 90));
-                Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(photo, Color.WHITE, 1500, 30, getActivity().getApplicationContext());
+                Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(photo, Color.WHITE, getActivity().getApplicationContext());
                 reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
             }
             else{
                 photoView.setImageBitmap(RotateBitmap(photo, 90));
-                Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, 1500, 30, getActivity().getApplicationContext());
+                Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, getActivity().getApplicationContext());
                 reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
             }
             reaction=!reaction;
