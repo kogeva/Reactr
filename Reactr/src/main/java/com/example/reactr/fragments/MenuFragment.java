@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import reactr.adaptor.MenuAdapter;
 import com.example.reactr.reactr.models.ReactrConstants;
+import com.google.android.c2dm.C2DMessaging;
 
 public class MenuFragment extends ListFragment {
 
@@ -86,8 +87,13 @@ public class MenuFragment extends ListFragment {
                 break;
 
             case 8:
+                //************
+                C2DMessaging.unregister(getActivity());
+
+                //************
                 ((MainActivity ) getActivity()).removeSessionHash();
                 ((MainActivity ) getActivity()).startActivity(new Intent(getActivity(), StartActivity.class));
+
                 break;
         }
         ((MainActivity) getActivity()).toggle();

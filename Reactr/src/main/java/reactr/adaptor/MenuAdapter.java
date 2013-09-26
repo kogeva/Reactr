@@ -56,7 +56,7 @@ public class MenuAdapter extends BaseAdapter {
     if(position>=4)
     {
        view.setBackgroundColor(Color.LTGRAY);
-        view.setBackgroundResource(R.drawable.menu_item_style);
+        view.setBackgroundResource(R.drawable.menu_item_style_gray);
     }
         return view;
     }

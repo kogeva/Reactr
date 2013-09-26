@@ -34,7 +34,8 @@
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/phoneEdiText"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+             android:textColorHint="#000000" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -61,11 +62,11 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/yellow_button"
+            android:background="@drawable/yellow_btn"
             android:layout_marginTop="10pt"
             android:textColor="#fff"
             android:textSize="14pt"
-            android:text="@string/continue_button"
+            android:text="@string/sign_up"
             android:id="@+id/completeButton"
             android:layout_gravity="center" />
     </LinearLayout>

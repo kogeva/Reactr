@@ -34,12 +34,14 @@
                     android:ems="10"
                     android:id="@+id/emailInput"
                     android:singleLine="true"
+                    android:textColorHint="#000000"
                     android:inputType="textEmailAddress"/>
 
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/password_text"
+                    android:textColorHint="#000000"
                     android:background="@drawable/text_input"
                     android:layout_marginTop="10pt"
                     android:textSize="12pt"

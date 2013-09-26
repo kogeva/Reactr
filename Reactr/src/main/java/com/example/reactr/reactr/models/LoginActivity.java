@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.reactr.MainActivity;
 import com.example.reactr.R;
 import com.example.reactr.ReactrBase;
+import com.google.android.c2dm.C2DMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,6 +71,9 @@ public class LoginActivity extends Activity {
                             prefEditor.putString("session_hash", responseJson.getString("session_hash"));
                             prefEditor.putString("username", responseJson.getString("username"));
                             prefEditor.commit();
+                            //********************
+                            C2DMessaging.register(LoginActivity.this, "ash@eyepinch.com");
+                            //********************
                         }
                             handler.post(checkUserDone);
                     }

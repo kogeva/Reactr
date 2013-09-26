@@ -23,7 +23,8 @@
             android:inputType="textEmailAddress"
             android:ems="10"
             android:id="@+id/emailText"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:textColorHint="#000000"/>
 
         <EditText
             android:layout_width="fill_parent"
@@ -35,7 +36,8 @@
             android:ems="10"
             android:id="@+id/epasswordText"
             android:layout_gravity="center"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColorHint="#000000"/>
 
         <TextView
             android:layout_width="fill_parent"
@@ -52,7 +54,7 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/yellow_button"
+            android:background="@drawable/yellow_btn"
             android:layout_marginTop="30dp"
             android:textColor="#fff"
             android:textSize="14pt"

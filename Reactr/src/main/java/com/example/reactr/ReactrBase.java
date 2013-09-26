@@ -168,12 +168,30 @@ public class ReactrBase {
 
     public static void showLoader(Context context)
     {
-        progressDialog  = ProgressDialog.show(context , "Loading", "Please Wait");
+         progressDialog  = ProgressDialog.show(context , "Loading", "Please Wait");
     }
 
     public static void hideLoader()
     {
         if(progressDialog != null)
             progressDialog.dismiss();
+    }
+
+
+    public static ArrayList<FriendEntity> addInFriendContactNameByName(ArrayList<FriendEntity> friends, HashMap<Long, String> contacts, String username)
+    {
+        ArrayList<FriendEntity> tempFrends=new ArrayList<FriendEntity>();
+        for (int i = 0; i < friends.size(); i++)
+        {
+            for (Map.Entry<Long, String> entryContacts : contacts.entrySet())
+            {
+                if (entryContacts.getKey().equals(friends.get(i).getPhone()))
+                    friends.get(i).setNameInContacts(entryContacts.getValue());
+            }
+            if (friends.get(i).getUsername().toLowerCase().indexOf(username) != -1){
+                tempFrends.add(friends.get(i));
+            }
+        }
+        return tempFrends;
     }
 }

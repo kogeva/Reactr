@@ -6,5 +6,5 @@
         android:state_pressed="true" />
     <item android:drawable="@drawable/login_button_hover"
         android:state_focused="true" />
-    <item android:drawable="@drawable/login_button_2" />
+    <item android:drawable="@drawable/login_button" />
 </selector>

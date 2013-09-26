@@ -16,7 +16,7 @@
             android:layout_height="110dp"
             android:background="@drawable/search_sprite"
             android:singleLine="true"
-            android:id="@+id/editText"
+            android:id="@+id/editTextInSelectFriends"
             android:layout_weight="0.5" />
 
         <ListView
