@@ -47,6 +47,7 @@ public class SignInActivity extends Activity {
         setContentView(R.layout.sign_up1);
         handler = new Handler();
         context = this;
+        getActionBar().hide();
 
         preferences = getSharedPreferences("reactrPrefer", MODE_PRIVATE);
         prefEditor = preferences.edit();
