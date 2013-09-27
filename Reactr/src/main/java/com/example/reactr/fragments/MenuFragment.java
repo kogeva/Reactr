@@ -70,9 +70,8 @@ public class MenuFragment extends ListFragment {
                 newContent = new MyFriendsFragment();
                 break;
             case 3:
- //               newContent = new AddMessageFragment();
+                newContent = new SettingsFragment();
                 break;
-
             case 4:
                 newContent = new StaticInfoFragment(ReactrConstants.ABOUT_REACTR);
                 break;

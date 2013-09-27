@@ -44,5 +44,13 @@
     <string name="cancel">Cancel</string>
     <string name="sign_up">Sign Up</string>
 
+    <!--Settings text-->
+    <string name="settings_username">Username</string>
+    <string name="settings_mobile">Mobile #</string>
+    <string name="settings_email">Email</string>
+    <string name="settings_only_friends">Only friends</string>
+    <string name="settings_who_header">Who is allowed to send me photos?</string>
+    <string name="settings_save_button">Save</string>
+
 
 </resources>
