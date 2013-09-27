@@ -2,6 +2,6 @@
 /local.properties
 .idea/workspace.xml
 .DS_Store
-libraries/SlideMenu/build
-libraries/ABS/build
+11libraries/SlideMenu/build
+11libraries/ABS/build
 *.iml
