@@ -88,7 +88,7 @@ public class MainActivity extends SlidingFragmentActivity  {
         //************************************
         String message = getIntent().getStringExtra("message");
         if(message == null)
-            Toast.makeText(getBaseContext(), "BULL", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "NULL", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
 
