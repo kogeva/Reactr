@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:background="@drawable/text_input"
-            android:id="@+id/editText" />
+            android:id="@+id/editUsername" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:background="@drawable/text_input"
-            android:id="@+id/editText2" />
+            android:id="@+id/editPhoneNumber" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:background="@drawable/text_input"
-            android:id="@+id/editText3" />
+            android:id="@+id/editEmail" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
                 android:layout_height="fill_parent"
                 android:textColor="#fff"
                 android:text="@string/settings_only_friends"
-                android:id="@+id/switch1" />
+                android:id="@+id/switchPrivacyMessage" />
         </LinearLayout>
 
         <Button

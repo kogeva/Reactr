@@ -103,6 +103,7 @@ public class ShowMessageFragment extends SherlockFragment{
     private Bitmap downloadImage (String url)
     {
         BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
 
         InputStream image = null;
         Bitmap bmp = null;
@@ -140,12 +141,12 @@ public class ShowMessageFragment extends SherlockFragment{
     private Runnable updateImageView = new Runnable() {
         @Override
         public void run() {
-            photoView.setImageBitmap(RotateBitmap(photo, 90));
+            photoView.setImageBitmap(photo);
             if (reactionPhoto != null)
             {
                 //для округления изображения
                 Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, getActivity().getApplicationContext());
-                reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
+                reactionPhotoView.setImageBitmap(rounded_bm);
             }
 
             //***********************************************
@@ -188,7 +189,9 @@ public class ShowMessageFragment extends SherlockFragment{
     {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
-        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+        Bitmap newBitmap = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+        source.recycle();
+        return newBitmap;
     }
 
     private View.OnClickListener saveToGallery = new View.OnClickListener() {
@@ -238,14 +241,14 @@ public class ShowMessageFragment extends SherlockFragment{
         public void onClick(View view) {
             if(!reaction)
             {
-                photoView.setImageBitmap(RotateBitmap(reactionPhoto, 90));
+                photoView.setImageBitmap(reactionPhoto);
                 Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(photo, Color.WHITE, getActivity().getApplicationContext());
-                reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
+                reactionPhotoView.setImageBitmap(rounded_bm);
             }
             else{
-                photoView.setImageBitmap(RotateBitmap(photo, 90));
+                photoView.setImageBitmap(photo);
                 Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, getActivity().getApplicationContext());
-                reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
+                reactionPhotoView.setImageBitmap(rounded_bm);
             }
             reaction=!reaction;
         }

@@ -36,6 +36,8 @@ public class ReactorApi {
     private static ReactorApi reactorApi;
 
     private final String CHECK_EMAIL_AND_PASSWORD = apiUrl + "/checkUsernameAndEmail/";
+    private final String EDIT_USER_DATA           = apiUrl + "/editUserData/";
+    private final String SET_PRIVACY_MESSAGE      = apiUrl + "/setPrivacyMessage/";
     private final String REGISTRATION             = apiUrl + "/registration/";
     private final String GET_USER_METHOD          = apiUrl + "/getFriends/";
     private final String GET_WHO_ADD_ME           = apiUrl + "/getWhoAddMe/";
@@ -483,6 +485,28 @@ public class ReactorApi {
         }
         try {
             jsonData = new JSONObject(networkManager.sendRequest(READ_MSG, postParams));
+            Boolean result = (jsonData.get("status").equals("success")) ? true : false;
+            return result ;
+
+        } catch (JSONException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+
+        return false;
+    }
+
+    public boolean setPrivacyMessage(boolean state)
+    {
+        postParams = new HashMap<String, ContentBody>();
+        try {
+            postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
+            postParams.put("session_hash", new StringBody(session_token));
+            postParams.put("privacy_message", new StringBody(new Integer(state? 1 : 0).toString()));
+        } catch (UnsupportedEncodingException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+        try {
+            jsonData = new JSONObject(networkManager.sendRequest(SET_PRIVACY_MESSAGE, postParams));
             Boolean result = (jsonData.get("status").equals("success")) ? true : false;
             return result ;
 
