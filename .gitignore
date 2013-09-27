@@ -1,4 +1,7 @@
 .gradle
 /local.properties
-/.idea/workspace.xml
+.idea/workspace.xml
 .DS_Store
+libraries/SlideMenu/build
+libraries/ABS/build
+*.iml

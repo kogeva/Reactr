@@ -70,6 +70,8 @@ public class LoginActivity extends Activity {
                             prefEditor.putInt("user_id", responseJson.getInt("user_id"));
                             prefEditor.putString("session_hash", responseJson.getString("session_hash"));
                             prefEditor.putString("username", responseJson.getString("username"));
+                            prefEditor.putString("phone", responseJson.getString("phone"));
+                            prefEditor.putString("email", email.getText().toString());
                             prefEditor.commit();
                             //********************
                             C2DMessaging.register(LoginActivity.this, "ash@eyepinch.com");

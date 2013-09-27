@@ -1,5 +1,7 @@
 package com.example.reactr.fragments;
 
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,6 +50,8 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.camera_layout, container ,false);
         sfView = (SurfaceView) v.findViewById(R.id.bbyby);
+//        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//        getSherlockActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         shootButton = (ImageButton) v.findViewById(R.id.shootButton);
         switchCamera = (ImageButton) v.findViewById(R.id.toggle_button);
         toggleFlash = (ToggleButton) v.findViewById(R.id.switchCamera);
@@ -74,14 +78,39 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         if(camera == null)
         {
             try {
+
+
                 Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
                 camera = camera.open(currentCamera);
                 Camera.Parameters parameters = camera.getParameters();
-                camera.setDisplayOrientation(90);
+
+                Camera.Size previewSize = camera.getParameters().getPreviewSize();
+                float aspect = (float) previewSize.width / previewSize.height;
+                int previewSurfaceWidth = sfView.getWidth();
+                int previewSurfaceHeight = sfView.getHeight();
+                ViewGroup.LayoutParams lp = sfView.getLayoutParams();
+
+                if (this.getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE)
+                {
+                    // портретный вид
+                    camera.setDisplayOrientation(90);
+                    lp.height = previewSurfaceHeight;
+                    lp.width = (int) (previewSurfaceHeight / aspect);
+                    ;
+                }
+                else
+                {
+                    // ландшафтный
+                    camera.setDisplayOrientation(0);
+                    lp.width = previewSurfaceWidth;
+                    lp.height = (int) (previewSurfaceWidth / aspect);
+                }
+                //camera.setR;
 
                 List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
                 camera.setParameters(parameters);
                 camera.setPreviewDisplay(holder);
+                sfView.setLayoutParams(lp);
                 camera.startPreview();
             }
             catch (IOException e){
