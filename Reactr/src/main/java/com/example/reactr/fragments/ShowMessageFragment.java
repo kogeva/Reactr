@@ -148,7 +148,6 @@ public class ShowMessageFragment extends SherlockFragment{
                 Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, getActivity().getApplicationContext());
                 reactionPhotoView.setImageBitmap(rounded_bm);
             }
-
             //***********************************************
             if((message.getIsRead()==false)&&(message.getFromMe()==false))
             {

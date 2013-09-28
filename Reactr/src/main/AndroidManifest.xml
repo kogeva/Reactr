@@ -34,7 +34,7 @@
 
         <activity android:name=".AnotherActivity" android:exported="false">
             <intent-filter>
-                <data android:scheme="activity-run" android:host="AnotherActivityHost" />
+                <data android:scheme="activity-run" android:host="AnotherActivityHost" android:screenOrientation="portrait"/>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

@@ -33,7 +33,7 @@ public class MainActivity extends SlidingFragmentActivity  {
     private MenuFragment menuFragment;
     private HashMap<String, String> st_info_hm;
     private ImageButton toggleMenuButton;
-
+    private View actionBarView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,12 +84,12 @@ public class MainActivity extends SlidingFragmentActivity  {
 
         toggleMenuButton = (ImageButton) getSupportActionBar().getCustomView().findViewById(R.id.toggleMenu);
         toggleMenuButton.setOnClickListener(toogleMenu);
-
+        ((ImageButton) getSupportActionBar().getCustomView().findViewById(R.id.barItem)).setImageResource(R.drawable.act_bar_make_photo);
         //************************************
         String message = getIntent().getStringExtra("message");
-        if(message == null)
-            Toast.makeText(getBaseContext(), "NULL", Toast.LENGTH_SHORT).show();
-        else
+      /*  if(message == null)
+            Toast.makeText(getBaseContext(), "NULL", Toast.LENGTH_SHORT).show();*/
+        if(message != null)
             Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
 
         String id = C2DMessaging.getRegistrationId(this);

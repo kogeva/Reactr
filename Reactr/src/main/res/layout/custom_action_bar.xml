@@ -9,7 +9,7 @@
     <ImageButton
         android:scaleType="fitXY"
         android:background="@null"
-        android:src="@drawable/rsz_menu_white"
+        android:src="@drawable/to_menu"
         android:id="@+id/toggleMenu"
         android:layout_marginLeft="10dp"
         android:layout_width="35dp"
@@ -35,7 +35,7 @@
         android:background="@null"
         android:id="@+id/barItem"
         android:layout_marginRight="10dp"
-        android:src="@drawable/rsz_camera_mailbox_whight"
+        android:src="@drawable/act_bar_make_photo"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true" />
 </RelativeLayout>

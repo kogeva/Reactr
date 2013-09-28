@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/b_b"
+    >
+    <item android:drawable="@drawable/double_arrow_forward_black"
+        android:state_pressed="true" />
+    <item android:drawable="@drawable/double_arrow_forward_black"
+        android:state_focused="true" />
+    <item android:drawable="@drawable/rsz_arrow_backward_white" />
+</selector>

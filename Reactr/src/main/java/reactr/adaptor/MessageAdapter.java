@@ -66,7 +66,8 @@ public class MessageAdapter extends BaseAdapter {
         //*******
         if(!message.getIsRead()&&!message.getFromMe()){
          //   view.setBackgroundColor(Color.rgb(101, 167, 210));
-            view.setBackgroundColor(Color.LTGRAY);
+          //  view.setBackground(R.drawable.unread);
+            view.setBackgroundResource(R.drawable.unread);
         }
         else{
             view.setBackgroundColor(Color.WHITE);

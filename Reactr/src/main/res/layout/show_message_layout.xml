@@ -61,31 +61,40 @@
                 android:layout_width="60dp"
                 android:layout_height="fill_parent"
                 android:background="#ffeaeaea"
-                android:src="@drawable/x"
+                android:src="@drawable/close_btn"
                 android:id="@+id/closeButton"
                 android:layout_weight="1"
                 android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"/>
+                android:layout_alignParentLeft="true"
+            android:padding="10dp"
+            android:scaleType="fitXY" />
 
         <ImageButton
                 android:layout_width="60dp"
                 android:layout_height="fill_parent"
                 android:background="#ffeaeaea"
-                android:src="@drawable/rsz_download"
+                android:src="@drawable/download_btn"
                 android:id="@+id/downloadPhoto"
                 android:layout_weight="1"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+            android:scaleType="fitXY"
+            android:padding="10dp" />
 
         <ImageButton
+                android:scaleType="fitXY"
                 android:layout_width="100dp"
                 android:layout_height="fill_parent"
                 android:background="#00dcee"
-                android:src="@drawable/rsz_arrow_backward_white"
+                android:src="@drawable/backward_btn"
                 android:id="@+id/replyButton"
                 android:layout_weight="1"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true"
+            android:paddingLeft="15dp"
+            android:paddingTop="8dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="8dp" />
 
     </RelativeLayout>
 

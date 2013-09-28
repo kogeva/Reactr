@@ -21,7 +21,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
-                android:background="@drawable/shoot_button_background"
                 android:src="@drawable/shoot_button"
                 android:text="New"
                 android:id="@+id/shootButton"
@@ -31,14 +30,15 @@
                 android:paddingRight="15dp"
                 android:paddingLeft="15dp"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true"
+                android:background="#00dcee"/>
 
         <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#fff"
                 android:src="@drawable/switch_camera_button"
-                android:padding="0dp"
+                android:padding="15dp"
                 android:layout_margin="0dp"
                 android:text="New Button"
                 android:id="@+id/toggle_button"
@@ -50,7 +50,7 @@
         <ToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="0dp"
+                android:padding="15dp"
                 android:background="@drawable/switch_flash_button"
                 android:layout_margin="0dp"
                 android:textOff=""
