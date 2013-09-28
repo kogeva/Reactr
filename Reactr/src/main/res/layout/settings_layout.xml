@@ -92,7 +92,7 @@
             android:textSize="22dp"
             android:background="@drawable/yellow_btn"
             android:text="@string/settings_save_button"
-            android:id="@+id/button"
+            android:id="@+id/saveButton"
             android:layout_gravity="center"/>
     </LinearLayout>
 

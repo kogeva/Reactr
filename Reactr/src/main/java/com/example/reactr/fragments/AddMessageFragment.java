@@ -44,12 +44,18 @@ public class AddMessageFragment extends SherlockFragment{
     private View actionBarView;
     private Context context;
 
-    public AddMessageFragment(byte[] photo) {
-        this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length), 90);
+    public AddMessageFragment(byte[] photo, int camId) {
+        if (camId == 1)
+            this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length), -90);
+        else
+            this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length), 90);
     }
 
-    public AddMessageFragment(byte[] photo, MessageEntity messageEntity) {
-        this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length), 90);
+    public AddMessageFragment(byte[] photo, MessageEntity messageEntity, int camId) {
+        if(camId == 1)
+            this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length), -90);
+        else
+            this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length), 90);
         this.messageEntity = messageEntity;
     }
 
@@ -164,7 +170,7 @@ public class AddMessageFragment extends SherlockFragment{
             byte[] input = new byte[fis.available()];
             int len = 0;
             while ((len = fis.read(input)) != -1) { byteArray.write(input, 0, len); }
-            return BitmapFactory.decodeByteArray(byteArray.toByteArray(), 0, (byteArray.toByteArray()).length);
+            return RotateBitmap(BitmapFactory.decodeByteArray(byteArray.toByteArray(), 0, (byteArray.toByteArray()).length), -90);
         } catch (IOException e) {
             e.printStackTrace();
         }

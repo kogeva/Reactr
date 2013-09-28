@@ -50,8 +50,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.camera_layout, container ,false);
         sfView = (SurfaceView) v.findViewById(R.id.bbyby);
-//        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-//        getSherlockActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         shootButton = (ImageButton) v.findViewById(R.id.shootButton);
         switchCamera = (ImageButton) v.findViewById(R.id.toggle_button);
         toggleFlash = (ToggleButton) v.findViewById(R.id.switchCamera);
@@ -162,9 +160,9 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                 Log.d("CAMERA", e.getMessage());
             }
             if (messageEntity == null)
-                ReactrBase.switchFraagment(getSherlockActivity(), new AddMessageFragment(data));
+                ReactrBase.switchFraagment(getSherlockActivity(), new AddMessageFragment(data, currentCamera));
             else
-                ReactrBase.switchFraagment(getSherlockActivity(), new AddMessageFragment(data, messageEntity));
+                ReactrBase.switchFraagment(getSherlockActivity(), new AddMessageFragment(data, messageEntity, currentCamera));
 
         }
     };

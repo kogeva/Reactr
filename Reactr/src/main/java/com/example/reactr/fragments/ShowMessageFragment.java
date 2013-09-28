@@ -84,8 +84,12 @@ public class ShowMessageFragment extends SherlockFragment{
 
         if(!message.getIsRead())
             ph = new TakePhotoWithoutPreview(getSherlockActivity(), surfaceView);
+        if (message.getText().length() == 0)
+            text.setVisibility(View.INVISIBLE);
+        else
+            text.setVisibility(View.VISIBLE);
+
         text.setText(message.getText());
-        long memory = Runtime.getRuntime().maxMemory();
 
         new Thread(new Runnable() {
             @Override
@@ -220,7 +224,7 @@ public class ShowMessageFragment extends SherlockFragment{
                         MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), reactionPhoto, str, "description");
                     }
                     if(which==2||(which==1&&reactionPhoto==null)){
-                    dialog.cancel();
+                        dialog.cancel();
                     }
                 }
             });
