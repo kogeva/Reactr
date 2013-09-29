@@ -24,6 +24,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="60dp"
+            android:editable="false"
             android:background="@drawable/text_input"
             android:id="@+id/editUsername" />
 
@@ -40,6 +41,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="60dp"
+            android:singleLine="true"
             android:background="@drawable/text_input"
             android:id="@+id/editPhoneNumber" />
 
@@ -56,6 +58,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="60dp"
+            android:singleLine="true"
             android:background="@drawable/text_input"
             android:id="@+id/editEmail" />
 
