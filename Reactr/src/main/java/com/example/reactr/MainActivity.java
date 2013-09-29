@@ -86,9 +86,9 @@ public class MainActivity extends SlidingFragmentActivity  {
         toggleMenuButton.setOnClickListener(toogleMenu);
 
         String message = getIntent().getStringExtra("message");
-        if(message == null)
-            Toast.makeText(getBaseContext(), "NULL", Toast.LENGTH_SHORT).show();
-        else
+    //    if(message == null)
+   //         Toast.makeText(getBaseContext(), "NULL", Toast.LENGTH_SHORT).show();
+        if(message != null)
             Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
 
         String id = C2DMessaging.getRegistrationId(this);

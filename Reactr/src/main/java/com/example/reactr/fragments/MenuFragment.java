@@ -37,7 +37,7 @@ public class MenuFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
-        menuItems.add(new MenuItem("Send Photo", "0", 0));
+        menuItems.add(new MenuItem("Take Photo", "0", 0));
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -98,6 +98,8 @@ public class MenuFragment extends ListFragment {
         ((MainActivity) getActivity()).toggle();
         if(newContent != null)
             switchFraagment(newContent);
+        st_m_adptr.setSelect(position);
+        setListAdapter(st_m_adptr);
     }
 
     private void switchFraagment(Fragment fragment)

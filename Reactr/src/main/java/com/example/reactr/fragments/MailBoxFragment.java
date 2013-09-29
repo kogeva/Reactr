@@ -58,7 +58,7 @@ public class MailBoxFragment extends SherlockFragment {
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("MAILBOX");
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.VISIBLE);
-        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.rsz_camera_mailbox_whight);
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.act_bar_make_photo);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToTakePhoto);
 
         return view;

@@ -12,10 +12,11 @@
         android:src="@drawable/to_menu"
         android:id="@+id/toggleMenu"
         android:layout_marginLeft="10dp"
-        android:layout_width="35dp"
-        android:layout_height="25dp"
+        android:layout_width="29dp"
+        android:layout_height="22dp"
         android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="false" />
 
     <TextView
         android:layout_width="wrap_content"

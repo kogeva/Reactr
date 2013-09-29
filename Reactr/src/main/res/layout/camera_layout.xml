@@ -25,41 +25,51 @@
                 android:text="New"
                 android:id="@+id/shootButton"
                 android:layout_gravity="center|bottom"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:paddingRight="15dp"
-                android:paddingLeft="15dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingRight="17dp"
+                android:paddingLeft="17dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:background="#00dcee"/>
+                android:background="#00dcee"
+                android:scaleType="fitXY"/>
 
         <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#fff"
                 android:src="@drawable/switch_camera_button"
-                android:padding="15dp"
-                android:layout_margin="0dp"
+            android:layout_margin="0dp"
                 android:text="New Button"
                 android:id="@+id/toggle_button"
                 android:layout_weight="1"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+                android:scaleType="fitXY"
+            android:paddingLeft="44dp"
+            android:paddingTop="8dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="8dp" />
 
         <ToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:background="@drawable/switch_flash_button"
-                android:layout_margin="0dp"
-                android:textOff=""
+                 android:background="@drawable/switch_flash_button"
+            android:textOff=""
                 android:textOn=""
                 android:id="@+id/switchCamera"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_alignTop="@+id/toggle_button"
-                android:layout_alignParentLeft="true"/>
+                android:layout_alignParentLeft="true"
+                android:scaleType="fitXY"
+            android:padding="0dp"
+            android:layout_alignParentEnd="false"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="8dp" />
 
     </RelativeLayout>
 

@@ -2,13 +2,16 @@ package com.example.reactr.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Point;
 import android.hardware.Camera;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.format.Time;
@@ -30,8 +33,13 @@ import com.example.reactr.R;
 import com.example.reactr.ReactrBase;
 import com.example.reactr.reactr.models.MessageEntity;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -216,12 +224,12 @@ public class ShowMessageFragment extends SherlockFragment{
                     now.setToNow();
                     String str="IMG_"+now.year+"_"+now.month+"."+now.monthDay+"_"+now.hour+":"+now.minute+":"+now.second;
                     if(which==0){
-                        Toast.makeText(getActivity().getBaseContext(), "Saved photo to GALLERY as "+str, Toast.LENGTH_SHORT).show();
-                        MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), photo, str, "description");
+                        savePhotoToMyFolder(str, photo);
+                  //    MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), photo, str, "description");
                     }
                     if(which==1&&reactionPhoto!=null){
-                        Toast.makeText(getActivity().getBaseContext(), "Saved reaction to GALLERY as "+str, Toast.LENGTH_SHORT).show();
-                        MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), reactionPhoto, str, "description");
+                        savePhotoToMyFolder(str, reactionPhoto);
+                   //   MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), reactionPhoto, str, "description");
                     }
                     if(which==2||(which==1&&reactionPhoto==null)){
                         dialog.cancel();
@@ -256,4 +264,42 @@ public class ShowMessageFragment extends SherlockFragment{
             reaction=!reaction;
         }
     };
+
+
+    private void savePhotoToMyFolder (String filename, Bitmap bitmap)
+    {
+        String fullPath=Environment
+                .getExternalStorageDirectory()
+                + File.separator
+                + "/Reactor/";
+        File dir = new File(fullPath);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        File image = new File(fullPath, filename+".png");
+        boolean success = false;
+        // Encode the file as a PNG image.
+        FileOutputStream outStream;
+        try {
+            outStream = new FileOutputStream(image);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+            success = true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (success) {
+            Toast.makeText(getActivity().getApplicationContext(), "Saved to " + fullPath + filename + ".png",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(),
+                    "Error during image saving", Toast.LENGTH_LONG).show();
+        }
+
+    }
+
 }

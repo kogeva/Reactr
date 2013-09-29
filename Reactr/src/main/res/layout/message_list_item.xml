@@ -13,12 +13,14 @@
         android:orientation="horizontal">
 
     <ImageView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+
             android:src="@drawable/rsz_arrow_forward_black"
             android:id="@+id/typeMessage"
             android:paddingTop="8dp"
-            />
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="fitXY"
+        android:layout_marginTop="15dp" />
 
     <LinearLayout
             android:layout_width="wrap_content"
@@ -33,24 +35,23 @@
                 android:text="Bryan Gilpin"
                 android:id="@+id/userText"
                 android:textSize="24sp"
-                />
+            android:layout_marginTop="9dp" />
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textColor="#999999"
+            android:textColor="#999999"
                 android:text="New Text"
                 android:id="@+id/date"
                 android:textSize="16sp"
-                />
+            android:layout_marginBottom="10dp" />
 
     </LinearLayout>
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="10dp"
             android:textStyle="bold"
             android:shadowDy="-1"
             android:shadowRadius="1"
@@ -65,6 +66,7 @@
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:shadowColor="#ff353232"
-            android:paddingRight="11dp"/>
+            android:paddingRight="11dp"
+        android:layout_marginTop="5dp" />
 
 </LinearLayout>
