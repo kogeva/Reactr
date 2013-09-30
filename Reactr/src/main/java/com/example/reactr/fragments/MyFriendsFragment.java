@@ -29,6 +29,7 @@ import java.util.HashMap;
 
 import reactr.adaptor.MyFrendsAdapter;
 import reactr.network.ReactorApi;
+import reactr.utils.FriendsDBManager;
 
 public class MyFriendsFragment extends SherlockFragment {
 
@@ -46,6 +47,8 @@ public class MyFriendsFragment extends SherlockFragment {
         View view = (View) inflater.inflate(R.layout.my_friends_layout, container, false);
         myFriendList = (ListView) view.findViewById(R.id.my_friends_list);
         searchText = (EditText) view.findViewById(R.id.editText);
+
+
 
         searchText.setOnFocusChangeListener( new MyFocusChangeListener());
         searchText.addTextChangedListener(new MyTextWatcher());
@@ -67,7 +70,9 @@ public class MyFriendsFragment extends SherlockFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                friends = ReactrBase.addInFriendContactName(api.getFriends(), contacts);
+                FriendsDBManager friendsDBManager = new FriendsDBManager(getSherlockActivity());
+
+                friends = ReactrBase.addInFriendContactName(api.getFriends(), contacts, friendsDBManager);
                 myFrendsAdapter = new MyFrendsAdapter(getActivity(), friends);
                 mainHandler.post(updateFrendlist);
             }

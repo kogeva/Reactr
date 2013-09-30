@@ -31,6 +31,7 @@ import reactr.adaptor.ContactsListAdaptor;
 import reactr.adaptor.FriendsAddedAdapter;
 import reactr.adaptor.SearchFriendAdapter;
 import reactr.network.ReactorApi;
+import reactr.utils.FriendsDBManager;
 
 
 public class FriendsFragment extends SherlockFragment {
@@ -92,8 +93,8 @@ public class FriendsFragment extends SherlockFragment {
 
                 contactsListAdaptor = new ContactsListAdaptor(getSherlockActivity(), contactUserGroups, api);
 
-                friendCollection = ReactrBase.addInFriendContactName(myFriends, contacts);
-                whoAddMe = ReactrBase.addInFriendContactName(api.getWhoAddMe(), contacts);
+                friendCollection = ReactrBase.addInFriendContactName(myFriends, contacts, new FriendsDBManager(getSherlockActivity()));
+                whoAddMe = ReactrBase.addInFriendContactName(api.getWhoAddMe(), contacts , new FriendsDBManager(getSherlockActivity()));
                 whoAddMe = ReactrBase.mergeWhoAddMe(whoAddMe, friendCollection);
                 friendsAddedAdapter = new FriendsAddedAdapter(getActivity(), whoAddMe);
                 uiHandler.post(updateFriendList);
@@ -143,7 +144,6 @@ public class FriendsFragment extends SherlockFragment {
     Runnable searchFriends = new Runnable() {
         @Override
         public void run() {
-        //    searchFriendsCollection = api.searchFriends(searchEditText.getText().toString());
             searchFriendsCollection = api.searchFriendsWithoutMe(searchEditText.getText().toString(), ((MainActivity)getActivity()).getUsername());
             searchFriendAdapter = new SearchFriendAdapter(getSherlockActivity(),searchFriendsCollection, api);
             uiHandler.post(updateSearchFrendList);
