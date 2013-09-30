@@ -76,6 +76,8 @@ public class LoginActivity extends Activity {
                             prefEditor.commit();
                             //********************
                             C2DMessaging.register(LoginActivity.this, "ash@eyepinch.com");
+
+
                             //********************
                         }
                             handler.post(checkUserDone);

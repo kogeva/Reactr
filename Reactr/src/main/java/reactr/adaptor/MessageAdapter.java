@@ -3,6 +3,7 @@ package reactr.adaptor;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -103,6 +104,9 @@ public class MessageAdapter extends BaseAdapter {
                 ReactrBase.switchFraagment((SherlockFragmentActivity) ctx, new ShowMessageFragment(message));
             }
         });
+
+        view.setOnTouchListener(myOnToucListener);
+        view.setOnFocusChangeListener(myOnFocusChangeListener);
         return  view;
     }
 
@@ -143,5 +147,23 @@ public class MessageAdapter extends BaseAdapter {
         return toReturn;
     }
 
+    //*******
+    View.OnTouchListener myOnToucListener = new View.OnTouchListener() {
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            v.setBackgroundResource(R.drawable.unread);
+            return false;
+        }
+    };
+    View.OnFocusChangeListener myOnFocusChangeListener = new View.OnFocusChangeListener() {
+
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if(!hasFocus){
+                v.setBackgroundColor(Color.WHITE);
+            }
+        }
+    };
 
 }

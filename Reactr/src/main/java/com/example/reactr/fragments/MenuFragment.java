@@ -114,6 +114,14 @@ public class MenuFragment extends ListFragment {
     }
     public void updateMenu() {
         MenuItem mi = (MenuItem)st_m_adptr.getItem(1);
+
+        Integer mes = ((MainActivity) getActivity()).getReactorApi().countOfnewMessages();
+        mi.setCountNewMessage(String.valueOf(mes));
+        setListAdapter(st_m_adptr);
+    }
+
+    private void updateMenuColor(int i) {
+        MenuItem mi = (MenuItem)st_m_adptr.getItem(i);
         Integer mes = ((MainActivity) getActivity()).getReactorApi().countOfnewMessages();
         mi.setCountNewMessage(String.valueOf(mes));
         setListAdapter(st_m_adptr);

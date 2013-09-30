@@ -3,6 +3,7 @@ package reactr.adaptor;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -64,6 +65,8 @@ public class MenuAdapter extends BaseAdapter {
      if(position==select_position){
          view.setBackgroundResource(R.drawable.menu_item_clicked);
      }
+        view.setOnTouchListener(myOnTouchListener);
+        view.setOnFocusChangeListener(myOnFocusChangeListener);
         return view;
     }
 
@@ -75,4 +78,42 @@ public class MenuAdapter extends BaseAdapter {
     public void setSelect(int position){
         select_position=position;
     }
+    View.OnTouchListener myOnTouchListener = new View.OnTouchListener() {
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction())
+            {
+                case MotionEvent.ACTION_OUTSIDE: // gets called
+                {
+                    ((TextView) v.findViewById(R.id.menuNameText)).setTextColor(Color.BLACK);
+                    break;
+                }
+                case MotionEvent.ACTION_CANCEL: // doesnt seem to do anything
+                {
+                    ((TextView) v.findViewById(R.id.menuNameText)).setTextColor(Color.RED);
+                    break;
+                }
+                case MotionEvent.ACTION_HOVER_MOVE: // doesnt seem to do anything
+                {
+                    ((TextView) v.findViewById(R.id.menuNameText)).setTextColor(Color.BLUE);
+                    break;
+                }
+            }
+
+                ((TextView) v.findViewById(R.id.menuNameText)).setTextColor(Color.WHITE);
+            return false;
+        }
+    };
+    View.OnFocusChangeListener myOnFocusChangeListener = new View.OnFocusChangeListener() {
+
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+           if(!hasFocus){
+               ((TextView) v.findViewById(R.id.menuNameText)).setTextColor(Color.BLACK);
+           }
+        }
+    };
+
+
 }

@@ -35,7 +35,7 @@
                 android:scaleType="fitXY"/>
 
         <ImageButton
-                android:layout_width="wrap_content"
+                android:layout_width="85dp"
                 android:layout_height="wrap_content"
                 android:background="#fff"
                 android:src="@drawable/switch_camera_button"
@@ -47,13 +47,13 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:scaleType="fitXY"
-            android:paddingLeft="44dp"
-            android:paddingTop="8dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="8dp" />
+            android:paddingLeft="14dp"
+            android:paddingTop="12dp"
+            android:paddingRight="14dp"
+            android:paddingBottom="12dp" />
 
         <ToggleButton
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                  android:background="@drawable/switch_flash_button"
             android:textOff=""
@@ -66,10 +66,10 @@
                 android:scaleType="fitXY"
             android:padding="0dp"
             android:layout_alignParentEnd="false"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginTop="11dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginBottom="11dp" />
 
     </RelativeLayout>
 

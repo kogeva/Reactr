@@ -79,6 +79,7 @@ public class MainActivity extends SlidingFragmentActivity  {
                 inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
                 }
+          //     updateMenu();
             }
         });
 
@@ -120,6 +121,7 @@ public class MainActivity extends SlidingFragmentActivity  {
     View.OnClickListener toogleMenu = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+       //  updateMenu();
             toggle();
         }
     };
@@ -173,7 +175,7 @@ public class MainActivity extends SlidingFragmentActivity  {
     }
     public void loadStInfo()
     {
-        st_info_hm= reactorApi.loadStInfo();
+        st_info_hm = reactorApi.loadStInfo();
     }
     public void updateMenu()
     {

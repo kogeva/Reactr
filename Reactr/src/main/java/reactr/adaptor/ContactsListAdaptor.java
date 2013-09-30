@@ -111,7 +111,7 @@ public class ContactsListAdaptor extends BaseExpandableListAdapter {
         if(groupePosition == 0)
         {
             ImageButton button = (ImageButton) view.findViewById(R.id.actionButton);
-            button.setImageResource(R.drawable.rsz_add_friend_gray);
+            button.setImageResource(R.drawable.add_friend);
         }
 
         actionButton.setOnClickListener(new View.OnClickListener() {

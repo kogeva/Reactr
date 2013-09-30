@@ -56,6 +56,9 @@ public class MyFriendsFragment extends SherlockFragment {
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.add_friend_btn);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToAddFriendClick);
 
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.to_menu);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setPadding(10, 14, 43, 14);
+
         setHasOptionsMenu(true);
         mainHandler = new Handler();
         contacts = ReactrBase.getContacts(getActivity());

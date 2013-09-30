@@ -63,7 +63,7 @@ public class ShowMessageFragment extends SherlockFragment{
     private TakePhotoWithoutPreview ph;
     private TextView text;
     private boolean reaction=false;
-
+    private View actionBarView;
     public ShowMessageFragment(MessageEntity message) {
         this.message = message;
     }
@@ -108,6 +108,11 @@ public class ShowMessageFragment extends SherlockFragment{
                 handler.post(updateImageView);
             }
         }).start();
+
+        actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.to_menu);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setPadding(10, 14, 43, 14);
 
         return view;
     }
@@ -224,12 +229,10 @@ public class ShowMessageFragment extends SherlockFragment{
                     now.setToNow();
                     String str="IMG_"+now.year+"_"+now.month+"."+now.monthDay+"_"+now.hour+":"+now.minute+":"+now.second;
                     if(which==0){
-                        savePhotoToMyFolder(str, photo);
-                  //    MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), photo, str, "description");
+                        savePhotoToMyAlbum(str, photo);
                     }
                     if(which==1&&reactionPhoto!=null){
-                        savePhotoToMyFolder(str, reactionPhoto);
-                   //   MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), reactionPhoto, str, "description");
+                        savePhotoToMyAlbum(str, reactionPhoto);
                     }
                     if(which==2||(which==1&&reactionPhoto==null)){
                         dialog.cancel();
@@ -266,17 +269,16 @@ public class ShowMessageFragment extends SherlockFragment{
     };
 
 
-    private void savePhotoToMyFolder (String filename, Bitmap bitmap)
+    private void savePhotoToMyAlbum (String filename, Bitmap bitmap)
     {
         String fullPath=Environment
-                .getExternalStorageDirectory()
-                + File.separator
+                .getExternalStorageDirectory() + File.separator+Environment.DIRECTORY_DCIM
                 + "/Reactor/";
         File dir = new File(fullPath);
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        File image = new File(fullPath, filename+".png");
+        File image = new File(fullPath, filename+".jpg");
         boolean success = false;
         // Encode the file as a PNG image.
         FileOutputStream outStream;
@@ -293,13 +295,20 @@ public class ShowMessageFragment extends SherlockFragment{
         }
 
         if (success) {
-            Toast.makeText(getActivity().getApplicationContext(), "Saved to " + fullPath + filename + ".png",
+            Toast.makeText(getActivity().getApplicationContext(), "Image saved",
                     Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(getActivity().getApplicationContext(),
                     "Error during image saving", Toast.LENGTH_LONG).show();
         }
-
+        //*******************************************
+        Intent mediaScanIntent = new Intent(
+                Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        String currentPath = fullPath+File.separator+filename+".jpg";
+        File f = new File(currentPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        getActivity().sendBroadcast(mediaScanIntent);
     }
 
-}
+    }
