@@ -38,7 +38,7 @@ public class MainActivity extends SlidingFragmentActivity  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        TestFlight.takeOff(getApplication(), "3f105bbc-e217-4c64-b4cd-2d43e1c22971");
+        TestFlight.takeOff(getApplication(), "fe4948e0-fb42-43a0-af7d-ab6cc9869984");
         st_info_hm = new HashMap<String, String>();
         menuFragment = new MenuFragment();
 
@@ -79,7 +79,6 @@ public class MainActivity extends SlidingFragmentActivity  {
                 inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
                 }
-          //     updateMenu();
             }
         });
 
@@ -87,13 +86,11 @@ public class MainActivity extends SlidingFragmentActivity  {
         toggleMenuButton.setOnClickListener(toogleMenu);
 
         String message = getIntent().getStringExtra("message");
-    //    if(message == null)
-   //         Toast.makeText(getBaseContext(), "NULL", Toast.LENGTH_SHORT).show();
         if(message != null)
             Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
 
         String id = C2DMessaging.getRegistrationId(this);
-        if(id == "")
+        if(id.length() == 0)
         {
             C2DMessaging.register(this, "ash@eyepinch.com");
         }
@@ -118,10 +115,9 @@ public class MainActivity extends SlidingFragmentActivity  {
         return true;
     }
 
-    View.OnClickListener toogleMenu = new View.OnClickListener() {
+    public View.OnClickListener toogleMenu = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-       //  updateMenu();
             toggle();
         }
     };
@@ -143,8 +139,12 @@ public class MainActivity extends SlidingFragmentActivity  {
 
     public void setAppSettings(String field, String value)
     {
+        if(preferences == null)
+            preferences = getSharedPreferences("reactrPrefer", MODE_PRIVATE);
+
         editorSettings = preferences.edit();
         editorSettings.putString(field, value);
+        editorSettings.commit();
     }
 
     public String getEmail()

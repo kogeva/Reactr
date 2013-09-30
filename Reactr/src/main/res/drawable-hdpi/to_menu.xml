@@ -6,5 +6,5 @@
         android:state_pressed="true" />
     <item android:drawable="@drawable/menu_black"
         android:state_focused="true" />
-    <item android:drawable="@drawable/rsz_menu_white" />
+    <item android:drawable="@drawable/menu_white" />
 </selector>

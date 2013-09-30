@@ -11,15 +11,14 @@
         android:background="@null"
         android:src="@drawable/to_menu"
         android:id="@+id/toggleMenu"
-        android:layout_width="85dp"
+        android:layout_width="30dp"
         android:layout_height="50dp"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="false"
-        android:paddingLeft="10dp"
         android:paddingTop="14dp"
-        android:paddingRight="43dp"
-        android:paddingBottom="14dp" />
+        android:paddingBottom="14dp"
+        android:layout_marginLeft="10dp" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -61,9 +61,6 @@ public class MailBoxFragment extends SherlockFragment {
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.VISIBLE);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.act_bar_make_photo);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToTakePhoto);
-        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.to_menu);
-        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setPadding(10, 14, 43, 14);
-        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setScaleType(ImageView.ScaleType.FIT_XY);
 
         return view;
     }

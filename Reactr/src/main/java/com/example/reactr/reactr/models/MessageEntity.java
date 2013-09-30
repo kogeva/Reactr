@@ -14,6 +14,7 @@ public class MessageEntity {
     private Boolean fromMe;
     private Boolean isRead;
     private String username;
+    private String toUsername;
 
     public MessageEntity() {
     }
@@ -27,7 +28,9 @@ public class MessageEntity {
             String reactionPhoto,
             String createdAt,
             Boolean fromMe,
-            Boolean isRead
+            Boolean isRead,
+            String username,
+            String toUsername
     ) {
         this.id = id;
         this.from_user = from_user;
@@ -38,6 +41,9 @@ public class MessageEntity {
         this.createdAt = createdAt;
         this.fromMe = fromMe;
         this.isRead = isRead;
+        this.username = username;
+        this.toUsername = toUsername;
+
     }
 
     public int getId() {
@@ -114,6 +120,14 @@ public class MessageEntity {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getToUsername() {
+        return toUsername;
+    }
+
+    public void setToUsername(String toUsername) {
+        this.toUsername = toUsername;
     }
 
     public void setUsernameWithFriends(ArrayList<FriendEntity> friends)

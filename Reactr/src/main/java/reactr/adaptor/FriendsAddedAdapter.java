@@ -21,7 +21,7 @@ import reactr.network.ReactorApi;
 
 public class FriendsAddedAdapter extends BaseAdapter {
 
-    private ArrayList<FriendEntity> friendCollection;
+    protected ArrayList<FriendEntity> friendCollection;
     private ReactorApi reactorApi;
     private Context context;
     protected LayoutInflater inflater;

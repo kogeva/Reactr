@@ -42,6 +42,8 @@ public class ReactorApi {
     private final String GET_USER_METHOD          = apiUrl + "/getFriends/";
     private final String GET_WHO_ADD_ME           = apiUrl + "/getWhoAddMe/";
     private final String ADD_FRIEND               = apiUrl + "/addFriend/";
+    private final String BLOCK_FRIEND             = apiUrl + "/blockFriend/";
+    private final String DELETE_FRIEND            = apiUrl + "/deleteFriend/";
     private final String USER_IN_SYSTEM           = apiUrl + "/checkUserInSystem/";
     private final String SEARCH_FRIEND            = apiUrl + "/searchFriends/";
     private final String SEND_MESSAGES            = apiUrl + "/sendMessages/";
@@ -408,7 +410,9 @@ public class ReactorApi {
                             messageJson.getString("reaction_photo"),
                             messageJson.getJSONObject("created_at").getString("date"),
                             messageJson.getBoolean("from_me"),
-                            (!messageJson.getString("is_read").equals("null")) ? messageJson.getBoolean("is_read") : false
+                            (!messageJson.getString("is_read").equals("null")) ? messageJson.getBoolean("is_read") : false,
+                            messageJson.getString("username"),
+                            messageJson.getString("to_username")
 
                     );
                     messageArray.add(i, messageEntity);
@@ -547,5 +551,26 @@ public class ReactorApi {
             Log.d("Reactor API: ", exp.getMessage());
         }
         return null;
+    }
+
+    public Boolean deleteFriend(Integer friendId)
+    {
+        postParams = new HashMap<String, ContentBody>();
+        try {
+            postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
+            postParams.put("session_hash", new StringBody(session_token));
+            postParams.put("friend_id", new StringBody(friendId.toString()));
+        } catch (UnsupportedEncodingException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+        try {
+            jsonData = new JSONObject(networkManager.sendRequest(DELETE_FRIEND, postParams));
+            Boolean result = (jsonData.get("status").equals("sucess")) ? true : false;
+            return result ;
+
+        } catch (JSONException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+        return false;
     }
 }

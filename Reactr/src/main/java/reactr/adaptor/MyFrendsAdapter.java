@@ -4,17 +4,20 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.reactr.MainActivity;
 import com.example.reactr.R;
 import com.example.reactr.reactr.models.FriendEntity;
 
 import java.util.ArrayList;
 
+import reactr.network.ReactorApi;
 import reactr.utils.FriendsDBManager;
 
 public class MyFrendsAdapter extends FriendsAddedAdapter {
@@ -24,6 +27,7 @@ public class MyFrendsAdapter extends FriendsAddedAdapter {
     private Context context;
     private CharSequence[] itemsContextMenu = {"Edit Name", "Delete", "Block", "Cancel"};
     private MyFrendsAdapter myFrendsAdapter;
+    private ReactorApi reactorApi;
 
     public MyFrendsAdapter(Context ctx, ArrayList<FriendEntity> friendCollection) {
         super(ctx, friendCollection);
@@ -61,6 +65,10 @@ public class MyFrendsAdapter extends FriendsAddedAdapter {
                             case 0:
                                 showEditFriendDialog(position, view);
                                 break;
+                            case 1:
+                                deleteFriend(friendEntity.getId(), view, position);
+                                break;
+
                         }
                     }
                 });
@@ -94,5 +102,36 @@ public class MyFrendsAdapter extends FriendsAddedAdapter {
             }
         });
         editUserDialog.show();
+    }
+
+    private void deleteFriend(int friendId, final View elementView, final int position)
+    {
+        class DeleteFriendAsyncTask extends AsyncTask<Integer, Integer, Boolean>
+        {
+
+            @Override
+            protected Boolean doInBackground(Integer... ints) {
+                if(reactorApi == null)
+                    reactorApi = ((MainActivity) context).getReactorApi();
+
+                return reactorApi.deleteFriend(ints[0]);
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                if (result)
+                {
+                    removeFromCollection(position);
+                }
+            }
+        }
+
+        new DeleteFriendAsyncTask().execute(friendId);
+    }
+
+    private void removeFromCollection (int position)
+    {
+        friendCollection.remove(position);
+        this.notifyDataSetChanged();
     }
 }

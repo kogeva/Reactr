@@ -84,7 +84,7 @@ public class MessageAdapter extends BaseAdapter {
         message.setUsernameWithFriends(friends);
 
         if(message.getFromMe()){
-            user.setText(MainActivity.getUsername());
+            user.setText(message.getUsername());
             typeMessage.setImageResource(R.drawable.rsz_arrow_forward_black);
         }
         else {
