@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/b_b"
+    >
+    <item android:drawable="@drawable/add_friend_red"
+        android:state_pressed="true" />
+    <item android:drawable="@drawable/add_friend_red"
+        android:state_focused="true" />
+    <item android:drawable="@drawable/rsz_add_friend_gray" />
+</selector>

@@ -53,8 +53,11 @@ public class MyFriendsFragment extends SherlockFragment {
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("FRIENDS");
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.VISIBLE);
-        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.rsz_add_friend_white);
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.add_friend_btn);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToAddFriendClick);
+
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.to_menu);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setPadding(10, 14, 43, 14);
 
         setHasOptionsMenu(true);
         mainHandler = new Handler();

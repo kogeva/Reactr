@@ -516,4 +516,36 @@ public class ReactorApi {
 
         return false;
     }
+
+    public ArrayList<String> editUserData (String phone, String email)
+    {
+        ArrayList<String> errors = new ArrayList<String>();
+        postParams = new HashMap<String, ContentBody>();
+
+        try {
+            postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
+            postParams.put("session_hash", new StringBody(session_token));
+            if(phone != null)
+                postParams.put("phone", new StringBody(phone));
+            if(email != null)
+                postParams.put("email", new StringBody(email));
+        } catch (UnsupportedEncodingException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+        try {
+            jsonData = new JSONObject(networkManager.sendRequest(EDIT_USER_DATA, postParams));
+
+            if(jsonData.get("status").equals("failed"))
+            {
+                for (int i = 0; i < jsonData.getJSONArray("errors").length(); i++)
+                {
+                    errors.add((String) jsonData.getJSONArray("errors").get(i));
+                }
+            }
+            return errors;
+        } catch (JSONException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+        return null;
+    }
 }

@@ -5,8 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.example.reactr.MainActivity;
@@ -41,13 +42,20 @@ public class AddMessageFragment extends SherlockFragment{
     private ReactorApi reactorApi;
     private ImageView reactionPhoto;
     private View actionBarView;
+    private Context context;
 
-    public AddMessageFragment(byte[] photo) {
-        this.photo = BitmapFactory.decodeByteArray(photo, 0, photo.length);
+    public AddMessageFragment(byte[] photo, int camId) {
+        if (camId == 1)
+            this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length), -90);
+        else
+            this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length), 90);
     }
 
-    public AddMessageFragment(byte[] photo, MessageEntity messageEntity) {
-        this.photo = BitmapFactory.decodeByteArray(photo, 0, photo.length);
+    public AddMessageFragment(byte[] photo, MessageEntity messageEntity, int camId) {
+        if(camId == 1)
+            this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length), -90);
+        else
+            this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length), 90);
         this.messageEntity = messageEntity;
     }
 
@@ -55,6 +63,7 @@ public class AddMessageFragment extends SherlockFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = (View) inflater.inflate(R.layout.add_message_layout, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
+        context = getSherlockActivity();
         ImageButton sendPhotoButton = (ImageButton) view.findViewById(R.id.sendPhoto);
         addText = (ImageButton) view.findViewById(R.id.addText);
         closePhotoPreview = (ImageButton) view.findViewById(R.id.closePhotoPreview);
@@ -63,12 +72,13 @@ public class AddMessageFragment extends SherlockFragment{
 
         if (messageEntity != null && getReactionPhotoFromStorage(messageEntity.getId()) != null)
         {
-            Bitmap toReactionPhoto = RotateBitmap(getReactionPhotoFromStorage(messageEntity.getId()), -90);
+            Bitmap toReactionPhoto = getReactionPhotoFromStorage(messageEntity.getId());
             toReactionPhoto = ImageHelper.getRoundedCornerBitmap(toReactionPhoto, Color.WHITE, getActivity().getApplicationContext());
             reactionPhoto.setImageBitmap(toReactionPhoto);
         }
 
-        imageView.setImageBitmap(RotateBitmap(photo, 90));
+
+        imageView.setImageBitmap(photo);
         sendPhotoButton.setOnClickListener(sendPhotoClick);
         closePhotoPreview.setOnClickListener(closePhotoPreviewClick);
         addText.setOnClickListener(addTextClick);
@@ -99,12 +109,12 @@ public class AddMessageFragment extends SherlockFragment{
                     public void run() {
                         Bitmap reaction = null;
                         if(getReactionPhotoFromStorage(messageEntity.getId()) != null)
-                            reaction = RotateBitmap(getReactionPhotoFromStorage(messageEntity.getId()), 180);
+                            reaction = getReactionPhotoFromStorage(messageEntity.getId());
                         ((MainActivity)getSherlockActivity()).getReactorApi()
                                 .sendMessages(
                                         new Integer(messageEntity.getFrom_user()).toString(),
                                         text.getText().toString(),
-                                        RotateBitmap(photo, 90),
+                                        photo,
                                         reaction
                                 );
                         ReactrBase.hideLoader();
@@ -160,7 +170,7 @@ public class AddMessageFragment extends SherlockFragment{
             byte[] input = new byte[fis.available()];
             int len = 0;
             while ((len = fis.read(input)) != -1) { byteArray.write(input, 0, len); }
-            return BitmapFactory.decodeByteArray(byteArray.toByteArray(), 0, (byteArray.toByteArray()).length);
+            return RotateBitmap(BitmapFactory.decodeByteArray(byteArray.toByteArray(), 0, (byteArray.toByteArray()).length), -90);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -168,11 +178,13 @@ public class AddMessageFragment extends SherlockFragment{
         return null;
     }
 
-    public static Bitmap RotateBitmap(Bitmap source, float angle)
+    public  Bitmap RotateBitmap(Bitmap source, float angle)
     {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
-        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+        Bitmap newBitmap = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+        source.recycle();
+        return newBitmap;
     }
     private class MyFocusChangeListener implements View.OnFocusChangeListener {
 

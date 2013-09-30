@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -21,6 +23,7 @@ import com.example.reactr.MainActivity;
 import com.example.reactr.R;
 import com.example.reactr.reactr.models.FriendEntity;
 import com.example.reactr.reactr.models.MessageEntity;
+import com.example.reactr.reactr.models.ReactrConstants;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
@@ -28,6 +31,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import reactr.adaptor.MessageAdapter;
 import reactr.network.ReactorApi;
@@ -46,13 +50,20 @@ public class StaticInfoFragment extends SherlockFragment {
     final String encoding = "UTF-8";
     String parameter = " ", toWV = "";
     private ProgressDialog dialog;
-    MainActivity ma;
+    private MainActivity ma;
+    private HashMap<String, String> hm_st_title;
+    private View actionBarView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.st_info_fragment, container, false);
 
         tvPage = (WebView) view.findViewById(R.id.wv_st_info);
         ma = (MainActivity) getSherlockActivity();
+        hm_st_title=new HashMap<String, String>();
+        hm_st_title.put(ReactrConstants.ABOUT_REACTR,"ABOUT REACTOR");
+        hm_st_title.put(ReactrConstants.TERMS,"TERMS");
+        hm_st_title.put(ReactrConstants.PRIVACY,"PRIVACY");
+        hm_st_title.put(ReactrConstants.CONTACT_US,"CONTACT US");
         api = ma.getReactorApi();
         if(ma.getSizeStInfo()==0)
         {
@@ -63,6 +74,12 @@ public class StaticInfoFragment extends SherlockFragment {
             toWV=ma.getStInfoByParameter(parameter);
             tvPage.loadDataWithBaseURL("", toWV, mimeType, encoding, "");
         }
+        actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
+        ((TextView) actionBarView.findViewById(R.id.barTitle)).setText(hm_st_title.get(parameter));
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.to_menu);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setPadding(10, 14, 43, 14);
+
         return view;
     }
 

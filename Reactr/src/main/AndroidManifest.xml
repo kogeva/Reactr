@@ -24,16 +24,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:label="LoginActivity" android:name=".reactr.models.LoginActivity"></activity>
-        <activity android:label="SignInActivity" android:name=".SignInActivity"></activity>
+        <activity android:label="LoginActivity" android:name="com.example.reactr.reactr.models.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:label="SignInActivity" android:name="com.example.reactr.SignInActivity" android:screenOrientation="portrait"/>
+         <activity android:label="StartActivity" android:name="com.example.reactr.StartActivity" android:screenOrientation="portrait"/>
+
         <activity android:label="MainActivity" android:name=".MainActivity"
                   android:screenOrientation="portrait"
                   android:configChanges="orientation" ></activity>
-        <activity android:label="StartActivity" android:name=".StartActivity"></activity>
 
         <activity android:name=".AnotherActivity" android:exported="false">
             <intent-filter>
-                <data android:scheme="activity-run" android:host="AnotherActivityHost" />
+                <data android:scheme="activity-run" android:host="AnotherActivityHost" android:screenOrientation="portrait"/>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -62,7 +63,6 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-feature android:name="android.hardware.camera" />
-
     <permission
         android:name="com.example.reactr.permission.C2D_MESSAGE"
         android:protectionLevel="signature"/>

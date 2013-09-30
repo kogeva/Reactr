@@ -105,6 +105,11 @@ public class FriendsFragment extends SherlockFragment {
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("ADD FRIENDS");
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
+
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.back_btn);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setPadding(10, 14, 63, 14);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setOnClickListener(goBackClick);
+
         return view;
     }
 
@@ -167,4 +172,12 @@ public class FriendsFragment extends SherlockFragment {
             }
         }
     }
+
+    View.OnClickListener goBackClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            ReactrBase.switchFraagment(getSherlockActivity(), new MyFriendsFragment());
+        }
+    };
+
 }

@@ -28,7 +28,7 @@
     <string name="signup3_text_bottom">
         - We will not spam or auto-add your friends.\n
         - We will not show your phone # to other users.\n
-        - Phone # will only be used to find your friends\n
+        - Phone # will only be used to find your friends.\n
         - Phone # will be stored as unique mathematical\n
         representation (or "hashes"), which ca be used\n
         to see which users match, but are not the actual\n
@@ -43,6 +43,14 @@
     <string name="sv_ph_react">Save reaction</string>
     <string name="cancel">Cancel</string>
     <string name="sign_up">Sign Up</string>
+
+    <!--Settings text-->
+    <string name="settings_username">Username</string>
+    <string name="settings_mobile">Mobile #</string>
+    <string name="settings_email">Email</string>
+    <string name="settings_only_friends">Only friends</string>
+    <string name="settings_who_header">Who is allowed to send me photos?</string>
+    <string name="settings_save_button">Save</string>
 
 
 </resources>

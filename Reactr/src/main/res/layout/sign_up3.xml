@@ -7,17 +7,17 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="400dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
+        android:layout_gravity="center_horizontal"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/signup3_text_top"
-            android:layout_marginTop="10dp"
+
             android:textSize="7pt"
             android:textColor="#fff"
             android:width="135pt"
@@ -35,10 +35,11 @@
             android:ems="10"
             android:id="@+id/phoneEdiText"
             android:layout_gravity="center"
-             android:textColorHint="#000000" />
+             android:textColorHint="#000000"
+            android:textStyle="bold"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/signup3_text_center"
             android:layout_marginTop="10dp"

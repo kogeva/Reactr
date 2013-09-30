@@ -37,7 +37,7 @@ public class MenuFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
-        menuItems.add(new MenuItem("Send Photo", "0", 0));
+        menuItems.add(new MenuItem("Take Photo", "0", 0));
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -70,9 +70,8 @@ public class MenuFragment extends ListFragment {
                 newContent = new MyFriendsFragment();
                 break;
             case 3:
- //               newContent = new AddMessageFragment();
+                newContent = new SettingsFragment();
                 break;
-
             case 4:
                 newContent = new StaticInfoFragment(ReactrConstants.ABOUT_REACTR);
                 break;
@@ -99,6 +98,8 @@ public class MenuFragment extends ListFragment {
         ((MainActivity) getActivity()).toggle();
         if(newContent != null)
             switchFraagment(newContent);
+        st_m_adptr.setSelect(position);
+        setListAdapter(st_m_adptr);
     }
 
     private void switchFraagment(Fragment fragment)
@@ -113,6 +114,14 @@ public class MenuFragment extends ListFragment {
     }
     public void updateMenu() {
         MenuItem mi = (MenuItem)st_m_adptr.getItem(1);
+
+        Integer mes = ((MainActivity) getActivity()).getReactorApi().countOfnewMessages();
+        mi.setCountNewMessage(String.valueOf(mes));
+        setListAdapter(st_m_adptr);
+    }
+
+    private void updateMenuColor(int i) {
+        MenuItem mi = (MenuItem)st_m_adptr.getItem(i);
         Integer mes = ((MainActivity) getActivity()).getReactorApi().countOfnewMessages();
         mi.setCountNewMessage(String.valueOf(mes));
         setListAdapter(st_m_adptr);

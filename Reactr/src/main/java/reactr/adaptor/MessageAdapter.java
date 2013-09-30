@@ -3,6 +3,7 @@ package reactr.adaptor;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,7 +18,13 @@ import com.example.reactr.fragments.ShowMessageFragment;
 import com.example.reactr.reactr.models.FriendEntity;
 import com.example.reactr.reactr.models.MessageEntity;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 public class MessageAdapter extends BaseAdapter {
@@ -65,13 +72,13 @@ public class MessageAdapter extends BaseAdapter {
         
         //*******
         if(!message.getIsRead()&&!message.getFromMe()){
-         //   view.setBackgroundColor(Color.rgb(101, 167, 210));
-            view.setBackgroundColor(Color.LTGRAY);
+            view.setBackgroundResource(R.drawable.unread);
         }
         else{
             view.setBackgroundColor(Color.WHITE);
         }
         //*******
+        String formattedDate = convertDate(message.getCreatedAt());
 
 
         message.setUsernameWithFriends(friends);
@@ -90,14 +97,73 @@ public class MessageAdapter extends BaseAdapter {
         else
             reaction.setVisibility(View.VISIBLE);
 
-        date.setText(message.getCreatedAt());
-
+        date.setText(formattedDate);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ReactrBase.switchFraagment((SherlockFragmentActivity) ctx, new ShowMessageFragment(message));
             }
         });
+
+        view.setOnTouchListener(myOnToucListener);
+        view.setOnFocusChangeListener(myOnFocusChangeListener);
         return  view;
     }
+
+    private String convertDate (String fromDate)
+    {
+        DateFormat formatter;
+        String toReturn="";
+        Date date=new Date();
+        formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            date = formatter.parse(fromDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar myCal = new GregorianCalendar();
+        myCal.setTime(date);
+
+        String month="";
+        if(date.getMonth()<10){
+            month="0"+String.valueOf(date.getMonth()+1);
+        }
+        else{
+            month=String.valueOf(date.getMonth());
+        }
+        String year=String.valueOf(1900+date.getYear());
+        String day="";
+        myCal.get(Calendar.DAY_OF_MONTH);
+        if(date.getDay()<10){
+            day="0"+String.valueOf(date.getDay());
+        }
+        else{
+            day=String.valueOf(date.getDay());
+        }
+        day=String.valueOf(myCal.get(Calendar.DAY_OF_MONTH));
+        toReturn = month+"-"+day
+                +"-"+year+" "+String.valueOf(date.getHours())+":"+
+                String.valueOf(date.getMinutes())+":"+String.valueOf(date.getSeconds());
+        return toReturn;
+    }
+
+    //*******
+    View.OnTouchListener myOnToucListener = new View.OnTouchListener() {
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            v.setBackgroundResource(R.drawable.unread);
+            return false;
+        }
+    };
+    View.OnFocusChangeListener myOnFocusChangeListener = new View.OnFocusChangeListener() {
+
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if(!hasFocus){
+                v.setBackgroundColor(Color.WHITE);
+            }
+        }
+    };
+
 }

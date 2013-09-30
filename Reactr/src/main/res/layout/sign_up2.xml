@@ -9,26 +9,27 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginBottom="30pt">
+        >
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/text_input"
-            android:layout_marginTop="10pt"
+
             android:hint="@string/username_text"
             android:textSize="12pt"
             android:inputType="text"
             android:ems="10"
             android:id="@+id/usernameEditText"
             android:textColorHint="#000000"
+            android:textStyle="bold"
       />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/signup2_text"
             android:layout_marginTop="10pt"

@@ -2,13 +2,16 @@ package com.example.reactr.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Point;
 import android.hardware.Camera;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.format.Time;
@@ -30,8 +33,13 @@ import com.example.reactr.R;
 import com.example.reactr.ReactrBase;
 import com.example.reactr.reactr.models.MessageEntity;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -55,7 +63,7 @@ public class ShowMessageFragment extends SherlockFragment{
     private TakePhotoWithoutPreview ph;
     private TextView text;
     private boolean reaction=false;
-
+    private View actionBarView;
     public ShowMessageFragment(MessageEntity message) {
         this.message = message;
     }
@@ -84,8 +92,12 @@ public class ShowMessageFragment extends SherlockFragment{
 
         if(!message.getIsRead())
             ph = new TakePhotoWithoutPreview(getSherlockActivity(), surfaceView);
+        if (message.getText().length() == 0)
+            text.setVisibility(View.INVISIBLE);
+        else
+            text.setVisibility(View.VISIBLE);
+
         text.setText(message.getText());
-        long memory = Runtime.getRuntime().maxMemory();
 
         new Thread(new Runnable() {
             @Override
@@ -97,12 +109,18 @@ public class ShowMessageFragment extends SherlockFragment{
             }
         }).start();
 
+        actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.to_menu);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setPadding(10, 14, 43, 14);
+
         return view;
     }
 
     private Bitmap downloadImage (String url)
     {
         BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
 
         InputStream image = null;
         Bitmap bmp = null;
@@ -140,14 +158,13 @@ public class ShowMessageFragment extends SherlockFragment{
     private Runnable updateImageView = new Runnable() {
         @Override
         public void run() {
-            photoView.setImageBitmap(RotateBitmap(photo, 90));
+            photoView.setImageBitmap(photo);
             if (reactionPhoto != null)
             {
                 //для округления изображения
                 Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, getActivity().getApplicationContext());
-                reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
+                reactionPhotoView.setImageBitmap(rounded_bm);
             }
-
             //***********************************************
             if((message.getIsRead()==false)&&(message.getFromMe()==false))
             {
@@ -155,9 +172,9 @@ public class ShowMessageFragment extends SherlockFragment{
                 ReactorApi ra= ((MainActivity) getActivity()).getReactorApi();
                 ra.readMessage(String.valueOf(message.getId()));
                 ((MainActivity)getActivity()).updateMenu();
-            }
-            if(!message.getIsRead())
                 ph.takeReaction(message.getId());
+            }
+
             ReactrBase.hideLoader();
         }
     };
@@ -188,7 +205,9 @@ public class ShowMessageFragment extends SherlockFragment{
     {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
-        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+        Bitmap newBitmap = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+        source.recycle();
+        return newBitmap;
     }
 
     private View.OnClickListener saveToGallery = new View.OnClickListener() {
@@ -210,15 +229,13 @@ public class ShowMessageFragment extends SherlockFragment{
                     now.setToNow();
                     String str="IMG_"+now.year+"_"+now.month+"."+now.monthDay+"_"+now.hour+":"+now.minute+":"+now.second;
                     if(which==0){
-                        Toast.makeText(getActivity().getBaseContext(), "Saved photo to GALLERY as "+str, Toast.LENGTH_SHORT).show();
-                        MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), photo, str, "description");
+                        savePhotoToMyAlbum(str, photo);
                     }
                     if(which==1&&reactionPhoto!=null){
-                        Toast.makeText(getActivity().getBaseContext(), "Saved reaction to GALLERY as "+str, Toast.LENGTH_SHORT).show();
-                        MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), reactionPhoto, str, "description");
+                        savePhotoToMyAlbum(str, reactionPhoto);
                     }
                     if(which==2||(which==1&&reactionPhoto==null)){
-                    dialog.cancel();
+                        dialog.cancel();
                     }
                 }
             });
@@ -238,16 +255,60 @@ public class ShowMessageFragment extends SherlockFragment{
         public void onClick(View view) {
             if(!reaction)
             {
-                photoView.setImageBitmap(RotateBitmap(reactionPhoto, 90));
+                photoView.setImageBitmap(reactionPhoto);
                 Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(photo, Color.WHITE, getActivity().getApplicationContext());
-                reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
+                reactionPhotoView.setImageBitmap(rounded_bm);
             }
             else{
-                photoView.setImageBitmap(RotateBitmap(photo, 90));
+                photoView.setImageBitmap(photo);
                 Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, getActivity().getApplicationContext());
-                reactionPhotoView.setImageBitmap(RotateBitmap(rounded_bm, 90));
+                reactionPhotoView.setImageBitmap(rounded_bm);
             }
             reaction=!reaction;
         }
     };
-}
+
+
+    private void savePhotoToMyAlbum (String filename, Bitmap bitmap)
+    {
+        String fullPath=Environment
+                .getExternalStorageDirectory() + File.separator+Environment.DIRECTORY_DCIM
+                + "/Reactor/";
+        File dir = new File(fullPath);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        File image = new File(fullPath, filename+".jpg");
+        boolean success = false;
+        // Encode the file as a PNG image.
+        FileOutputStream outStream;
+        try {
+            outStream = new FileOutputStream(image);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+            success = true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (success) {
+            Toast.makeText(getActivity().getApplicationContext(), "Image saved",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(),
+                    "Error during image saving", Toast.LENGTH_LONG).show();
+        }
+        //*******************************************
+        Intent mediaScanIntent = new Intent(
+                Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        String currentPath = fullPath+File.separator+filename+".jpg";
+        File f = new File(currentPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        getActivity().sendBroadcast(mediaScanIntent);
+    }
+
+    }

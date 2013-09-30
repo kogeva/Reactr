@@ -21,14 +21,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginBottom="30pt">
+               >
 
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/email_text"
                     android:background="@drawable/text_input"
-                    android:layout_marginTop="15pt"
+
                     android:textSize="12pt"
                     android:width="20pt"
                     android:ems="10"
