@@ -1,26 +1,35 @@
 package reactr.adaptor;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.reactr.MainActivity;
 import com.example.reactr.R;
 import com.example.reactr.reactr.models.FriendEntity;
 
 import java.util.ArrayList;
 
+import reactr.network.ReactorApi;
+
 public class FriendsAddedAdapter extends BaseAdapter {
 
     private ArrayList<FriendEntity> friendCollection;
+    private ReactorApi reactorApi;
+    private Context context;
     protected LayoutInflater inflater;
 
     public FriendsAddedAdapter(Context ctx, ArrayList<FriendEntity> friendCollection) {
         this.friendCollection = friendCollection;
         this.inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.context = ctx;
     }
 
     @Override
@@ -39,7 +48,7 @@ public class FriendsAddedAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
 
         if(view == null)
@@ -63,6 +72,34 @@ public class FriendsAddedAdapter extends BaseAdapter {
 
         username.setText(friendEntity.getUsername());
 
+        isConfirm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked)
+                {
+                    FriendEntity friendEntity = (FriendEntity) getItem(position);
+                    new AddFriendAsyncTask().execute(friendEntity);
+                }
+            }
+        });
+
         return view;
+    }
+
+    class AddFriendAsyncTask extends AsyncTask<FriendEntity, Integer, Void>
+    {
+
+        @Override
+        protected Void doInBackground(FriendEntity... friendEntities) {
+
+            reactorApi = ((MainActivity) context).getReactorApi();
+            reactorApi.addFriend(friendEntities[0].getPhone());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Toast.makeText(context, "Friend added", Toast.LENGTH_SHORT).show();
+        }
     }
 }

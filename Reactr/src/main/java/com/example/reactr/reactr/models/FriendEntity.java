@@ -38,7 +38,7 @@ public class FriendEntity {
         this.username = username;
     }
 
-    public long getPhone() {
+    public Long getPhone() {
         return phone;
     }
 

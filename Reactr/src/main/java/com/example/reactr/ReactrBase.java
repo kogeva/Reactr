@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import reactr.utils.FriendsDBManager;
+
 public class ReactrBase {
     private static ProgressDialog progressDialog;
 
@@ -55,14 +57,32 @@ public class ReactrBase {
         return contacts;
     }
 
-    public static ArrayList<FriendEntity> addInFriendContactName(ArrayList<FriendEntity> friends, HashMap<Long, String> contacts)
+    public static ArrayList<FriendEntity> addInFriendContactName(ArrayList<FriendEntity> friends, HashMap<Long, String> contacts, FriendsDBManager friendsDBManager)
     {
+        HashMap<Integer, String> friendsDb = friendsDBManager.getFriends();
+
+        FriendEntity friendEntity = null;
+
         for (int i = 0; i < friends.size(); i++)
         {
-            for (Map.Entry<Long, String> entryContacts : contacts.entrySet())
+            friendEntity = friends.get(i);
+            String friendNameInDb = friendsDBManager.getFriendById(friendEntity.getId());
+            if(friendNameInDb != null)
             {
-                if (entryContacts.getKey().equals(friends.get(i).getPhone()))
-                    friends.get(i).setNameInContacts(entryContacts.getValue());
+                friends.get(i).setNameInContacts(friendNameInDb);
+            }
+            else
+            {
+                if(contacts.get(friendEntity.getPhone()) != null)
+                {
+                    friendsDBManager.insetFriendRow(friendEntity.getId(), contacts.get(friendEntity.getPhone()), friendEntity.getPhone().toString());
+                    friends.get(i).setNameInContacts(contacts.get(friendEntity.getPhone()));
+                }
+                else
+                {
+                    friendsDBManager.insetFriendRow(friendEntity.getId(), friendEntity.getUsername(), friendEntity.getPhone().toString());
+                    friends.get(i).setNameInContacts(friendEntity.getUsername());
+                }
             }
         }
         return friends;
@@ -188,6 +208,7 @@ public class ReactrBase {
                 if (entryContacts.getKey().equals(friends.get(i).getPhone()))
                     friends.get(i).setNameInContacts(entryContacts.getValue());
             }
+
             if (friends.get(i).getUsername().toLowerCase().indexOf(username) != -1){
                 tempFrends.add(friends.get(i));
             }

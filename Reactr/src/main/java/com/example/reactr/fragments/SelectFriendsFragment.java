@@ -28,6 +28,7 @@ import java.util.HashMap;
 import reactr.adaptor.FriendListForMessageAdapter;
 import reactr.adaptor.MyFrendsAdapter;
 import reactr.network.ReactorApi;
+import reactr.utils.FriendsDBManager;
 
 public class SelectFriendsFragment extends SherlockFragment {
 
@@ -74,7 +75,7 @@ public class SelectFriendsFragment extends SherlockFragment {
             @Override
             public void run() {
                 api = ((MainActivity) getSherlockActivity()).getReactorApi();
-                friendListForMessageAdapter = new FriendListForMessageAdapter(getSherlockActivity(), ReactrBase.addInFriendContactName(api.getFriends(), contacts));
+                friendListForMessageAdapter = new FriendListForMessageAdapter(getSherlockActivity(), ReactrBase.addInFriendContactName(api.getFriends(), contacts, new FriendsDBManager(getSherlockActivity())));
                 handler.post(updateFrendList);
             }
         }).start();
