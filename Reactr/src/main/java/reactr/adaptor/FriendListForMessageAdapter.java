@@ -1,5 +1,7 @@
 package reactr.adaptor;
 import android.content.Context;
+import android.graphics.Color;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -33,6 +35,16 @@ public class FriendListForMessageAdapter extends FriendsAddedAdapter {
         TextView contactName = (TextView) view.findViewById(R.id.contact_name);
         TextView username = (TextView) view.findViewById(R.id.username);
         CheckBox isConfirm = (CheckBox) view.findViewById(R.id.is_confirm);
+
+        FriendEntity friend = (FriendEntity) getItem(position);
+
+        if(friend.getBlockedMe())
+        {
+            isConfirm.setText("You are blocked");
+            isConfirm.setButtonDrawable(R.drawable.christ_white);
+            isConfirm.setTextColor(Color.RED);
+            isConfirm.setClickable(false);
+        }
 
         contactName.setText(friendEntity.getNameInContacts());
         username.setText(friendEntity.getUsername());

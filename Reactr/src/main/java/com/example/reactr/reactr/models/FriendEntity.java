@@ -9,17 +9,21 @@ public class FriendEntity {
     public long phone;
     public boolean privacyMessage;
     public boolean confirmed;
+    public Boolean blocked;
+    public Boolean blockedMe;
     public String nameInContacts;
 
     public FriendEntity() {
     }
 
-    public FriendEntity(int id, String username, long phone, boolean privacyMessage, boolean confirmed) {
+    public FriendEntity(int id, String username, long phone, boolean privacyMessage, boolean confirmed, Boolean blocked, Boolean blockedMe) {
         this.id = id;
         this.username = username;
         this.phone = phone;
         this.privacyMessage = privacyMessage;
         this.confirmed = confirmed;
+        this.blocked = blocked;
+        this.blockedMe = blockedMe;
     }
 
     public int getId() {
@@ -69,6 +73,22 @@ public class FriendEntity {
 
     public void setNameInContacts(String nameInContacts) {
         this.nameInContacts = nameInContacts;
+    }
+
+    public Boolean getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(Boolean blocked) {
+        this.blocked = blocked;
+    }
+
+    public Boolean getBlockedMe() {
+        return blockedMe;
+    }
+
+    public void setBlockedMe(Boolean blockedMe) {
+        this.blockedMe = blockedMe;
     }
 
     @Override

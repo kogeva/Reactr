@@ -143,8 +143,7 @@ public class ReactorApi {
         } catch (JSONException exp) {
             Log.d("Reactor API: ", exp.getMessage());
         }
-        return null;
-
+        return jsonData;
     }
 
     public JSONArray checkUserInSystem(String phones)
@@ -197,7 +196,9 @@ public class ReactorApi {
                             friendJson.getString("username"),
                             friendJson.getLong("phone"),
                             friendJson.getBoolean("privacy_message"),
-                            friendJson.getBoolean("confirmed")
+                            friendJson.getBoolean("confirmed"),
+                            friendJson.getBoolean("blocked"),
+                            (!friendJson.isNull("blocked_me")) ? friendJson.getBoolean("blocked_me") : false
                     );
                     friendCollection.add(friendEntity);
                 }
@@ -235,6 +236,8 @@ public class ReactorApi {
                             friendJson.getString("username"),
                             friendJson.getLong("phone"),
                             friendJson.getBoolean("privacy_message"),
+                            false,
+                            false,
                             false
                     );
                     friendCollection.add(friendEntity);
@@ -295,6 +298,8 @@ public class ReactorApi {
                             friendJsonObject.getString("username"),
                             friendJsonObject.getLong("phone"),
                             false,
+                            false,
+                            false,
                             false
                     ));
                 }
@@ -330,6 +335,8 @@ public class ReactorApi {
                             friendJsonObject.getInt("id"),
                             friendJsonObject.getString("username"),
                             friendJsonObject.getLong("phone"),
+                            false,
+                            false,
                             false,
                             false
                     ));
@@ -565,6 +572,28 @@ public class ReactorApi {
         }
         try {
             jsonData = new JSONObject(networkManager.sendRequest(DELETE_FRIEND, postParams));
+            Boolean result = (jsonData.get("status").equals("sucess")) ? true : false;
+            return result ;
+
+        } catch (JSONException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+        return false;
+    }
+
+    public Boolean blockFriend(Integer friendId, Boolean isBlock)
+    {
+        postParams = new HashMap<String, ContentBody>();
+        try {
+            postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
+            postParams.put("session_hash", new StringBody(session_token));
+            postParams.put("friend_id", new StringBody(friendId.toString()));
+            postParams.put("set_block", new StringBody( new Integer((isBlock) ? 1 : 0).toString()));
+        } catch (UnsupportedEncodingException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+        try {
+            jsonData = new JSONObject(networkManager.sendRequest(BLOCK_FRIEND, postParams));
             Boolean result = (jsonData.get("status").equals("sucess")) ? true : false;
             return result ;
 

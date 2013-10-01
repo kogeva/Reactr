@@ -96,9 +96,9 @@ public class ContactsListAdaptor extends BaseExpandableListAdapter {
         TextView contactName = (TextView) view.findViewById(R.id.contact_name);
         TextView username = (TextView) view.findViewById(R.id.phone);
         ImageButton actionButton = (ImageButton) view.findViewById(R.id.actionButton);
+
         groupeIndex = groupePosition;
         elementIndex = childPosition;
-
 
         user = groupUser.get(groupePosition).get(childPosition);
         try {
@@ -109,10 +109,11 @@ public class ContactsListAdaptor extends BaseExpandableListAdapter {
         }
 
         if(groupePosition == 0)
-        {
-            ImageButton button = (ImageButton) view.findViewById(R.id.actionButton);
-            button.setImageResource(R.drawable.add_friend);
+            actionButton.setImageResource(R.drawable.add_friend);
+        else {
+            actionButton.setImageResource(R.drawable.envelope);
         }
+
 
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,9 +123,12 @@ public class ContactsListAdaptor extends BaseExpandableListAdapter {
                     new Thread(addFriendTask).start();
                 }
                 else {
+
+                    JSONObject curentUser = (JSONObject) getChild(groupePosition, childPosition);
+
                     Uri uri = null;
                     try {
-                        uri = Uri.parse("smsto:" + user.getString("phone"));
+                        uri = Uri.parse("smsto:" + curentUser.getString("phone"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

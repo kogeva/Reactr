@@ -137,7 +137,7 @@ public class MessageEntity {
             if(!fromMe)
             {
                 if(from_user == friends.get(i).getId())
-                username = friends.get(i).getUsername();
+                    username = friends.get(i).getUsername();
             }
         }
     }

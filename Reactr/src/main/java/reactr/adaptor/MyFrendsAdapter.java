@@ -44,8 +44,12 @@ public class MyFrendsAdapter extends FriendsAddedAdapter {
 
         TextView contactName = (TextView) view.findViewById(R.id.contact_name);
         TextView username = (TextView) view.findViewById(R.id.username);
+        TextView blockText = (TextView) view.findViewById(R.id.blockFriend);
 
         final FriendEntity friendEntity = (FriendEntity) getItem(position);
+
+        blockText.setText((friendEntity.getBlocked()) ? "Blocked" : "");
+
         username.setText(friendEntity.getUsername());
 
         if(friendEntity.getNameInContacts() != null)
@@ -58,7 +62,13 @@ public class MyFrendsAdapter extends FriendsAddedAdapter {
             public void onClick(final View view) {
                 contextMenuDialog = new AlertDialog.Builder(context);
                 contextMenuDialog.setTitle(friendEntity.getNameInContacts());
-                contextMenuDialog.setItems(itemsContextMenu, new DialogInterface.OnClickListener() {
+
+                CharSequence[] listMenu = itemsContextMenu;
+
+                if (friendEntity.getBlocked())
+                    listMenu = new CharSequence[]{"Edit Name", "Delete", "Unblock", "Cancel"};
+
+                contextMenuDialog.setItems(listMenu, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int item) {
                         switch (item){
@@ -68,7 +78,9 @@ public class MyFrendsAdapter extends FriendsAddedAdapter {
                             case 1:
                                 deleteFriend(friendEntity.getId(), view, position);
                                 break;
-
+                            case 2:
+                                blockFriend(friendEntity.getId(), (friendEntity.getBlocked()) ? false : true , view, position);
+                                break;
                         }
                     }
                 });
@@ -129,9 +141,48 @@ public class MyFrendsAdapter extends FriendsAddedAdapter {
         new DeleteFriendAsyncTask().execute(friendId);
     }
 
+    private void blockFriend(final Integer friendId, final Boolean isBlock ,final View elementView, final int position)
+    {
+        class BlockFriendAsyncTask extends AsyncTask<Integer, Integer, Boolean>
+        {
+
+            @Override
+            protected Boolean doInBackground(Integer... integers) {
+                if( reactorApi == null)
+                    reactorApi = ((MainActivity) context).getReactorApi();
+
+                return reactorApi.blockFriend(friendId, isBlock);
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                TextView blockText = (TextView) elementView.findViewById(R.id.blockFriend);
+
+                if (isBlock)
+                    blockText.setText("");
+                else
+                    blockText.setText("Blocked");
+
+                changeBlockInCollection(position);
+            }
+        }
+
+        new BlockFriendAsyncTask().execute(friendId);
+        this.notifyDataSetChanged();
+    }
+
     private void removeFromCollection (int position)
     {
         friendCollection.remove(position);
+        this.notifyDataSetChanged();
+    }
+
+    private void changeBlockInCollection (int position)
+    {
+        if(friendCollection.get(position).getBlocked())
+            friendCollection.get(position).setBlocked(false);
+        else
+            friendCollection.get(position).setBlocked(true);
         this.notifyDataSetChanged();
     }
 }

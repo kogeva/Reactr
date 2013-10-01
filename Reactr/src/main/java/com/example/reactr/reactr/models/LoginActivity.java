@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.reactr.MainActivity;
 import com.example.reactr.R;
@@ -64,25 +65,7 @@ public class LoginActivity extends Activity {
                 public void run() {
                     reactorApi = ReactorApi.init(0, "");
                     responseJson = reactorApi.login(email.getText().toString(), password.getText().toString());
-                    try {
-                        if(responseJson.get("status").equals("success"))
-                        {
-                            prefEditor.putInt("user_id", responseJson.getInt("user_id"));
-                            prefEditor.putString("session_hash", responseJson.getString("session_hash"));
-                            prefEditor.putString("username", responseJson.getString("username"));
-                            prefEditor.putString("phone", responseJson.getString("phone"));
-                            prefEditor.putString("email", email.getText().toString());
-                            prefEditor.putString("privacy_message", responseJson.getString("privacy_message"));
-                            prefEditor.commit();
-                            //********************
-                            C2DMessaging.register(LoginActivity.this, "ash@eyepinch.com");
-                            //********************
-                        }
-                            handler.post(checkUserDone);
-                    }
-                    catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    handler.post(checkUserDone);
                 }
             }).start();
         }
@@ -91,8 +74,33 @@ public class LoginActivity extends Activity {
     Runnable checkUserDone = new Runnable() {
         @Override
         public void run() {
+
             ReactrBase.hideLoader();
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            try {
+                if (responseJson != null)
+                {
+                    if( responseJson.get("status").equals("success"))
+                    {
+                        prefEditor.putInt("user_id", responseJson.getInt("user_id"));
+                        prefEditor.putString("session_hash", responseJson.getString("session_hash"));
+                        prefEditor.putString("username", responseJson.getString("username"));
+                        prefEditor.putString("phone", responseJson.getString("phone"));
+                        prefEditor.putString("email", email.getText().toString());
+                        prefEditor.putString("privacy_message", responseJson.getString("privacy_message"));
+                        prefEditor.commit();
+                        //********************
+                        C2DMessaging.register(LoginActivity.this, "ash@eyepinch.com");
+                        //********************
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Incorrect password or email", Toast.LENGTH_SHORT).show();
+                    }
+                } else
+                    Toast.makeText(getApplicationContext(), "Connection to server failed", Toast.LENGTH_SHORT).show();
+            }
+            catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     };
 }

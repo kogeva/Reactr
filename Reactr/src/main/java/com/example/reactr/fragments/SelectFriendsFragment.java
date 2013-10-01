@@ -66,8 +66,9 @@ public class SelectFriendsFragment extends SherlockFragment {
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("SEND TO...");
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
-//        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.to_menu);
-//        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setPadding(10, 14, 43, 14);
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.VISIBLE);
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.add_friend_btn);
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToAddFriendClick);
 
         handler = new Handler();
 
@@ -141,4 +142,12 @@ public class SelectFriendsFragment extends SherlockFragment {
             }
         }
     }
+
+    View.OnClickListener goToAddFriendClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            ReactrBase.switchFraagment(getSherlockActivity(), new FriendsFragment());
+        }
+    };
+
 }

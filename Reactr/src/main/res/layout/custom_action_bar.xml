@@ -29,7 +29,8 @@
         android:id="@+id/barTitle"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_gravity="center" />
 
     <ImageButton
         android:scaleType="fitXY"
