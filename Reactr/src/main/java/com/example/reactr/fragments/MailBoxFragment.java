@@ -69,6 +69,7 @@ public class MailBoxFragment extends SherlockFragment {
         @Override
         public void run() {
             messageList.setAdapter(adapter);
+            ((MainActivity)getActivity()).updateMenu();
             ReactrBase.hideLoader();
         }
     };

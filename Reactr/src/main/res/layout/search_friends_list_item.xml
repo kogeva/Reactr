@@ -19,7 +19,7 @@
     <ImageButton
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/rsz_add_friend_gray"
+        android:src="@drawable/add_friend_btn_red"
         android:background="@null"
         android:layout_weight="1"
         android:id="@+id/addFriend" />

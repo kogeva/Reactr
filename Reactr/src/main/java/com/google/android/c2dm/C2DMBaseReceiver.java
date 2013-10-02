@@ -20,11 +20,15 @@ import java.io.IOException;
 
 import android.app.AlarmManager;
 import android.app.IntentService;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 import android.util.Log;
+
+import com.example.reactr.MainActivity;
 
 /**
  * Base class for C2D message receiver. Includes constants for the
@@ -73,7 +77,27 @@ public abstract class C2DMBaseReceiver extends IntentService {
     /**
      * Called when a cloud message has been received.
      */
-    protected abstract void onMessage(Context context, Intent intent);
+    protected void onMessage(Context context, Intent receiveIntent){
+
+            String data = receiveIntent.getStringExtra("message");
+            if(data != null)
+            {
+                Log.w("C2DMReceiver", data);
+
+                Intent intent = new Intent(this,MainActivity.class);
+                intent.putExtra("message", data);
+
+                NotificationManager mManager = (NotificationManager)
+                        getSystemService(Context.NOTIFICATION_SERVICE);
+                Notification notification = new Notification(android.R.drawable.ic_dialog_info,
+                        "My C2DM message", System.currentTimeMillis());
+                notification.setLatestEventInfo(context,"App Name","C2DM notification",
+                        PendingIntent.getActivity(this.getBaseContext(), 0,
+                                intent,PendingIntent.FLAG_CANCEL_CURRENT));
+                mManager.notify(0, notification);
+
+        }
+    }
 
     /**
      * Called on registration error. Override to provide better

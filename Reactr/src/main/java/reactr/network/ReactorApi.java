@@ -420,7 +420,6 @@ public class ReactorApi {
                             (!messageJson.getString("is_read").equals("null")) ? messageJson.getBoolean("is_read") : false,
                             messageJson.getString("username"),
                             messageJson.getString("to_username")
-
                     );
                     messageArray.add(i, messageEntity);
                 }

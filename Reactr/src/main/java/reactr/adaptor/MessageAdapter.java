@@ -78,13 +78,13 @@ public class MessageAdapter extends BaseAdapter {
             view.setBackgroundColor(Color.WHITE);
         }
         //*******
-        String formattedDate = convertDate(message.getCreatedAt());
-
+        String preDate=message.getCreatedAt();
+        String formattedDate = preDate.substring(5, 10) + "-" + preDate.substring(0,4) + " " + preDate.substring(10);
 
         message.setUsernameWithFriends(friends);
 
         if(message.getFromMe()){
-            user.setText(message.getUsername());
+            user.setText(message.getToUsername());
             typeMessage.setImageResource(R.drawable.rsz_arrow_forward_black);
         }
         else {
@@ -105,63 +105,21 @@ public class MessageAdapter extends BaseAdapter {
             }
         });
 
-        view.setOnTouchListener(myOnToucListener);
         view.setOnFocusChangeListener(myOnFocusChangeListener);
         return  view;
     }
 
-    private String convertDate (String fromDate)
-    {
-        DateFormat formatter;
-        String toReturn="";
-        Date date=new Date();
-        formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            date = formatter.parse(fromDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Calendar myCal = new GregorianCalendar();
-        myCal.setTime(date);
 
-        String month="";
-        if(date.getMonth()<10){
-            month="0"+String.valueOf(date.getMonth()+1);
-        }
-        else{
-            month=String.valueOf(date.getMonth());
-        }
-        String year=String.valueOf(1900+date.getYear());
-        String day="";
-        myCal.get(Calendar.DAY_OF_MONTH);
-        if(date.getDay()<10){
-            day="0"+String.valueOf(date.getDay());
-        }
-        else{
-            day=String.valueOf(date.getDay());
-        }
-        day=String.valueOf(myCal.get(Calendar.DAY_OF_MONTH));
-        toReturn = month+"-"+day
-                +"-"+year+" "+String.valueOf(date.getHours())+":"+
-                String.valueOf(date.getMinutes())+":"+String.valueOf(date.getSeconds());
-        return toReturn;
-    }
-
-    //*******
-    View.OnTouchListener myOnToucListener = new View.OnTouchListener() {
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            v.setBackgroundResource(R.drawable.unread);
-            return false;
-        }
-    };
     View.OnFocusChangeListener myOnFocusChangeListener = new View.OnFocusChangeListener() {
 
         @Override
         public void onFocusChange(View v, boolean hasFocus) {
+
             if(!hasFocus){
                 v.setBackgroundColor(Color.WHITE);
+            }
+            else{
+                v.setBackgroundColor(R.drawable.unread);
             }
         }
     };
