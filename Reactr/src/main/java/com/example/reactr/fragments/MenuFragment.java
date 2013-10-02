@@ -64,7 +64,6 @@ public class MenuFragment extends ListFragment {
                 break;
             case 1:
                 newContent = new MailBoxFragment();
-
                 break;
             case 2:
                 newContent = new MyFriendsFragment();

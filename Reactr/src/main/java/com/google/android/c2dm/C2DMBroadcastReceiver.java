@@ -3,9 +3,15 @@
 package com.google.android.c2dm;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+
+import com.example.reactr.MainActivity;
 
 /**
  * Helper class to handle BroadcastReciver behavior.
@@ -15,11 +21,15 @@ import android.content.Intent;
  * 
  */
 public class C2DMBroadcastReceiver extends BroadcastReceiver {
-    
+
+    Context myContext;
+
     @Override
     public final void onReceive(Context context, Intent intent) {
         // To keep things in one place.
+        myContext=context;
         C2DMBaseReceiver.runIntentInService(context, intent);
         setResult(Activity.RESULT_OK, null /* data */, null /* extra */);        
     }
+
 }
