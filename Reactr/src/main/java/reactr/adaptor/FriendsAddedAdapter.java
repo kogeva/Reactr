@@ -56,7 +56,7 @@ public class FriendsAddedAdapter extends BaseAdapter {
 
         TextView contactName = (TextView) view.findViewById(R.id.contact_name);
         TextView username = (TextView) view.findViewById(R.id.username);
-        CheckBox isConfirm = (CheckBox) view.findViewById(R.id.is_confirm);
+        final CheckBox isConfirm = (CheckBox) view.findViewById(R.id.is_confirm);
 
         FriendEntity friendEntity = (FriendEntity) getItem(position);
 
@@ -72,13 +72,15 @@ public class FriendsAddedAdapter extends BaseAdapter {
 
         username.setText(friendEntity.getUsername());
 
-        isConfirm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        isConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked)
-                {
-                    FriendEntity friendEntity = (FriendEntity) getItem(position);
+            public void onClick(View view) {
+                FriendEntity friendEntity = (FriendEntity) getItem(position);
+
+                if (isConfirm.isChecked()) {
                     new AddFriendAsyncTask().execute(friendEntity);
+                } else {
+                    new DeleteFriendAsyncTask().execute(friendEntity);
                 }
             }
         });
@@ -100,6 +102,25 @@ public class FriendsAddedAdapter extends BaseAdapter {
         @Override
         protected void onPostExecute(Void aVoid) {
             Toast.makeText(context, "Friend added", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    class DeleteFriendAsyncTask extends AsyncTask<FriendEntity, Integer, Boolean>
+    {
+
+        @Override
+        protected Boolean doInBackground(FriendEntity... friendEntities) {
+
+            if(reactorApi == null)
+                reactorApi = ((MainActivity) context).getReactorApi();
+
+            return reactorApi.deleteFriend(friendEntities[0].getId());
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if(result)
+                Toast.makeText(context, "Friend deleted", Toast.LENGTH_SHORT).show();
         }
     }
 }
