@@ -72,8 +72,6 @@ import android.widget.TextView;
 public class CreatePhotoFragment extends SherlockFragment implements SurfaceHolder.Callback {
 
     private Camera camera;
- //   private SurfaceView sfView;
- //   private SurfaceHolder sfHolder;
     private ImageButton shootButton;
     private ImageButton switchCamera;
     private ToggleButton toggleFlash;
@@ -86,9 +84,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     SurfaceHolder surfaceHolder;
     boolean previewing = false;
     LayoutInflater controlInflater = null;
-
-  //  Button buttonTakePicture;
- //   TextView prompt;
 
     DrawingView drawingView;
     Face[] detectedFaces;
@@ -104,16 +99,12 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-     //   View v = inflater.inflate(R.layout.main, container ,false);
         View v = inflater.inflate(R.layout.camera_layout, container ,false);
 
-    //    sfView = (SurfaceView) v.findViewById(R.id.bbyby);
           shootButton = (ImageButton) v.findViewById(R.id.shootButton);
         switchCamera = (ImageButton) v.findViewById(R.id.toggle_button);
         toggleFlash = (ToggleButton) v.findViewById(R.id.switchCamera);
-     /*   sfHolder = sfView.getHolder();
-        sfHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        sfHolder.addCallback(this);*/
+
         shootButton.setOnClickListener(shootClick);
         switchCamera.setOnClickListener(switchCameraClick);
         toggleFlash.setOnClickListener(toogleFlashLightClick);
@@ -141,24 +132,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                 LayoutParams.FILL_PARENT);
 
         ((FrameLayout) v.findViewById(R.id.photoFrame)).addView(drawingView, layoutParamsDrawing);
-      //  getActivity().addContentView(drawingView, layoutParamsDrawing);
-
-
-      /*  View viewControl = inflater.inflate(R.layout.control, container ,false);
-        LayoutParams layoutParamsControl
-                = new LayoutParams(LayoutParams.FILL_PARENT,
-                LayoutParams.FILL_PARENT);
-        getActivity().addContentView(viewControl, layoutParamsControl);*/
-
-     /*    buttonTakePicture = (Button)v.findViewById(R.id.takepicture);
-        buttonTakePicture.setOnClickListener(new Button.OnClickListener(){
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                camera.takePicture(myShutterCallback,
-                        myPictureCallback_RAW, myPictureCallback_JPG);
-            }});*/
 
         LinearLayout layoutBackground = (LinearLayout)v.findViewById(R.id.background);
 
@@ -172,12 +145,11 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
 				camera.autoFocus(myAutoFocusCallback);
 			}});
 
-
-        //prompt = (TextView)v.findViewById(R.id.prompt);
+        int numCameras = Camera.getNumberOfCameras();
+        if (numCameras < 2) {
+            switchCamera.setVisibility(View.INVISIBLE);
+        }
         return v;
-
-
-      //  return preview;
     }
 
     @Override
@@ -193,11 +165,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
 
                 Camera.Size previewSize = camera.getParameters().getPreviewSize();
                 float aspect = (float) previewSize.width / previewSize.height;
-                /*
-                int previewSurfaceWidth = sfView.getWidth();
-                int previewSurfaceHeight = sfView.getHeight();
-                ViewGroup.LayoutParams lp = sfView.getLayoutParams();
-                */
+
                 int previewSurfaceWidth = cameraSurfaceView.getWidth();
                 int previewSurfaceHeight = cameraSurfaceView.getHeight();
                 ViewGroup.LayoutParams lp = cameraSurfaceView.getLayoutParams();
@@ -217,16 +185,13 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                     lp.width = previewSurfaceWidth;
                     lp.height = (int) (previewSurfaceWidth / aspect);
                 }
-                //camera.setR;
+
 
                 List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
                 camera.setParameters(parameters);
                 camera.setPreviewDisplay(holder);
 
                 cameraSurfaceView.setLayoutParams(lp);
-
-
-             //   sfView.setLayoutParams(lp);
                 camera.startPreview();
             }
             catch (IOException e){
@@ -234,18 +199,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             }
         }
     }
-/*
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-    }
-    */
-/*
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
-        camera.stopPreview();
-        camera.release();
-    }*/
 
     Camera.ShutterCallback shutterCallback = new Camera.ShutterCallback() {
         @Override
@@ -326,11 +279,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     /////////////////////////////////////////////////////////////////////////////////////
     public void touchFocus(final Rect tfocusRect){
 
-        //buttonTakePicture.setEnabled(false);
-
         camera.stopFaceDetection();
-
-        //Convert from View's width and height to +/- 1000
         final Rect targetFocusRect = new Rect(
                 tfocusRect.left * 2000/drawingView.getWidth() - 1000,
                 tfocusRect.top * 2000/drawingView.getHeight() - 1000,
@@ -359,7 +308,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         public void onFaceDetection(Face[] faces, Camera tcamera) {
 
             if (faces.length == 0){
-                //prompt.setText(" No Face Detected! ");
                 drawingView.setHaveFace(false);
             }else{
                 //prompt.setText(String.valueOf(faces.length) + " Face Detected :) ");
@@ -382,20 +330,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                 }
 
                 camera.setParameters(para);
-
-              //  buttonTakePicture.setEnabled(false);
-
-                //Stop further Face Detection
                 camera.stopFaceDetection();
-
-            //    buttonTakePicture.setEnabled(false);
-
-				/*
-				 * Allways throw java.lang.RuntimeException: autoFocus failed
-				 * if I call autoFocus(myAutoFocusCallback) here!
-				 *
-					camera.autoFocus(myAutoFocusCallback);
-				*/
 
                 //Delay call autoFocus(myAutoFocusCallback)
                 myScheduledExecutorService = Executors.newScheduledThreadPool(1);
@@ -423,8 +358,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
 
             float focusDistances[] = new float[3];
             arg1.getParameters().getFocusDistances(focusDistances);
-         //   prompt.setText("Optimal Focus Distance(meters): "
-          //          + focusDistances[Camera.Parameters.FOCUS_DISTANCE_OPTIMAL_INDEX]);
 
         }};
 
@@ -449,8 +382,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         @Override
         public void onPictureTaken(byte[] arg0, Camera arg1) {
             // TODO Auto-generated method stub
-			/*Bitmap bitmapPicture
-				= BitmapFactory.decodeByteArray(arg0, 0, arg0.length);	*/
+
 
             Uri uriTarget = getActivity().getContentResolver().insert(Media.EXTERNAL_CONTENT_URI, new ContentValues());
 
@@ -460,8 +392,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                 imageFileOS.write(arg0);
                 imageFileOS.flush();
                 imageFileOS.close();
-
-                //prompt.setText("Image saved: " + uriTarget.toString());
 
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
@@ -490,8 +420,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                 camera.setPreviewDisplay(surfaceHolder);
                 camera.startPreview();
 
-            //    prompt.setText(String.valueOf(
-             //           "Max Face: " + camera.getParameters().getMaxNumDetectedFaces()));
                 camera.startFaceDetection();
                 previewing = true;
             } catch (IOException e) {
@@ -500,13 +428,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             }
         }
     }
-/*
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        // TODO Auto-generated method stub
-        camera = Camera.open();
-        camera.setFaceDetectionListener(faceDetectionListener);
-    }*/
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
@@ -551,8 +472,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             // TODO Auto-generated method stub
             if(haveFace){
 
-                // Camera driver coordinates range from (-1000, -1000) to (1000, 1000).
-                // UI coordinates range from (0, 0) to (width, height).
 
                 int vWidth = getWidth();
                 int vHeight = getHeight();
