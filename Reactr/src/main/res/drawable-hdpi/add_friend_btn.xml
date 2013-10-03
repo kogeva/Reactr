@@ -2,9 +2,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/l_b"
     >
-    <item android:drawable="@drawable/rsz_add_friend_gray"
+    <item android:drawable="@drawable/add_friend_black"
         android:state_pressed="true" />
-    <item android:drawable="@drawable/rsz_add_friend_gray"
+    <item android:drawable="@drawable/add_friend_black"
         android:state_focused="true" />
     <item android:drawable="@drawable/rsz_add_friend_white" />
 </selector>

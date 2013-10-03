@@ -29,7 +29,7 @@ public class AnotherActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getActionBar().hide();
         Uri uri = getIntent().getData();
         tvPage = new WebView(this);
         String caption = uri.getQueryParameter("caption");
