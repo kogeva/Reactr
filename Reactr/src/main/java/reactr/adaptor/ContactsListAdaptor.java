@@ -3,7 +3,7 @@ package reactr.adaptor;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +31,7 @@ public class ContactsListAdaptor extends BaseExpandableListAdapter {
     private ReactorApi api;
     private Integer groupeIndex;
     private Integer  elementIndex;
+    private ReactorApi reactorApi;
 
     public ContactsListAdaptor(Context context, ArrayList<ArrayList<JSONObject>> groupUser, ReactorApi api) {
         this.context = context;
@@ -120,7 +121,11 @@ public class ContactsListAdaptor extends BaseExpandableListAdapter {
             public void onClick(View view) {
                 if(groupePosition == 0) {
                     user = groupUser.get(groupePosition).get(childPosition);
-                    new Thread(addFriendTask).start();
+                    try {
+                        new AddFriendAsyncTask(childPosition).execute(user.getLong("phone"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else {
 
@@ -149,16 +154,28 @@ public class ContactsListAdaptor extends BaseExpandableListAdapter {
         return false;
     }
 
-    Runnable addFriendTask = new Runnable() {
+    class AddFriendAsyncTask extends AsyncTask<Long, Integer, Boolean>
+    {
+        private int position;
+
+        public AddFriendAsyncTask(Integer position) {
+            this.position = position;
+        }
+
         @Override
-        public void run() {
-            try {
-                groupeIndex.toString();
-                elementIndex.toString();
-                api.addFriend(user.getLong("phone"));
-            } catch (JSONException e) {
-                e.printStackTrace();
+        protected Boolean doInBackground(Long... friendNumberPhone) {
+            if (reactorApi == null)
+                reactorApi = ((MainActivity) context).getReactorApi();
+            return reactorApi.addFriend(friendNumberPhone[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                Toast.makeText(context, "Friend added", Toast.LENGTH_SHORT).show();
+                groupUser.get(0).remove(position);
+                notifyDataSetChanged();
             }
         }
-    };
+    }
 }

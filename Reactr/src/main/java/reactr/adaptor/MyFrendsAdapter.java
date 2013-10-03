@@ -100,6 +100,7 @@ public class MyFrendsAdapter extends FriendsAddedAdapter {
         editUserDialog = new Dialog(context);
         editUserDialog.setTitle(usernameText);
         editUserDialog.setContentView(R.layout.friend_edit_username_dialog);
+
         final EditText username = (EditText) editUserDialog.findViewById(R.id.editUsername);
         Button saveButton = (Button) editUserDialog.findViewById(R.id.button);
 
@@ -110,6 +111,7 @@ public class MyFrendsAdapter extends FriendsAddedAdapter {
                 FriendsDBManager friendsDBManager = new FriendsDBManager(context);
                 friendsDBManager.editUserNameFriend(friendId, username.getText().toString());
                         ((TextView) elementView.findViewById(R.id.contact_name)).setText(username.getText().toString());
+                        ((FriendEntity) getItem(position)).setNameInContacts(username.getText().toString());
                 editUserDialog.dismiss();
             }
         });

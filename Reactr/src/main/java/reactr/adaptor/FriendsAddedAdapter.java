@@ -121,6 +121,7 @@ public class FriendsAddedAdapter extends BaseAdapter {
         protected void onPostExecute(Boolean result) {
             if(result)
                 Toast.makeText(context, "Friend deleted", Toast.LENGTH_SHORT).show();
+            notifyDataSetChanged();
         }
     }
 }

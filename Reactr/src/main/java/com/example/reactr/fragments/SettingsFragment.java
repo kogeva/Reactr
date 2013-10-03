@@ -70,7 +70,10 @@ public class SettingsFragment extends SherlockFragment{
     private View.OnClickListener saveClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            new EditDataAsyncTask().execute(phoneNumber.getText().toString(), email.getText().toString());
+            if(isValidEmail(email.getText().toString()))
+                new EditDataAsyncTask().execute(phoneNumber.getText().toString(), email.getText().toString());
+            else
+                Toast.makeText(getSherlockActivity(), "Ivalid email address", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -138,5 +141,13 @@ public class SettingsFragment extends SherlockFragment{
         email.setText(((MainActivity) getSherlockActivity()).getEmail());
         phoneNumber.setText(((MainActivity) getSherlockActivity()).getPhone());
         privacyMessageSwitch.setChecked(((MainActivity) getSherlockActivity()).isPrivacyMessage());
+    }
+
+    private  boolean isValidEmail(CharSequence target) {
+        if (target == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
     }
 }
