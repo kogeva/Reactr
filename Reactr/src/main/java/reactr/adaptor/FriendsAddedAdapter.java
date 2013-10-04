@@ -80,7 +80,7 @@ public class FriendsAddedAdapter extends BaseAdapter {
                 if (isConfirm.isChecked()) {
                     new AddFriendAsyncTask().execute(friendEntity);
                 } else {
-                    new DeleteFriendAsyncTask().execute(friendEntity);
+                    new DeleteFriendAsyncTask(position).execute(friendEntity);
                 }
             }
         });
@@ -107,6 +107,11 @@ public class FriendsAddedAdapter extends BaseAdapter {
 
     class DeleteFriendAsyncTask extends AsyncTask<FriendEntity, Integer, Boolean>
     {
+        private Integer position;
+
+        DeleteFriendAsyncTask(Integer position) {
+            this.position = position;
+        }
 
         @Override
         protected Boolean doInBackground(FriendEntity... friendEntities) {
@@ -119,8 +124,10 @@ public class FriendsAddedAdapter extends BaseAdapter {
 
         @Override
         protected void onPostExecute(Boolean result) {
-            if(result)
+            if(result) {
                 Toast.makeText(context, "Friend deleted", Toast.LENGTH_SHORT).show();
+                friendCollection.remove(position);
+            }
             notifyDataSetChanged();
         }
     }

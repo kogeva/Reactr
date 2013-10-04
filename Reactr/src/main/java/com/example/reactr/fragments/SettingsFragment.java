@@ -156,6 +156,6 @@ public class SettingsFragment extends SherlockFragment{
     }
 
     private Boolean booleanIsValidPhone (String phone) {
-        return true;
+        return  (phone.length() > 9) ? true : false;
     }
 }
