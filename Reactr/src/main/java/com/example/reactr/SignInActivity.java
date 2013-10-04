@@ -78,9 +78,6 @@ public class SignInActivity extends Activity {
                 ReactrBase.showLoader(context);
                 new Thread(validationRequest).start();
             }
-
-            startActivity(new Intent(SignInActivity.this, PhotoViewActivity.class));
-
         }
     };
 
@@ -147,6 +144,7 @@ public class SignInActivity extends Activity {
         @Override
         public void onClick(View view) {
             phone = phoneEditText.getText().toString();
+
             new Thread(registration).start();
         }
     };
