@@ -1,4 +1,4 @@
-package com.example.reactr.reactr.models;
+package com.example.reactr;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,23 +6,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.InputType;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.reactr.MainActivity;
-import com.example.reactr.R;
-import com.example.reactr.ReactrBase;
 import com.google.android.c2dm.C2DMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.security.interfaces.DSAPrivateKey;
 
 import reactr.network.ReactorApi;
 
@@ -37,6 +29,7 @@ public class LoginActivity extends Activity {
     private SharedPreferences preferences;
     SharedPreferences.Editor prefEditor;
     private Context context;
+    private String pushNotificationId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +46,10 @@ public class LoginActivity extends Activity {
         password = (EditText) findViewById(R.id.passwordInput);
         loginButton = (Button) findViewById(R.id.loginButton);
 
+        C2DMessaging.unregister(this);
+        C2DMessaging.register(this, "254918687391");
+        pushNotificationId = C2DMessaging.getRegistrationId(this);
+
         loginButton.setOnClickListener(loginClick);
     }
 
@@ -64,7 +61,7 @@ public class LoginActivity extends Activity {
                 @Override
                 public void run() {
                     reactorApi = ReactorApi.init(0, "");
-                    responseJson = reactorApi.login(email.getText().toString(), password.getText().toString());
+                    responseJson = reactorApi.login(email.getText().toString(), password.getText().toString(), pushNotificationId);
                     handler.post(checkUserDone);
                 }
             }).start();

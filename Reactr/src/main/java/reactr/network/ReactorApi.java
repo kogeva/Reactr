@@ -98,7 +98,7 @@ public class ReactorApi {
         return errors;
     }
 
-    public JSONObject registration(String email, String password, String username, String phone) {
+    public JSONObject registration(String email, String password, String username, String phone, String deviceToken) {
         ArrayList<String> errors = new ArrayList<String>();
         postParams = new HashMap<String, ContentBody>();
 
@@ -107,7 +107,7 @@ public class ReactorApi {
             postParams.put("password", new StringBody(password));
             postParams.put("username", new StringBody(username));
             postParams.put("phone", new StringBody(phone));
-            postParams.put("device_token", new StringBody("android"));
+            postParams.put("device_token", new StringBody(deviceToken));
         } catch (UnsupportedEncodingException exp) {
             Log.d("Reactor API: ", exp.getMessage());
         }
@@ -122,14 +122,14 @@ public class ReactorApi {
         return jsonData;
     }
 
-    public JSONObject login(String email, String password)
+    public JSONObject login(String email, String password, String deviceToken)
     {
         postParams = new HashMap<String, ContentBody>();
 
         try {
             postParams.put("email", new StringBody(email));
             postParams.put("password", new StringBody(password));
-            postParams.put("device_token", new StringBody("android"));
+            postParams.put("device_token", new StringBody(deviceToken));
         } catch (UnsupportedEncodingException exp) {
             Log.d("Reactor API: ", exp.getMessage());
         }

@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:label="LoginActivity" android:name="com.example.reactr.reactr.models.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:label="LoginActivity" android:name=".LoginActivity" android:screenOrientation="portrait"/>
         <activity android:label="SignInActivity" android:name="com.example.reactr.SignInActivity" android:screenOrientation="portrait"/>
          <activity android:label="StartActivity" android:name="com.example.reactr.StartActivity" android:screenOrientation="portrait"/>
 

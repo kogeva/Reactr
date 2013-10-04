@@ -11,7 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.example.reactr.MainActivity;
+import com.example.reactr.*;
 
 /**
  * Helper class to handle BroadcastReciver behavior.
@@ -28,7 +28,7 @@ public class C2DMBroadcastReceiver extends BroadcastReceiver {
     public final void onReceive(Context context, Intent intent) {
         // To keep things in one place.
         myContext=context;
-        C2DMBaseReceiver.runIntentInService(context, intent);
+        com.example.reactr.C2DMReceiver.runIntentInService(context, intent);
         setResult(Activity.RESULT_OK, null /* data */, null /* extra */);        
     }
 

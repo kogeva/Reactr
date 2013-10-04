@@ -1,5 +1,6 @@
 package com.google.android.c2dm;
 import com.example.reactr.MainActivity;
+import com.example.reactr.R;
 import com.google.android.c2dm.C2DMBaseReceiver;
 
 import android.app.Notification;
@@ -42,9 +43,9 @@ public class C2DMReceiver extends C2DMBaseReceiver {
 
             NotificationManager mManager = (NotificationManager)
                     getSystemService(Context.NOTIFICATION_SERVICE);
-            Notification notification = new Notification(android.R.drawable.ic_dialog_info,
-                    "My C2DM message", System.currentTimeMillis());
-            notification.setLatestEventInfo(context,"App Name","C2DM notification",
+            Notification notification = new Notification(R.drawable.ic_launcher,
+                    data, System.currentTimeMillis());
+            notification.setLatestEventInfo(context,"Reactr","Hello world",
                     PendingIntent.getActivity(this.getBaseContext(), 0,
                             intent,PendingIntent.FLAG_CANCEL_CURRENT));
             mManager.notify(0, notification);

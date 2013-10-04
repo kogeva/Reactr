@@ -88,12 +88,6 @@ public class MainActivity extends SlidingFragmentActivity  {
         String message = getIntent().getStringExtra("message");
         if(message != null)
             Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
-
-        String id = C2DMessaging.getRegistrationId(this);
-        if(id.length() == 0)
-        {
-            C2DMessaging.register(this, "ash@eyepinch.com");
-        }
     }
 
     @Override

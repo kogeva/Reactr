@@ -29,6 +29,7 @@ import android.os.PowerManager;
 import android.util.Log;
 
 import com.example.reactr.MainActivity;
+import com.example.reactr.R;
 
 /**
  * Base class for C2D message receiver. Includes constants for the
@@ -89,7 +90,7 @@ public abstract class C2DMBaseReceiver extends IntentService {
 
                 NotificationManager mManager = (NotificationManager)
                         getSystemService(Context.NOTIFICATION_SERVICE);
-                Notification notification = new Notification(android.R.drawable.ic_dialog_info,
+                Notification notification = new Notification(R.drawable.ic_launcher,
                         "My C2DM message", System.currentTimeMillis());
                 notification.setLatestEventInfo(context,"App Name","C2DM notification",
                         PendingIntent.getActivity(this.getBaseContext(), 0,
@@ -120,7 +121,7 @@ public abstract class C2DMBaseReceiver extends IntentService {
     public void onUnregistered(Context context) {
     }
 
-    
+
     @Override
     public final void onHandleIntent(Intent intent) {
         try {
@@ -150,7 +151,7 @@ public abstract class C2DMBaseReceiver extends IntentService {
      * in background threads, with a wake lock, while keeping the service 
      * alive. 
      */
-    static void runIntentInService(Context context, Intent intent) {
+    protected static void runIntentInService(Context context, Intent intent) {
         if (mWakeLock == null) {
             // This is called from BroadcastReceiver, there is no init.
             PowerManager pm = 

@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.c2dm.C2DMessaging;
 import com.testflightapp.lib.TestFlight;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,6 +41,7 @@ public class SignInActivity extends Activity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor prefEditor;
     private TextView st_tv;
+    private String pushNotificationId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,13 @@ public class SignInActivity extends Activity {
         st_tv = (TextView)findViewById(R.id.textView);
         st_tv.setLinksClickable(true);
         st_tv.setMovementMethod(new LinkMovementMethod());
+
+        pushNotificationId = C2DMessaging.getRegistrationId(this);
+        if(pushNotificationId.length() == 0)
+        {
+            C2DMessaging.register(this, "254918687391");
+            pushNotificationId = C2DMessaging.getRegistrationId(this);
+        }
 
     }
 
@@ -152,7 +162,7 @@ public class SignInActivity extends Activity {
     Runnable registration = new Runnable() {
         @Override
         public void run() {
-           result = api.registration(email, password, username, phone);
+           result = api.registration(email, password, username, phone, pushNotificationId);
             try {
                 if (result.get("status").equals("success")) {
                     prefEditor.putInt("user_id", result.getInt("user_id"));
