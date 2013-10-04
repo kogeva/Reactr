@@ -43,6 +43,7 @@ public class SettingsFragment extends SherlockFragment{
         email = (EditText) view.findViewById(R.id.editEmail);
         saveButton = (Button) view.findViewById(R.id.saveButton);
         privacyMessageSwitch = (Switch) view.findViewById(R.id.switchPrivacyMessage);
+        privacyMessageSwitch.setChecked(((MainActivity) getSherlockActivity()).isPrivacyMessage());
 
         privacyMessageSwitch.setOnCheckedChangeListener(switchPrivacyListener);
         saveButton.setOnClickListener(saveClickListener);
@@ -54,8 +55,6 @@ public class SettingsFragment extends SherlockFragment{
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("SETTINGS");
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
-//        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.to_menu);
-//        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setPadding(10, 14, 43, 14);
 
         return view;
     }
@@ -93,6 +92,8 @@ public class SettingsFragment extends SherlockFragment{
         protected void onPostExecute(Boolean state) {
             if (!state)
                 privacyMessageSwitch.toggle();
+            else
+                ((MainActivity) getSherlockActivity()).setAppSettings("privacy_message", new Boolean(privacyMessageSwitch.isChecked()).toString());
         }
     };
 
@@ -156,6 +157,6 @@ public class SettingsFragment extends SherlockFragment{
     }
 
     private Boolean booleanIsValidPhone (String phone) {
-        return  (phone.length() > 9) ? true : false;
+        return  (phone.length() > 9 && phone.length() <= 10) ? true : false;
     }
 }

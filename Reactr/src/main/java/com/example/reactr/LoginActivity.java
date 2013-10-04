@@ -46,9 +46,11 @@ public class LoginActivity extends Activity {
         password = (EditText) findViewById(R.id.passwordInput);
         loginButton = (Button) findViewById(R.id.loginButton);
 
-        C2DMessaging.unregister(this);
-        C2DMessaging.register(this, "254918687391");
-        pushNotificationId = C2DMessaging.getRegistrationId(this);
+        if (C2DMessaging.getRegistrationId(this).length() == 0) {
+            C2DMessaging.register(this, "254918687391");
+            pushNotificationId = C2DMessaging.getRegistrationId(this);
+        } else
+            pushNotificationId = C2DMessaging.getRegistrationId(this);
 
         loginButton.setOnClickListener(loginClick);
     }

@@ -128,7 +128,6 @@ public class FriendsAddedAdapter extends BaseAdapter {
                 Toast.makeText(context, "Friend deleted", Toast.LENGTH_SHORT).show();
                 friendCollection.remove(position);
             }
-            notifyDataSetChanged();
         }
     }
 }
