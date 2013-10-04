@@ -71,9 +71,13 @@ public class SettingsFragment extends SherlockFragment{
         @Override
         public void onClick(View view) {
             if(isValidEmail(email.getText().toString()))
-                new EditDataAsyncTask().execute(phoneNumber.getText().toString(), email.getText().toString());
+                if(booleanIsValidPhone(phoneNumber.getText().toString()))
+                    new EditDataAsyncTask().execute(phoneNumber.getText().toString(), email.getText().toString());
+                else
+                    Toast.makeText(getSherlockActivity(), "Invalid  phone number", Toast.LENGTH_SHORT).show();
+
             else
-                Toast.makeText(getSherlockActivity(), "Ivalid email address", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getSherlockActivity(), "Invalid email address", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -149,5 +153,9 @@ public class SettingsFragment extends SherlockFragment{
         } else {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
+    }
+
+    private Boolean booleanIsValidPhone (String phone) {
+        return true;
     }
 }

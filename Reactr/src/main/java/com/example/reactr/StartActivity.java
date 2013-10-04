@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.reactr.reactr.models.LoginActivity;
-
 public class StartActivity extends Activity {
 
     private Button login;

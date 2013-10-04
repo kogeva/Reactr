@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-
-        <LinearLayout
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@drawable/menu_item_style"
-
-        >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/menu_item_style">
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:textSize="25dp"
-            android:textColor="#393939"
-            android:text="Mailbox"
-            android:id="@+id/menuNameText"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="25dp"
+        android:textColor="#393939"
+        android:text="Mailbox"
+        android:id="@+id/menuNameText" />
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="1"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:cursorVisible="false"
-            android:background="@drawable/circle"
-            android:id="@+id/counterText"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="1"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:cursorVisible="false"
+        android:background="@drawable/circle"
+        android:id="@+id/counterText" />
 
 </LinearLayout>
