@@ -88,6 +88,7 @@ public class SignInActivity extends Activity {
                 ReactrBase.showLoader(context);
                 new Thread(validationRequest).start();
             }
+        //    handler.post(switchToSlideActivity);
         }
     };
 
