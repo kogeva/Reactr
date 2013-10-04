@@ -27,7 +27,7 @@
         <activity android:label="LoginActivity" android:name="com.example.reactr.reactr.models.LoginActivity" android:screenOrientation="portrait"/>
         <activity android:label="SignInActivity" android:name="com.example.reactr.SignInActivity" android:screenOrientation="portrait"/>
          <activity android:label="StartActivity" android:name="com.example.reactr.StartActivity" android:screenOrientation="portrait"/>
-
+        <activity android:label="PhotoViewActivity" android:name="com.example.reactr.PhotoViewActivity" android:screenOrientation="portrait"/>
         <activity android:label="MainActivity" android:name=".MainActivity"
                   android:screenOrientation="portrait"
                   android:configChanges="orientation" ></activity>

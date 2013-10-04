@@ -79,6 +79,8 @@ public class SignInActivity extends Activity {
                 new Thread(validationRequest).start();
             }
 
+            startActivity(new Intent(SignInActivity.this, PhotoViewActivity.class));
+
         }
     };
 
@@ -159,7 +161,7 @@ public class SignInActivity extends Activity {
                     prefEditor.putString("session_hash", result.getString("session_hash"));
                     prefEditor.putString("username", username);
                     prefEditor.commit();
-                    handler.post(switchToMainActivity);
+                    handler.post(switchToSlideActivity);
                 }
                 if (result.get("status").equals("failed"))
                 {
@@ -186,4 +188,15 @@ public class SignInActivity extends Activity {
             //api.checkUsernameAndEmail(email, password);
         }
     };
+
+
+    Runnable switchToSlideActivity = new Runnable() {
+        @Override
+        public void run() {
+            startActivity(new Intent(SignInActivity.this, PhotoViewActivity.class));
+            //api.checkUsernameAndEmail(email, password);
+        }
+    };
+
+
 }
