@@ -16,11 +16,12 @@
 
             android:src="@drawable/rsz_arrow_forward_black"
             android:id="@+id/typeMessage"
-            android:paddingTop="8dp"
+            android:paddingTop="4dp"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:scaleType="fitXY"
-        android:layout_marginTop="11dp" />
+        android:paddingBottom="4dp"
+        android:layout_gravity="center_vertical" />
 
     <LinearLayout
             android:layout_width="wrap_content"
@@ -61,12 +62,12 @@
             android:text="REACTION"
             android:id="@+id/isReaction"
             android:singleLine="false"
-            android:textSize="12sp"
-            android:paddingLeft="11dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
+            android:textSize="14sp"
+            android:paddingLeft="7dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
             android:shadowColor="#ff353232"
-            android:paddingRight="11dp"
+            android:paddingRight="7dp"
         android:layout_marginTop="5dp"
 
         android:textIsSelectable="false" />
