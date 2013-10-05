@@ -56,13 +56,13 @@ public class PhotoViewActivity extends FragmentActivity {
                             pageIndikator.setImageResource(R.drawable.dot_off);
                         }
 
-          pageIndikator=((ImageButton) findViewById(R.id.slide1));
-          if(position==1){
-              pageIndikator.setImageResource(R.drawable.dot_on);
-          }
-          else{
-              pageIndikator.setImageResource(R.drawable.dot_off);
-          }
+                       pageIndikator=((ImageButton) findViewById(R.id.slide1));
+                      if(position==1){
+                          pageIndikator.setImageResource(R.drawable.dot_on);
+                      }
+                      else{
+                          pageIndikator.setImageResource(R.drawable.dot_off);
+                      }
 
         				pageIndikator=((ImageButton) findViewById(R.id.slide2));
         				if(position==2){
@@ -97,29 +97,26 @@ public class PhotoViewActivity extends FragmentActivity {
                             pageIndikator.setImageResource(R.drawable.dot_off);
         				}
 
-
-          pageIndikator=((ImageButton) findViewById(R.id.slide6));
-          if(position==6){
-              pageIndikator.setImageResource(R.drawable.dot_on);
-          }
-          else{
-              pageIndikator.setImageResource(R.drawable.dot_off);
-          }
-
-
-          pageIndikator=((ImageButton) findViewById(R.id.slide7));
-          if(position==7){
-              pageIndikator.setImageResource(R.drawable.dot_on);
-              pageIndikator=((ImageButton) findViewById(R.id.skipBtn));
-              pageIndikator.setImageResource(R.drawable.start_button);
-          }
-          else{
-              pageIndikator.setImageResource(R.drawable.dot_off);
-              pageIndikator=((ImageButton) findViewById(R.id.skipBtn));
-              pageIndikator.setImageResource(R.drawable.skip_button);
-          }
+                      pageIndikator=((ImageButton) findViewById(R.id.slide6));
+                      if(position==6){
+                          pageIndikator.setImageResource(R.drawable.dot_on);
+                      }
+                      else{
+                          pageIndikator.setImageResource(R.drawable.dot_off);
+                      }
 
 
+                      pageIndikator=((ImageButton) findViewById(R.id.slide7));
+                      if(position==7){
+                          pageIndikator.setImageResource(R.drawable.dot_on);
+                          pageIndikator=((ImageButton) findViewById(R.id.skipBtn));
+                          pageIndikator.setImageResource(R.drawable.start_button);
+                      }
+                      else{
+                          pageIndikator.setImageResource(R.drawable.dot_off);
+                          pageIndikator=((ImageButton) findViewById(R.id.skipBtn));
+                          pageIndikator.setImageResource(R.drawable.skip_button);
+                      }
 
 
       }

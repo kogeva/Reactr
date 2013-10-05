@@ -75,11 +75,11 @@ public class SignInActivity extends Activity {
         }
 
     }
-
-
     View.OnClickListener toStepTwoClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
+        //    startActivity(new Intent(SignInActivity.this, PhotoViewActivity.class));
             email = emailEditText.getText().toString();
             password = passwordEditText.getText().toString();
             if(email.isEmpty() || password.isEmpty())
@@ -89,7 +89,6 @@ public class SignInActivity extends Activity {
                 new Thread(validationRequest).start();
             }
 
-            startActivity(new Intent(SignInActivity.this, PhotoViewActivity.class));
 
         }
     };

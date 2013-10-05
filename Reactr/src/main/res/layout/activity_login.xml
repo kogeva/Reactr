@@ -28,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/email_text"
                     android:background="@drawable/text_input"
-
+                    android:textStyle="bold"
                     android:textSize="12pt"
                     android:width="20pt"
                     android:ems="10"
@@ -49,7 +49,8 @@
                     android:ems="10"
                     android:id="@+id/passwordInput"
                     android:singleLine="true"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:textStyle="bold"/>
 
             <Button
                     android:layout_width="wrap_content"
