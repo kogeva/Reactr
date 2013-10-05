@@ -129,7 +129,7 @@ public class ReactorApi {
         try {
             postParams.put("email", new StringBody(email));
             postParams.put("password", new StringBody(password));
-            postParams.put("device_token", new StringBody(deviceToken));
+            postParams.put("device_token", new StringBody((deviceToken.length() > 0) ? deviceToken : "android"));
         } catch (UnsupportedEncodingException exp) {
             Log.d("Reactor API: ", exp.getMessage());
         }
