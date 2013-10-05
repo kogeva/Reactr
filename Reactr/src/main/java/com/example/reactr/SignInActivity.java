@@ -75,22 +75,21 @@ public class SignInActivity extends Activity {
         }
 
     }
-
     View.OnClickListener toStepTwoClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
+        //    startActivity(new Intent(SignInActivity.this, PhotoViewActivity.class));
             email = emailEditText.getText().toString();
             password = passwordEditText.getText().toString();
-            if(email.isEmpty() || password.isEmpty()) {
+            if(email.isEmpty() || password.isEmpty())
                 Toast.makeText(context, "Email and password a required", Toast.LENGTH_LONG).show();
-                if(password.length() < 7)
-                    Toast.makeText(context, "Password less then 6 characters", Toast.LENGTH_LONG).show();
-            }
             else {
                 ReactrBase.showLoader(context);
                 new Thread(validationRequest).start();
             }
-        //    handler.post(switchToSlideActivity);
+
+
         }
     };
 
@@ -157,7 +156,6 @@ public class SignInActivity extends Activity {
         @Override
         public void onClick(View view) {
             phone = phoneEditText.getText().toString();
-
             new Thread(registration).start();
         }
     };
