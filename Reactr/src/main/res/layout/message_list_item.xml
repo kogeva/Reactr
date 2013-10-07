@@ -34,16 +34,16 @@
                 android:layout_height="wrap_content"
                 android:text="Bryan Gilpin"
                 android:id="@+id/userText"
-                android:textSize="24sp"
+                android:textSize="20sp"
             android:layout_marginTop="6dp" />
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
             android:textColor="#999999"
-                android:text="New Text"
+                android:text="New Text New Text New Text"
                 android:id="@+id/date"
-                android:textSize="16sp"
+                android:textSize="10dp"
             android:layout_marginBottom="10dp" />
 
     </LinearLayout>
@@ -61,12 +61,14 @@
             android:text="REACTION"
             android:id="@+id/isReaction"
             android:singleLine="false"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:paddingLeft="11dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:shadowColor="#ff353232"
             android:paddingRight="11dp"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+
+        android:textIsSelectable="false" />
 
 </LinearLayout>
