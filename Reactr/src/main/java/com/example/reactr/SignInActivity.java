@@ -81,18 +81,22 @@ public class SignInActivity extends Activity {
         public void onClick(View view) {
             email = emailEditText.getText().toString();
             password = passwordEditText.getText().toString();
-            if(email.isEmpty() || password.isEmpty()) {
+            if(email.isEmpty() || password.isEmpty())
                 Toast.makeText(context, "Email and password a required", Toast.LENGTH_LONG).show();
+            else {
                 if(password.length() < 7)
                     Toast.makeText(context, "Password less then 6 characters", Toast.LENGTH_LONG).show();
-            }
-            else {
-                ReactrBase.showLoader(context);
-                new Thread(validationRequest).start();
+                else
+                {
+                    if (isValidEmail(email)) {
+                        ReactrBase.showLoader(context);
+                        new Thread(validationRequest).start();
+                    } else
+                        Toast.makeText(getApplicationContext(), "Invalid email address", Toast.LENGTH_SHORT).show();
+                }
             }
 
             startActivity(new Intent(SignInActivity.this, PhotoViewActivity.class));
-
         }
     };
 
@@ -159,7 +163,10 @@ public class SignInActivity extends Activity {
         @Override
         public void onClick(View view) {
             phone = phoneEditText.getText().toString();
-            new Thread(registration).start();
+            if (booleanIsValidPhone(phone))
+                new Thread(registration).start();
+            else
+                Toast.makeText(getApplicationContext(), "Invalid  phone number", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -210,5 +217,15 @@ public class SignInActivity extends Activity {
         }
     };
 
+    private  boolean isValidEmail(CharSequence target) {
+        if (target == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
+    }
 
+    private Boolean booleanIsValidPhone (String phone) {
+        return  (phone.length() > 9 && phone.length() <= 10) ? true : false;
+    }
 }
