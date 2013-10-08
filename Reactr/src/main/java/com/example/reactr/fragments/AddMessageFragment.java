@@ -45,10 +45,14 @@ public class AddMessageFragment extends SherlockFragment{
     private Context context;
 
     public AddMessageFragment(byte[] photo, int camId) {
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+
         if (camId == 1)
-            this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length), -90);
+            this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length, options), -90);
         else
-            this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length), 90);
+            this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length, options), 90);
     }
 
     public AddMessageFragment(byte[] photo, MessageEntity messageEntity, int camId) {
