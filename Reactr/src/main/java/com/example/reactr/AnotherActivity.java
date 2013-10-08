@@ -2,11 +2,20 @@ package com.example.reactr;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.example.reactr.fragments.MyFriendsFragment;
+import com.example.reactr.reactr.models.ReactrConstants;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
@@ -26,19 +35,38 @@ public class AnotherActivity extends Activity {
     final String encoding = "UTF-8";
     String text;
     private WebView tvPage;
+    private View actionBarView;
+    private HashMap<String, String> hm_st_title;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().hide();
+
+        hm_st_title=new HashMap<String, String>();
+        hm_st_title.put(ReactrConstants.TERMS,"TERMS");
+        hm_st_title.put(ReactrConstants.PRIVACY,"PRIVACY");
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowCustomEnabled(true);
+        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getActionBar().setCustomView(R.layout.custom_action_bar);
+        actionBarView = getActionBar().getCustomView();
+
         Uri uri = getIntent().getData();
         tvPage = new WebView(this);
         String caption = uri.getQueryParameter("caption");
         text = uri.getQueryParameter("text");
+
+        ((TextView) actionBarView.findViewById(R.id.barTitle)).setText(hm_st_title.get(text));
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.back_btn);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setOnClickListener(goBackClick);
+
         String param="";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         new RequestTask().execute();
         setContentView(tvPage);
+
     }
     public String loadStInfo(String tag)
     {
@@ -90,4 +118,11 @@ public class AnotherActivity extends Activity {
             super.onPreExecute();
         }
     }
+
+    View.OnClickListener goBackClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            finish();
+        }
+    };
 }

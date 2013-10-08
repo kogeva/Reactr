@@ -6,14 +6,13 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
-import com.example.reactr.AndroidCamera;
-import com.example.reactr.MainActivity;
 import com.example.reactr.fragments.CreatePhotoFragment;
 
 public class CameraSurfaceView extends SurfaceView {
 
 
     private CreatePhotoFragment createPhotoFragment;
+    private int camId=0;
 	public CameraSurfaceView(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
@@ -39,30 +38,33 @@ public class CameraSurfaceView extends SurfaceView {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		
-		if(event.getAction() == MotionEvent.ACTION_DOWN){
-			float x = event.getX();
-		    float y = event.getY();
-		    float touchMajor = event.getTouchMajor();
-		    float touchMinor = event.getTouchMinor();
-		    
-		    Rect touchRect = new Rect(
-		    		(int)(x - touchMajor/2), 
-		    		(int)(y - touchMinor/2), 
-		    		(int)(x + touchMajor/2), 
-		    		(int)(y + touchMinor/2));
-		    
-		    ((AndroidCamera)getContext()).touchFocus(touchRect);
-          //  createPhotoFragment.touchFocus(touchRect);
-		}
-		
-		
+	//	if(camId==0)
+        {
+            if(event.getAction() == MotionEvent.ACTION_DOWN){
+                float x = event.getX();
+                float y = event.getY();
+                float touchMajor = event.getTouchMajor();
+                float touchMinor = event.getTouchMinor();
+
+                Rect touchRect = new Rect(
+                        (int)(x - touchMajor/2),
+                        (int)(y - touchMinor/2),
+                        (int)(x + touchMajor/2),
+                        (int)(y + touchMinor/2));
+
+               // ((AndroidCamera)getContext()).touchFocus(touchRect);
+               createPhotoFragment.touchFocus(touchRect);
+            }
+        }
 		return true;
 	}
 
 
     public void setContext(CreatePhotoFragment c){
         createPhotoFragment=c;
+    }
+    public void setCameraId(int i){
+        camId=i;
     }
 	
 

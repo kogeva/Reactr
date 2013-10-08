@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.example.reactr.MainActivity;
 import com.example.reactr.R;
+import com.example.reactr.ReactrBase;
 import com.example.reactr.reactr.models.FriendEntity;
 import com.example.reactr.reactr.models.MessageEntity;
 import com.example.reactr.reactr.models.ReactrConstants;

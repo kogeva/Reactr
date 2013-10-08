@@ -36,6 +36,7 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.reactr.fragments.AddMessageFragment;
 import com.example.reactr.reactr.models.CameraSurfaceView;
@@ -55,8 +56,7 @@ public class AndroidCamera extends SlidingFragmentActivity implements SurfaceHol
 	DrawingView drawingView;
 	Face[] detectedFaces;
 	
-	final int RESULT_SAVEIMAGE = 0;
-	
+//	final int RESULT_SAVEIMAGE = 0;
 	private ScheduledExecutorService myScheduledExecutorService;
 	//********************************************************************
     /** Called when the activity is first created. */
@@ -70,7 +70,7 @@ public class AndroidCamera extends SlidingFragmentActivity implements SurfaceHol
         surfaceHolder = cameraSurfaceView.getHolder();
         surfaceHolder.addCallback(this);
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    //    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         drawingView = new DrawingView(this);
         LayoutParams layoutParamsDrawing 
@@ -90,6 +90,7 @@ public class AndroidCamera extends SlidingFragmentActivity implements SurfaceHol
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+                Log.d("CAMERA", "BEFOREtakePicture");
 				camera.takePicture(myShutterCallback, 
 						myPictureCallback_RAW, myPictureCallback_JPG);
 			}});
@@ -99,8 +100,8 @@ public class AndroidCamera extends SlidingFragmentActivity implements SurfaceHol
     
     public void touchFocus(final Rect tfocusRect){
         Log.d("CAMERA", "TOUCHFOCUS");
-    	buttonTakePicture.setEnabled(false);
-    	camera.stopFaceDetection();
+    	//buttonTakePicture.setEnabled(false);
+    	//camera.stopFaceDetection();
     	//Convert from View's width and height to +/- 1000
 		final Rect targetFocusRect = new Rect(
 				tfocusRect.left * 2000/drawingView.getWidth() - 1000,
@@ -129,12 +130,12 @@ public class AndroidCamera extends SlidingFragmentActivity implements SurfaceHol
             // TODO Auto-generated method stub
             if (arg0){
                 //    buttonTakePicture.setEnabled(true);
+                Log.d("CAMERA", "cancelAutoFocus");
                 camera.cancelAutoFocus();
-            }
 
+            }
             float focusDistances[] = new float[3];
             arg1.getParameters().getFocusDistances(focusDistances);
-
         }};
     
     ShutterCallback myShutterCallback = new ShutterCallback(){
@@ -145,11 +146,16 @@ public class AndroidCamera extends SlidingFragmentActivity implements SurfaceHol
 		
 	PictureCallback myPictureCallback_RAW = new PictureCallback(){
         @Override
-        public void onPictureTaken(byte[] data, Camera camera) {     Log.d("Camera","myPictureCallback_RAW");    }};
-		
+        public void onPictureTaken(byte[] data, Camera camera) {  }};
+
+
+
 	PictureCallback myPictureCallback_JPG = new PictureCallback(){
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
+
+            Toast.makeText(getBaseContext(), "data "+data.length, Toast.LENGTH_SHORT).show();
+
             Log.d("CAMERA", "onPictureTaken");
             FileOutputStream outStream = null;
             try {
@@ -163,7 +169,15 @@ public class AndroidCamera extends SlidingFragmentActivity implements SurfaceHol
             catch (IOException e){
                 Log.d("CAMERA", e.getMessage());
             }
-                ReactrBase.switchFraagment(AndroidCamera.this, new AddMessageFragment(data, 1));
+          //  ReactrBase.switchFraagment(AndroidCamera.this, new AddMessageFragment(data, 1));
+           // finish();
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content_frame, new AddMessageFragment(data, 1))
+                    .commit();
+
+            Log.d("Camera","myPictureCallback_RAW");
         }
 
     };
@@ -173,7 +187,7 @@ public class AndroidCamera extends SlidingFragmentActivity implements SurfaceHol
 			int height) {
 		// TODO Auto-generated method stub
 		if(previewing){
-			camera.stopFaceDetection();
+		//	camera.stopFaceDetection();
 			camera.stopPreview();
 			previewing = false;
 		}
@@ -182,10 +196,10 @@ public class AndroidCamera extends SlidingFragmentActivity implements SurfaceHol
 			try {
 				camera.setPreviewDisplay(surfaceHolder);
 				camera.startPreview();
-
+            //    camera.setDisplayOrientation(90);
 				prompt.setText(String.valueOf(
 						"Max Face: " + camera.getParameters().getMaxNumDetectedFaces()));
-				camera.startFaceDetection();
+			//	camera.startFaceDetection();
 				previewing = true;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -198,15 +212,14 @@ public class AndroidCamera extends SlidingFragmentActivity implements SurfaceHol
 	public void surfaceCreated(SurfaceHolder holder) {
 		// TODO Auto-generated method stub
 		camera = Camera.open();
+        camera.setDisplayOrientation(90);
 	//	camera.setFaceDetectionListener(faceDetectionListener);
 	}
-
-
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         // TODO Auto-generated method stub
-        camera.stopFaceDetection();
+     //   camera.stopFaceDetection();
         camera.stopPreview();
         camera.release();
         camera = null;
@@ -245,7 +258,7 @@ public class AndroidCamera extends SlidingFragmentActivity implements SurfaceHol
 		@Override
 		protected void onDraw(Canvas canvas) {
 			// TODO Auto-generated method stub
-			if(haveFace){
+		/*	if(haveFace){
 
 				// Camera driver coordinates range from (-1000, -1000) to (1000, 1000).
 				 // UI coordinates range from (0, 0) to (width, height).
@@ -273,11 +286,12 @@ public class AndroidCamera extends SlidingFragmentActivity implements SurfaceHol
 							left, top, right, bottom,  
 							drawingPaint);
 				}
-			}else{
+			}else*/{
 				canvas.drawColor(Color.TRANSPARENT);
 			}
 			
 			if(haveTouch){
+                Log.d("CAMERA", "haveTouch");
 				drawingPaint.setColor(Color.BLUE);
 				canvas.drawRect(
 						touchArea.left, touchArea.top, touchArea.right, touchArea.bottom,  
