@@ -73,6 +73,8 @@ public class SignInActivity extends Activity {
             C2DMessaging.register(this, "254918687391");
             pushNotificationId = C2DMessaging.getRegistrationId(this);
         }
+        if (pushNotificationId.length() == 0)
+            pushNotificationId = "android";
 
     }
     View.OnClickListener toStepTwoClick = new View.OnClickListener() {
@@ -98,7 +100,7 @@ public class SignInActivity extends Activity {
                 }
             }
 
-            startActivity(new Intent(SignInActivity.this, PhotoViewActivity.class));
+            //startActivity(new Intent(SignInActivity.this, PhotoViewActivity.class));
         }
     };
 
