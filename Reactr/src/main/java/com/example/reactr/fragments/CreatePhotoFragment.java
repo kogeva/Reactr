@@ -1,21 +1,17 @@
 package com.example.reactr.fragments;
 
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -30,29 +26,19 @@ import java.io.IOException;
 import java.util.List;
 
 
-
-
-
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
-import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.Face;
 import android.hardware.Camera.FaceDetectionListener;
@@ -60,14 +46,8 @@ import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.ShutterCallback;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore.Images.Media;
-import android.view.LayoutInflater;
-import android.view.SurfaceHolder;
-import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
-import android.widget.TextView;
 
 public class CreatePhotoFragment extends SherlockFragment implements SurfaceHolder.Callback {
 
@@ -122,6 +102,8 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
 
         getActivity().getWindow().setFormat(PixelFormat.UNKNOWN);
         cameraSurfaceView = (CameraSurfaceView)v.findViewById(R.id.bbyby);
+
+        cameraSurfaceView.setContext(this);
         surfaceHolder = cameraSurfaceView.getHolder();
         surfaceHolder.addCallback(this);
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
@@ -471,13 +453,9 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         protected void onDraw(Canvas canvas) {
             // TODO Auto-generated method stub
             if(haveFace){
-
-
                 int vWidth = getWidth();
                 int vHeight = getHeight();
-
                 for(int i=0; i<detectedFaces.length; i++){
-
                     if(i == 0){
                         drawingPaint.setColor(Color.GREEN);
                     }else{

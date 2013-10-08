@@ -4,7 +4,7 @@
  android:id="@+id/RelativeLayout1"
  android:layout_width="fill_parent"
  android:layout_height="fill_parent"
-    android:background="#d6614d">
+ android:background="#d6614d">
 <ImageView
  android:id="@+id/tvPage"
   android:src="@drawable/slide4"
@@ -12,6 +12,7 @@
     android:layout_height="fill_parent"
     android:layout_centerVertical="true"
     android:layout_centerHorizontal="true"
+    android:scaleType="centerCrop"
    >
 </ImageView>
 </RelativeLayout>

@@ -1,6 +1,5 @@
 package com.example.reactr.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -10,9 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 
+import com.example.reactr.AndroidCamera;
 import com.example.reactr.MainActivity;
 import com.example.reactr.R;
 import com.example.reactr.StartActivity;
@@ -22,8 +21,6 @@ import java.util.ArrayList;
 
 import reactr.adaptor.MenuAdapter;
 import com.example.reactr.reactr.models.ReactrConstants;
-import com.google.android.c2dm.C2DMessaging;
-import com.example.reactr.StartActivity;
 
 public class MenuFragment extends ListFragment {
 
@@ -61,7 +58,8 @@ public class MenuFragment extends ListFragment {
         Fragment newContent = null;
         switch (position){
             case 0:
-                newContent = new CreatePhotoFragment();
+             //   newContent = new CreatePhotoFragment();
+                startActivity(new Intent(getActivity(), AndroidCamera.class));
                 break;
             case 1:
                 newContent = new MailBoxFragment();
