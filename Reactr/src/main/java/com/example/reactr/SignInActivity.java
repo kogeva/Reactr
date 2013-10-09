@@ -73,14 +73,13 @@ public class SignInActivity extends Activity {
             C2DMessaging.register(this, "254918687391");
             pushNotificationId = C2DMessaging.getRegistrationId(this);
         }
-        if (pushNotificationId.length() == 0)
-            pushNotificationId = "android";
 
     }
     View.OnClickListener toStepTwoClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
+            handler.post(switchToSlideActivity);
         //    startActivity(new Intent(SignInActivity.this, PhotoViewActivity.class));
             email = emailEditText.getText().toString();
             password = passwordEditText.getText().toString();
@@ -100,7 +99,7 @@ public class SignInActivity extends Activity {
                 }
             }
 
-            //startActivity(new Intent(SignInActivity.this, PhotoViewActivity.class));
+            startActivity(new Intent(SignInActivity.this, PhotoViewActivity.class));
         }
     };
 
@@ -185,6 +184,7 @@ public class SignInActivity extends Activity {
                     prefEditor.putString("username", username);
                     prefEditor.commit();
                     handler.post(switchToSlideActivity);
+                  //  handler.post(switchToMainActivity);
                 }
                 if (result.get("status").equals("failed"))
                 {
