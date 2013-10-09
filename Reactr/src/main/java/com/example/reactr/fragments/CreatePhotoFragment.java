@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
@@ -18,7 +20,6 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
-import android.hardware.Camera.Face;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.ShutterCallback;
@@ -29,10 +30,8 @@ import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -52,17 +51,14 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     private View actionBarView;
     public int currentCamera;
 
-
     Camera camera;
     CameraSurfaceView cameraSurfaceView;
     SurfaceHolder surfaceHolder;
     boolean previewing = false;
     LayoutInflater controlInflater = null;
     ImageButton buttonTakePicture;
-
     DrawingView drawingView;
 
-    private ScheduledExecutorService myScheduledExecutorService;
 
     public CreatePhotoFragment() {
     }
@@ -93,7 +89,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("TAKE PICTURE");
 
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.VISIBLE);
-        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.dots);
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.dots_menu);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToGalleryClick);
         //*************************************
         getActivity().getWindow().setFormat(PixelFormat.UNKNOWN);
@@ -150,17 +146,32 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         @Override
         public void onClick(View view) {
             drawingView.setVisibility(View.GONE);
-            Intent i = new Intent(
-                    Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            //*******************************
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Load photo from Gallery?");
 
-        /*
-            if (messageEntity == null)
-                ReactrBase.switchFraagment(getSherlockActivity(), new AddMessageFragment(data, currentCamera));
-            else
-                ReactrBase.switchFraagment(getSherlockActivity(), new AddMessageFragment(data, messageEntity, currentCamera));
-        */
+            CharSequence[] cs;
+            cs = new CharSequence[]{"Load", getResources().getString(R.string.cancel)};
 
-            startActivityForResult(i, ((MainActivity)getActivity()).getResultLoadImage());
+            builder.setItems(cs, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+
+                    if (which == 0) {
+                        Intent i = new Intent(
+                        Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        if (messageEntity != null)
+                            ((MainActivity)getActivity()).setMessageEntity(messageEntity);
+                        startActivityForResult(i, ((MainActivity) getActivity()).getResultLoadImage());
+                    }
+                    if (which == 1) {
+                        drawingView.setVisibility(View.GONE);
+                        dialog.cancel();
+                    }
+                }
+            });
+            builder.setInverseBackgroundForced(true);
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
     };
 
@@ -215,10 +226,8 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         public void onAutoFocus(boolean arg0, Camera arg1) {
             // TODO Auto-generated method stub
             if (arg0){
-                //    buttonTakePicture.setEnabled(true);
                 Log.d("CAMERA", "cancelAutoFocus");
                 camera.cancelAutoFocus();
-
             }
             float focusDistances[] = new float[3];
             arg1.getParameters().getFocusDistances(focusDistances);

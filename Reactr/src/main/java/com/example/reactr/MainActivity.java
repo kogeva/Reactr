@@ -189,15 +189,14 @@ public class MainActivity extends SlidingFragmentActivity  {
     {
         menuFragment.updateMenu();
     }
-    //******************************************
+
     public int getResultLoadImage(){
         return RESULT_LOAD_IMAGE;
     }
-    //*****************************************
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-     //   if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
         if (null != data) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
@@ -213,7 +212,7 @@ public class MainActivity extends SlidingFragmentActivity  {
             ImageView imageView = new ImageView(this);
             imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
 
-            Drawable d=imageView.getDrawable(); // the drawable (Captain Obvious, to the rescue!!!)
+            Drawable d=imageView.getDrawable();
             Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
