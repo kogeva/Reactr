@@ -200,6 +200,4 @@ public class AddMessageFragment extends SherlockFragment{
             }
         }
     }
-
-
 }

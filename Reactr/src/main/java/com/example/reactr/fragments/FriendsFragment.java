@@ -1,6 +1,7 @@
 package com.example.reactr.fragments;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -53,7 +54,14 @@ public class FriendsFragment extends SherlockFragment {
     private Handler uiHandler;
     private MainActivity mainActivity;
     private View actionBarView;
+    private Bitmap statePhoto;
+    private String stateText;
 
+    public FriendsFragment(Bitmap photo, String text)
+    {
+        statePhoto = photo;
+        stateText = text;
+    }
     public FriendsFragment() {
     }
 
@@ -178,7 +186,10 @@ public class FriendsFragment extends SherlockFragment {
         public void onClick(View view) {
             ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.to_menu);
             ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setOnClickListener(((MainActivity) getSherlockActivity()).toogleMenu);
-            ReactrBase.switchFraagment(getSherlockActivity(), new MyFriendsFragment());
+            if(statePhoto != null)
+                ReactrBase.switchFraagment(getSherlockActivity(), new SelectFriendsFragment(statePhoto, stateText));
+            else
+                ReactrBase.switchFraagment(getSherlockActivity(), new MyFriendsFragment());
         }
     };
 }

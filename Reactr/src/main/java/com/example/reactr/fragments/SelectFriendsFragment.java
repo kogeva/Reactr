@@ -146,7 +146,7 @@ public class SelectFriendsFragment extends SherlockFragment {
     View.OnClickListener goToAddFriendClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            ReactrBase.switchFraagment(getSherlockActivity(), new FriendsFragment());
+            ReactrBase.switchFraagment(getSherlockActivity(), new FriendsFragment(photo, text));
         }
     };
 

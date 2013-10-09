@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="false">
 
         <TextView
             android:layout_width="fill_parent"
@@ -25,9 +26,9 @@
             android:layout_gravity="center" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/text_input"
+            android:layout_width="fill_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/edit_text"
             android:layout_marginTop="10pt"
             android:hint="@string/phone_text"
             android:textSize="12pt"
@@ -61,7 +62,7 @@
             android:layout_gravity="center" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/yellow_btn"
             android:layout_marginTop="10pt"
