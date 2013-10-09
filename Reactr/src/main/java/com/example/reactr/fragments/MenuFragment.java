@@ -58,8 +58,7 @@ public class MenuFragment extends ListFragment {
         Fragment newContent = null;
         switch (position){
             case 0:
-             //   newContent = new CreatePhotoFragment();
-                startActivity(new Intent(getActivity(), AndroidCamera.class));
+                newContent = new CreatePhotoFragment();
                 break;
             case 1:
                 newContent = new MailBoxFragment();
