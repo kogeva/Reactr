@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.example.reactr.MainActivity;
 import com.example.reactr.R;
 import com.example.reactr.ReactrBase;
@@ -68,8 +69,12 @@ public class MailBoxFragment extends SherlockFragment {
     Runnable updateMessageList = new Runnable() {
         @Override
         public void run() {
-            messageList.setAdapter(adapter);
-            ((MainActivity)getActivity()).updateMenu();
+            if (messageArray.size() != 0) {
+                messageList.setAdapter(adapter);
+                ((MainActivity)getActivity()).updateMenu();
+            } else {
+                ReactrBase.switchFraagment(getSherlockActivity(), new CreatePhotoFragment());
+            }
             ReactrBase.hideLoader();
         }
     };
