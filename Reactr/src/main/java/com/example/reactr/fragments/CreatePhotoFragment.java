@@ -153,6 +153,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             Intent i = new Intent(
                     Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
+
             startActivityForResult(i, ((MainActivity)getActivity()).getResultLoadImage());
         }
     };

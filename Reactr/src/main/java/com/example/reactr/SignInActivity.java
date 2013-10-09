@@ -70,7 +70,7 @@ public class SignInActivity extends Activity {
         pushNotificationId = C2DMessaging.getRegistrationId(this);
         if(pushNotificationId.length() == 0)
         {
-            C2DMessaging.register(this, "254918687391");
+            C2DMessaging.register(this, "856805386889");
             pushNotificationId = C2DMessaging.getRegistrationId(this);
         }
 

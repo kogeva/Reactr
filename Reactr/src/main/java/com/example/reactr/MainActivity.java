@@ -23,6 +23,7 @@ import com.actionbarsherlock.view.Menu;
 import com.example.reactr.fragments.AddMessageFragment;
 import com.example.reactr.fragments.MailBoxFragment;
 import com.example.reactr.fragments.MenuFragment;
+import com.example.reactr.reactr.models.MessageEntity;
 import com.google.android.c2dm.C2DMessaging;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -46,6 +47,7 @@ public class MainActivity extends SlidingFragmentActivity  {
     private ImageButton toggleMenuButton;
     private SharedPreferences.Editor editorSettings;
     private static int RESULT_LOAD_IMAGE = 1;
+    private MessageEntity messageEntity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -195,7 +197,6 @@ public class MainActivity extends SlidingFragmentActivity  {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
      //   if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
         if (null != data) {
             Uri selectedImage = data.getData();
@@ -218,9 +219,7 @@ public class MainActivity extends SlidingFragmentActivity  {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] bitmapdata = stream.toByteArray();
 
-
             ReactrBase.switchFraagment(this, new AddMessageFragment(bitmapdata, 0));
-
         }
 
 
