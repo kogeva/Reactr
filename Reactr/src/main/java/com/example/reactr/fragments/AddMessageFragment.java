@@ -51,16 +51,19 @@ public class AddMessageFragment extends SherlockFragment{
 
         if (camId == 1)
             this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length, options), -90);
-        else
+        if (camId == 0)
             this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length, options), 90);
+        if (camId == -1)
+            this.photo = BitmapFactory.decodeByteArray(photo, 0, photo.length, options);
     }
 
     public AddMessageFragment(byte[] photo, MessageEntity messageEntity, int camId) {
-        if(camId == 1)
+        if (camId == 1)
             this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length), -90);
-        else
+        if (camId == 0)
             this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length), 90);
-        this.messageEntity = messageEntity;
+        if (camId == -1)
+            this.photo = BitmapFactory.decodeByteArray(photo, 0, photo.length);
     }
 
     @Override

@@ -88,8 +88,9 @@ public class ShowMessageFragment extends SherlockFragment {
 
         ReactrBase.showLoader(getSherlockActivity());
 
-        if (!message.getIsRead())
+        if ((message.getIsRead() == false) && (message.getFromMe() == false)){
             ph = new TakePhotoWithoutPreview(getSherlockActivity(), surfaceView);
+        }
         if (message.getText().length() == 0)
             text.setVisibility(View.INVISIBLE);
         else
