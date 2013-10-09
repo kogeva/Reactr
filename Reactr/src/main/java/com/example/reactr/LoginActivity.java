@@ -46,11 +46,12 @@ public class LoginActivity extends Activity {
         password = (EditText) findViewById(R.id.passwordInput);
         loginButton = (Button) findViewById(R.id.loginButton);
 
-        if (C2DMessaging.getRegistrationId(this).length() == 0) {
-            C2DMessaging.register(this, "254918687391");
-            pushNotificationId = C2DMessaging.getRegistrationId(this);
-        } else
-            pushNotificationId = C2DMessaging.getRegistrationId(this);
+        C2DMessaging.register(this, "856805386889");
+        pushNotificationId = C2DMessaging.getRegistrationId(this);
+//        if (C2DMessaging.getRegistrationId(this).length() == 0) {
+//            pushNotificationId = C2DMessaging.getRegistrationId(this);
+//        } else
+//            pushNotificationId = C2DMessaging.getRegistrationId(this);
 
         loginButton.setOnClickListener(loginClick);
     }

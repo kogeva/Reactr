@@ -20,7 +20,6 @@ public class LoadActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.load_layout);
         getActionBar().hide();
         handler = new Handler();
 
@@ -38,6 +37,7 @@ public class LoadActivity extends Activity
                 }
             }
         }).start();
+        setContentView(R.layout.load_layout);
     }
 
     private void switchActivity(String activityName)

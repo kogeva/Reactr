@@ -1,6 +1,7 @@
 package reactr.adaptor;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.reactr.MainActivity;
 import com.example.reactr.R;
 import com.example.reactr.reactr.models.FriendEntity;
 
@@ -29,7 +31,7 @@ public class SearchFriendAdapter extends FriendsAddedAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View view = this.inflater.inflate(R.layout.search_friends_list_item, parent, false);
 
         TextView username = (TextView) view.findViewById(R.id.username);
@@ -38,23 +40,30 @@ public class SearchFriendAdapter extends FriendsAddedAdapter {
         friend = (FriendEntity) this.getItem(position);
 
         username.setText(friend.getUsername());
-        addButton.setOnClickListener(addFriendClick);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AddFriendAsyncTask().execute((FriendEntity)getItem(position));
+            }
+        });
 
         return view;
     }
 
-    View.OnClickListener addFriendClick = new View.OnClickListener() {
+    class AddFriendAsyncTask extends AsyncTask<FriendEntity, Integer, Boolean>
+    {
         @Override
-        public void onClick(View view) {
-            new Thread(addFriendTask).start();
-            Toast.makeText(context, "Friend added", Toast.LENGTH_LONG).show();
-        }
-    };
+        protected Boolean doInBackground(FriendEntity... friendEntities) {
+            if(api == null)
+                api = ((MainActivity) context).getReactorApi();
 
-    Runnable addFriendTask = new Runnable() {
-        @Override
-        public void run() {
-            api.addFriend(friend.getPhone());
+            return api.addFriend(friendEntities[0].getPhone());
         }
-    };
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result)
+                Toast.makeText(context, "Friend added", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

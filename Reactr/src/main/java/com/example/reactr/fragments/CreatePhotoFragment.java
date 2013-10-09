@@ -176,7 +176,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                     camera.setDisplayOrientation(90);
                     lp.height = previewSurfaceHeight;
                     lp.width = (int) (previewSurfaceHeight / aspect);
-                    ;
                 }
                 else
                 {

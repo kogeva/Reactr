@@ -88,20 +88,19 @@ public class FriendsAddedAdapter extends BaseAdapter {
         return view;
     }
 
-    class AddFriendAsyncTask extends AsyncTask<FriendEntity, Integer, Void>
+    class AddFriendAsyncTask extends AsyncTask<FriendEntity, Integer, Boolean>
     {
-
         @Override
-        protected Void doInBackground(FriendEntity... friendEntities) {
-
-            reactorApi = ((MainActivity) context).getReactorApi();
-            reactorApi.addFriend(friendEntities[0].getPhone());
-            return null;
+        protected Boolean doInBackground(FriendEntity... friendEntities) {
+            if (reactorApi == null)
+                reactorApi = ((MainActivity) context).getReactorApi();
+            return reactorApi.addFriend(friendEntities[0].getPhone());
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            Toast.makeText(context, "Friend added", Toast.LENGTH_SHORT).show();
+        protected void onPostExecute(Boolean result) {
+            if (result)
+                Toast.makeText(context, "Friend added", Toast.LENGTH_SHORT).show();
         }
     }
 

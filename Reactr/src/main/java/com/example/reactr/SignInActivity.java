@@ -88,7 +88,7 @@ public class SignInActivity extends Activity {
             if(email.isEmpty() || password.isEmpty())
                 Toast.makeText(context, "Email and password a required", Toast.LENGTH_LONG).show();
             else {
-                if(password.length() < 7)
+                if(password.length() < 6)
                     Toast.makeText(context, "Password less then 6 characters", Toast.LENGTH_LONG).show();
                 else
                 {
