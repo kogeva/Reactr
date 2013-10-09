@@ -13,6 +13,7 @@ public class MessageEntity {
     private String createdAt;
     private Boolean fromMe;
     private Boolean isRead;
+    private Boolean isDeleted;
     private String username;
     private String toUsername;
 
@@ -30,7 +31,8 @@ public class MessageEntity {
             Boolean fromMe,
             Boolean isRead,
             String username,
-            String toUsername
+            String toUsername,
+            Boolean isDeleted
     ) {
         this.id = id;
         this.from_user = from_user;
@@ -43,7 +45,7 @@ public class MessageEntity {
         this.isRead = isRead;
         this.username = username;
         this.toUsername = toUsername;
-
+        this.isDeleted = isDeleted;
     }
 
     public int getId() {
@@ -128,6 +130,14 @@ public class MessageEntity {
 
     public void setToUsername(String toUsername) {
         this.toUsername = toUsername;
+    }
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 
     public void setUsernameWithFriends(ArrayList<FriendEntity> friends)

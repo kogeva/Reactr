@@ -69,7 +69,7 @@ public class MessageAdapter extends BaseAdapter {
         ImageView typeMessage = (ImageView) view.findViewById(R.id.typeMessage);
 
         final MessageEntity message = (MessageEntity) getItem(position);
-        
+
         //*******
         if(!message.getIsRead()&&!message.getFromMe()){
             view.setBackgroundResource(R.drawable.unread);
@@ -92,10 +92,18 @@ public class MessageAdapter extends BaseAdapter {
             typeMessage.setImageResource(R.drawable.rsz_camera_mailbox2);
         }
 
-        if (message.getReactionPhoto().equals("null"))
-            reaction.setVisibility(View.INVISIBLE);
-        else
+        if (!message.getDeleted()) {
+            reaction.setBackgroundColor(Color.parseColor("#00dcee"));
+            reaction.setText("REACTION");
+            if (message.getReactionPhoto().equals("null"))
+                reaction.setVisibility(View.INVISIBLE);
+            else
+                reaction.setVisibility(View.VISIBLE);
+        } else {
+            reaction.setBackgroundColor(Color.parseColor("#D6614D"));
+            reaction.setText("EXPIRED");
             reaction.setVisibility(View.VISIBLE);
+        }
 
         date.setText(formattedDate);
         view.setOnClickListener(new View.OnClickListener() {
