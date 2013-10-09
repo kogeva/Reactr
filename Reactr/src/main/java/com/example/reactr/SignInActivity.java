@@ -79,7 +79,7 @@ public class SignInActivity extends Activity {
         @Override
         public void onClick(View view) {
 
-            handler.post(switchToSlideActivity);
+         //   handler.post(switchToSlideActivity);
         //    startActivity(new Intent(SignInActivity.this, PhotoViewActivity.class));
             email = emailEditText.getText().toString();
             password = passwordEditText.getText().toString();
@@ -99,7 +99,7 @@ public class SignInActivity extends Activity {
                 }
             }
 
-            startActivity(new Intent(SignInActivity.this, PhotoViewActivity.class));
+         //   startActivity(new Intent(SignInActivity.this, PhotoViewActivity.class));
         }
     };
 

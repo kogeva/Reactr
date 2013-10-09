@@ -9,6 +9,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -31,9 +32,11 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.example.reactr.MainActivity;
 import com.example.reactr.R;
 import com.example.reactr.ReactrBase;
 import com.example.reactr.reactr.models.CameraSurfaceView;
@@ -48,6 +51,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     private MessageEntity messageEntity;
     private View actionBarView;
     public int currentCamera;
+
 
     Camera camera;
     CameraSurfaceView cameraSurfaceView;
@@ -87,9 +91,10 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
 
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("TAKE PICTURE");
-        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
-        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.act_bar_make_photo);
 
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.VISIBLE);
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.dots);
+        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToGalleryClick);
         //*************************************
         getActivity().getWindow().setFormat(PixelFormat.UNKNOWN);
         cameraSurfaceView = (CameraSurfaceView)v.findViewById(R.id.bbyby);
@@ -140,6 +145,18 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             ReactrBase.switchFraagment(getSherlockActivity(), frag);
         }
     };
+
+    View.OnClickListener goToGalleryClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            drawingView.setVisibility(View.GONE);
+            Intent i = new Intent(
+                    Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+            startActivityForResult(i, ((MainActivity)getActivity()).getResultLoadImage());
+        }
+    };
+
 
     private View.OnClickListener toogleFlashLightClick = new View.OnClickListener() {
         @Override

@@ -52,7 +52,6 @@ public class CameraSurfaceView extends SurfaceView {
                         (int)(x + touchMajor/2),
                         (int)(y + touchMinor/2));
 
-               // ((AndroidCamera)getContext()).touchFocus(touchRect);
                createPhotoFragment.touchFocus(touchRect);
             }
         }
