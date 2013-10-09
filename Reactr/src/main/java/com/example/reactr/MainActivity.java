@@ -1,16 +1,26 @@
 package com.example.reactr;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
+import com.example.reactr.fragments.AddMessageFragment;
 import com.example.reactr.fragments.MailBoxFragment;
 import com.example.reactr.fragments.MenuFragment;
 import com.google.android.c2dm.C2DMessaging;
@@ -18,6 +28,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.testflightapp.lib.TestFlight;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
 import reactr.network.ReactorApi;
@@ -34,6 +45,7 @@ public class MainActivity extends SlidingFragmentActivity  {
     private HashMap<String, String> st_info_hm;
     private ImageButton toggleMenuButton;
     private SharedPreferences.Editor editorSettings;
+    private static int RESULT_LOAD_IMAGE = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -175,4 +187,43 @@ public class MainActivity extends SlidingFragmentActivity  {
     {
         menuFragment.updateMenu();
     }
+    //******************************************
+    public int getResultLoadImage(){
+        return RESULT_LOAD_IMAGE;
+    }
+    //*****************************************
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+     //   if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+        if (null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            ImageView imageView = new ImageView(this);
+            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+            Drawable d=imageView.getDrawable(); // the drawable (Captain Obvious, to the rescue!!!)
+            Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] bitmapdata = stream.toByteArray();
+
+
+            ReactrBase.switchFraagment(this, new AddMessageFragment(bitmapdata, 0));
+
+        }
+
+
+    }
+
 }

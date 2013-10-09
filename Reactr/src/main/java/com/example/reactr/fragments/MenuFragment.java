@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.example.reactr.AndroidCamera;
 import com.example.reactr.MainActivity;
 import com.example.reactr.R;
 import com.example.reactr.StartActivity;
@@ -119,5 +118,4 @@ public class MenuFragment extends ListFragment {
         mi.setCountNewMessage(String.valueOf(mes));
         setListAdapter(st_m_adptr);
     }
-
 }
