@@ -47,7 +47,7 @@ public class MainActivity extends SlidingFragmentActivity  {
     private ImageButton toggleMenuButton;
     private SharedPreferences.Editor editorSettings;
     private static int RESULT_LOAD_IMAGE = 1;
-    private MessageEntity messageEntity;
+    private MessageEntity messageEntity=null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -219,10 +219,15 @@ public class MainActivity extends SlidingFragmentActivity  {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] bitmapdata = stream.toByteArray();
 
-            ReactrBase.switchFraagment(this, new AddMessageFragment(bitmapdata, 0));
+            if (messageEntity == null)
+                ReactrBase.switchFraagment(this, new AddMessageFragment(bitmapdata, -1));
+            else
+                ReactrBase.switchFraagment(this, new AddMessageFragment(bitmapdata, messageEntity, -1));
         }
-
 
     }
 
+    public void setMessageEntity(MessageEntity me){
+         messageEntity = me;
+    }
 }
