@@ -77,7 +77,11 @@ public class MessageAdapter extends BaseAdapter {
         else{
             view.setBackgroundColor(Color.WHITE);
         }
-        //*******
+
+
+
+
+
         String preDate=message.getCreatedAt();
         String formattedDate = preDate.substring(5, 10) + "-" + preDate.substring(0,4) + " " + preDate.substring(10);
 
@@ -106,6 +110,11 @@ public class MessageAdapter extends BaseAdapter {
         }
 
         date.setText(formattedDate);
+        //*******
+        if(message.getIsRead()&&message.getFromMe()){
+            date.setText(date.getText()+ " - Delivered");
+        }
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

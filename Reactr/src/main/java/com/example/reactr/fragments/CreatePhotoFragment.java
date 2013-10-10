@@ -32,6 +32,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -99,6 +100,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
         drawingView = new DrawingView(this.getActivity().getBaseContext());
+
         if(currentCamera == 0)
             drawingView.setVisibility(View.VISIBLE);
         else
@@ -133,11 +135,17 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         public void onClick(View v) {
             CreatePhotoFragment frag = new CreatePhotoFragment();
             if(currentCamera == 1)
+            {
                 frag.currentCamera = 0;
+                drawingView.setVisibility(View.GONE);
+            }
             else
+            {
                 frag.currentCamera = 1;
+                drawingView.setVisibility(View.VISIBLE);
+            }
 
-            drawingView.setVisibility(View.GONE);
+
             ReactrBase.switchFraagment(getSherlockActivity(), frag);
         }
     };
@@ -145,7 +153,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     View.OnClickListener goToGalleryClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            drawingView.setVisibility(View.GONE);
+       //     drawingView.setVisibility(View.GONE);
             //*******************************
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("Load photo from Gallery?");
@@ -164,7 +172,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                         startActivityForResult(i, ((MainActivity) getActivity()).getResultLoadImage());
                     }
                     if (which == 1) {
-                        drawingView.setVisibility(View.GONE);
+                     //   drawingView.setVisibility(View.GONE);
                         dialog.cancel();
                     }
                 }
@@ -261,7 +269,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             catch (IOException e){
                 Log.d("CAMERA", e.getMessage());
             }
-            drawingView.setVisibility(View.GONE);
+       //     drawingView.setVisibility(View.GONE);
             if (messageEntity == null)
                 ReactrBase.switchFraagment(getSherlockActivity(), new AddMessageFragment(data, currentCamera));
             else
@@ -343,6 +351,19 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         camera.release();
         camera = null;
         previewing = false;
+    }
+    //******************************
+    @Override
+    public void onPause() {
+        // TODO Auto-generated method stub
+        super.onPause();
+        drawingView.setVisibility(View.GONE);
+    }
+    @Override
+    public void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
+        drawingView.setVisibility(View.VISIBLE);
     }
 
     //******************************************************************

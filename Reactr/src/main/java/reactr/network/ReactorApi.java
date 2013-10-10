@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TimeZone;
 
 import com.example.reactr.reactr.models.ReactrConstants;
 
@@ -422,6 +423,10 @@ public class ReactorApi {
                             messageJson.getString("to_username"),
                             messageJson.getBoolean("deleted")
                     );
+                    //***********
+                   int timeZone  = Integer.parseInt(messageJson.getJSONObject("created_at").getString("timezone_type"));
+                    messageEntity.setCreatedAt(convertTime(messageEntity.getCreatedAt(), timeZone));
+                    //*********
                     messageArray.add(i, messageEntity);
                 }
             }
@@ -602,4 +607,13 @@ public class ReactorApi {
         }
         return false;
     }
+
+    //*************
+    private String convertTime(String timeFromServer, int timezone){
+        String toReturn=timeFromServer;
+        TimeZone tz = TimeZone.getDefault();// getOffset()
+       // tz.GMT();
+        return toReturn;
+    }
+
 }
