@@ -43,14 +43,19 @@ public class CameraSurfaceView extends SurfaceView {
             if(event.getAction() == MotionEvent.ACTION_DOWN){
                 float x = event.getX();
                 float y = event.getY();
-                float touchMajor = event.getTouchMajor();
+             /* float touchMajor = event.getTouchMajor();
                 float touchMinor = event.getTouchMinor();
-
-                Rect touchRect = new Rect(
+                 Rect touchRect = new Rect(
                         (int)(x - touchMajor/2),
                         (int)(y - touchMinor/2),
                         (int)(x + touchMajor/2),
-                        (int)(y + touchMinor/2));
+                        (int)(y + touchMinor/2));*/
+                int halfSide=75;
+                Rect touchRect = new Rect(
+                        (int)(x - halfSide),
+                        (int)(y - halfSide),
+                        (int)(x + halfSide),
+                        (int)(y + halfSide));
 
                createPhotoFragment.touchFocus(touchRect);
             }

@@ -156,10 +156,10 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
        //     drawingView.setVisibility(View.GONE);
             //*******************************
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("Load photo from Gallery?");
+            builder.setTitle("Upload photo from library?");
 
             CharSequence[] cs;
-            cs = new CharSequence[]{"Load", getResources().getString(R.string.cancel)};
+            cs = new CharSequence[]{"YES", getResources().getString(R.string.cancel)};
 
             builder.setItems(cs, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -207,6 +207,9 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         Log.d("CAMERA", "TOUCHFOCUS");
         if(currentCamera == 0)
         {
+           drawingView.setVisibility(View.VISIBLE);
+            Log.d("CAMERA", "VISIBLE");
+
         final Rect targetFocusRect = new Rect(
                 tfocusRect.left * 2000/drawingView.getWidth() - 1000,
                 tfocusRect.top * 2000/drawingView.getHeight() - 1000,
@@ -223,6 +226,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         camera.autoFocus(myAutoFocusCallback);
         drawingView.setHaveTouch(true, tfocusRect);
         drawingView.invalidate();
+       // drawingView.setVisibility(View.GONE);
         Log.d("CAMERA", "AFTERFOCUS");
         }
     }
@@ -236,6 +240,8 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             if (arg0){
                 Log.d("CAMERA", "cancelAutoFocus");
                 camera.cancelAutoFocus();
+                drawingView.setVisibility(View.GONE);
+                Log.d("CAMERA", "GONE");
             }
             float focusDistances[] = new float[3];
             arg1.getParameters().getFocusDistances(focusDistances);
@@ -408,9 +414,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             if(haveTouch){
                 Log.d("CAMERA", "haveTouch");
                 drawingPaint.setColor(Color.BLUE);
-                canvas.drawRect(
-                        touchArea.left, touchArea.top, touchArea.right, touchArea.bottom,
-                        drawingPaint);
+                canvas.drawRect(touchArea.left, touchArea.top, touchArea.right, touchArea.bottom, drawingPaint);
             }
         }
     }
