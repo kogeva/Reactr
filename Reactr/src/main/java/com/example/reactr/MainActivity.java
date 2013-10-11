@@ -48,11 +48,16 @@ public class MainActivity extends SlidingFragmentActivity  {
     private SharedPreferences.Editor editorSettings;
     private static int RESULT_LOAD_IMAGE = 1;
     private MessageEntity messageEntity=null;
+    private String pushNotificationId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TestFlight.takeOff(getApplication(), "fe4948e0-fb42-43a0-af7d-ab6cc9869984");
+
+        C2DMessaging.register(this, "856805386889");
+        pushNotificationId = C2DMessaging.getRegistrationId(this);
+
         st_info_hm = new HashMap<String, String>();
         menuFragment = new MenuFragment();
 
@@ -102,6 +107,8 @@ public class MainActivity extends SlidingFragmentActivity  {
         String message = getIntent().getStringExtra("message");
         if(message != null)
             Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
+
+        onNewIntent(getIntent());
     }
 
     @Override
@@ -195,6 +202,11 @@ public class MainActivity extends SlidingFragmentActivity  {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (null != data) {
@@ -223,7 +235,6 @@ public class MainActivity extends SlidingFragmentActivity  {
             else
                 ReactrBase.switchFraagment(this, new AddMessageFragment(bitmapdata, messageEntity, -1));
         }
-
     }
 
     public void setMessageEntity(MessageEntity me){

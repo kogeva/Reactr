@@ -39,10 +39,9 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
             @Override
             public void run() {
                 camera.takePicture(null, null ,jpegCallback);
+                shootSound();
             }
         },700);
-
-        shootSound();
     }
 
     @Override

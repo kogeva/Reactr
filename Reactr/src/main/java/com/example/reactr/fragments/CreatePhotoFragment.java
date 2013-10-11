@@ -332,6 +332,8 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                 }
 
                 List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
+                Camera.Size avgSize = getAvgPictureZise((ArrayList<Camera.Size>) camera.getParameters().getSupportedPictureSizes());
+                parameters.setPictureSize(avgSize.width, avgSize.height);
                 camera.setParameters(parameters);
                 camera.setPreviewDisplay(holder);
 
@@ -364,6 +366,12 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         // TODO Auto-generated method stub
         super.onResume();
         drawingView.setVisibility(View.VISIBLE);
+    }
+
+    private Camera.Size getAvgPictureZise (ArrayList<Camera.Size> sizes)
+    {
+        double avg = sizes.size() / 2;
+        return sizes.get(new Double(avg).intValue());
     }
 
     //******************************************************************
@@ -405,6 +413,5 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                         drawingPaint);
             }
         }
-
     }
 }

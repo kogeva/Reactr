@@ -67,12 +67,8 @@ public class SignInActivity extends Activity {
         st_tv.setLinksClickable(true);
         st_tv.setMovementMethod(new LinkMovementMethod());
 
+        C2DMessaging.register(this, "856805386889");
         pushNotificationId = C2DMessaging.getRegistrationId(this);
-        if(pushNotificationId.length() == 0)
-        {
-            C2DMessaging.register(this, "856805386889");
-            pushNotificationId = C2DMessaging.getRegistrationId(this);
-        }
 
     }
     View.OnClickListener toStepTwoClick = new View.OnClickListener() {
@@ -176,12 +172,15 @@ public class SignInActivity extends Activity {
     Runnable registration = new Runnable() {
         @Override
         public void run() {
-           result = api.registration(email, password, username, phone, pushNotificationId);
+           result = api.registration(email, password, username, phone, C2DMessaging.getRegistrationId(getApplicationContext()));
             try {
                 if (result.get("status").equals("success")) {
                     prefEditor.putInt("user_id", result.getInt("user_id"));
                     prefEditor.putString("session_hash", result.getString("session_hash"));
                     prefEditor.putString("username", username);
+                    prefEditor.putString("phone", phone);
+                    prefEditor.putString("privacy_message", "false");
+                    prefEditor.putString("email", email);
                     prefEditor.commit();
                     handler.post(switchToSlideActivity);
                   //  handler.post(switchToMainActivity);

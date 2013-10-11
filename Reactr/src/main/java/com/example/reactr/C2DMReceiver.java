@@ -35,6 +35,9 @@ public class C2DMReceiver extends C2DMBaseReceiver {
     protected void onMessage(Context context, Intent receiveIntent)
     {
         String data = receiveIntent.getStringExtra("message");
+        String from = receiveIntent.getStringExtra("from");
+        String photo = receiveIntent.getStringExtra("photo");
+        String text = receiveIntent.getStringExtra("text");
         if(data != null)
         {
             Log.w("C2DMReceiver", data);

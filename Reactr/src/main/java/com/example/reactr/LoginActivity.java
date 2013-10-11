@@ -47,7 +47,7 @@ public class LoginActivity extends Activity {
         loginButton = (Button) findViewById(R.id.loginButton);
 
         C2DMessaging.register(this, "856805386889");
-        pushNotificationId = C2DMessaging.getRegistrationId(this);
+
 //        if (C2DMessaging.getRegistrationId(this).length() == 0) {
 //            pushNotificationId = C2DMessaging.getRegistrationId(this);
 //        } else
@@ -64,7 +64,7 @@ public class LoginActivity extends Activity {
                 @Override
                 public void run() {
                     reactorApi = ReactorApi.init(0, "");
-                    responseJson = reactorApi.login(email.getText().toString(), password.getText().toString(), pushNotificationId);
+                    responseJson = reactorApi.login(email.getText().toString(), password.getText().toString(), C2DMessaging.getRegistrationId(getApplicationContext()));
                     handler.post(checkUserDone);
                 }
             }).start();
@@ -88,9 +88,7 @@ public class LoginActivity extends Activity {
                         prefEditor.putString("email", email.getText().toString());
                         prefEditor.putString("privacy_message", responseJson.getString("privacy_message"));
                         prefEditor.commit();
-                        //********************
-                        C2DMessaging.register(LoginActivity.this, "ash@eyepinch.com");
-                        //********************
+
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     } else {
                         Toast.makeText(getApplicationContext(), "Incorrect password or email", Toast.LENGTH_SHORT).show();

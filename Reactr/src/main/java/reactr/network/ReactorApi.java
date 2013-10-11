@@ -356,7 +356,7 @@ public class ReactorApi {
     {
         postParams = new HashMap<String, ContentBody>();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        photo.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        photo.compress(Bitmap.CompressFormat.JPEG, 50, stream);
         byte[] photoByteArray = stream.toByteArray();
         stream.reset();
         if(reactionPhoto != null)
