@@ -16,7 +16,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/search_sprite"
             android:id="@+id/editText"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:inputType="textFilter|textNoSuggestions"/>
 
         <ListView
             android:layout_width="fill_parent"

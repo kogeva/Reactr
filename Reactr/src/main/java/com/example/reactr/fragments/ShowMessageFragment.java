@@ -15,6 +15,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +23,9 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -65,6 +69,8 @@ public class ShowMessageFragment extends SherlockFragment{
     private boolean reaction=false;
     private View actionBarView;
 
+    private Animation animationFadeIn, animationFadeOut;
+    private Animation scaleAnimation, logoMoveAnimation;
     public ShowMessageFragment(MessageEntity message) {
         this.message = message;
     }
@@ -104,8 +110,10 @@ public class ShowMessageFragment extends SherlockFragment{
             @Override
             public void run() {
                 photo = downloadImage(message.getPhoto());
+                //****
                 if (!message.getReactionPhoto().equals("null"))
                     reactionPhoto = downloadImage(message.getReactionPhoto());
+                //******
                 handler.post(updateImageView);
             }
         }).start();
@@ -113,6 +121,9 @@ public class ShowMessageFragment extends SherlockFragment{
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("REACTR");
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
+
+        animationFadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fadein);
+        animationFadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fadeout);
 
         return view;
     }
@@ -164,6 +175,9 @@ public class ShowMessageFragment extends SherlockFragment{
                 //для округления изображения
                 Bitmap rounded_bm= ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, getActivity().getApplicationContext());
                 reactionPhotoView.setImageBitmap(rounded_bm);
+                Log.d("SHOWMESSAGE", "ANIMATIONS");
+                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.scale);
+                reactionPhotoView.startAnimation(animation);
             }
             //***********************************************
             if((!message.getIsRead())&&(!message.getFromMe()))
@@ -256,6 +270,11 @@ public class ShowMessageFragment extends SherlockFragment{
     private View.OnClickListener switchPhotos = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
+            Log.d("SHOWMESSAGE", "SWITCHPHOTOS");
+            photoView.startAnimation(animationFadeOut);
+            reactionPhotoView.startAnimation(animationFadeOut);
+
             if(!reaction)
             {
                 photoView.setImageBitmap(reactionPhoto);
@@ -268,6 +287,9 @@ public class ShowMessageFragment extends SherlockFragment{
                 reactionPhotoView.setImageBitmap(rounded_bm);
             }
             reaction=!reaction;
+            photoView.startAnimation(animationFadeIn);
+            reactionPhotoView.startAnimation(animationFadeIn);
+
         }
     };
 
@@ -312,6 +334,5 @@ public class ShowMessageFragment extends SherlockFragment{
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         getActivity().sendBroadcast(mediaScanIntent);
-    }
-
+        }
     }
