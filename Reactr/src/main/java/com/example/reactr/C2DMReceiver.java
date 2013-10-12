@@ -35,8 +35,9 @@ public class C2DMReceiver extends C2DMBaseReceiver {
     protected void onMessage(Context context, Intent receiveIntent)
     {
         String data = receiveIntent.getStringExtra("message");
-        String from = receiveIntent.getStringExtra("from");
         String photo = receiveIntent.getStringExtra("photo");
+        String reactionPhoto = receiveIntent.getStringExtra("reactionPhoto");
+        String messageId = receiveIntent.getStringExtra("message_id");
         String text = receiveIntent.getStringExtra("text");
         if(data != null)
         {
@@ -44,6 +45,10 @@ public class C2DMReceiver extends C2DMBaseReceiver {
 
             Intent intent = new Intent(this,MainActivity.class);
             intent.putExtra("message", data);
+            intent.putExtra("messageId", messageId);
+            intent.putExtra("text", text);
+            intent.putExtra("reactionPhoto", reactionPhoto);
+            intent.putExtra("photo", photo);
 
             NotificationManager mManager = (NotificationManager)
                     getSystemService(Context.NOTIFICATION_SERVICE);

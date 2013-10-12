@@ -151,4 +151,12 @@ public class MessageEntity {
             }
         }
     }
+
+    public Boolean getRead() {
+        return isRead;
+    }
+
+    public void setRead(Boolean read) {
+        isRead = read;
+    }
 }

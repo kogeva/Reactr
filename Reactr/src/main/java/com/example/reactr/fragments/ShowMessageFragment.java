@@ -64,6 +64,7 @@ public class ShowMessageFragment extends SherlockFragment{
     private TextView text;
     private boolean reaction=false;
     private View actionBarView;
+
     public ShowMessageFragment(MessageEntity message) {
         this.message = message;
     }

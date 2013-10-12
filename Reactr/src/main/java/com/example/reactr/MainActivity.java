@@ -23,6 +23,7 @@ import com.actionbarsherlock.view.Menu;
 import com.example.reactr.fragments.AddMessageFragment;
 import com.example.reactr.fragments.MailBoxFragment;
 import com.example.reactr.fragments.MenuFragment;
+import com.example.reactr.fragments.ShowMessageFragment;
 import com.example.reactr.reactr.models.MessageEntity;
 import com.google.android.c2dm.C2DMessaging;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -70,7 +71,12 @@ public class MainActivity extends SlidingFragmentActivity  {
         if(savedInstanceState != null)
             mContent  = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
         if(mContent == null)
-            mContent = new MailBoxFragment();
+        {
+            if (fromNotificationMessage(getIntent()) != null)
+                mContent = new ShowMessageFragment(fromNotificationMessage(getIntent()));
+            else
+                mContent = new MailBoxFragment();
+        }
 
         setBehindContentView(R.layout.menu_frame);
         getSupportFragmentManager()
@@ -93,7 +99,7 @@ public class MainActivity extends SlidingFragmentActivity  {
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
         getSlidingMenu().setOnOpenListener(new SlidingMenu.OnOpenListener() {
             public void onOpen() {
-                    InputMethodManager inputManager = (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager inputManager = (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (inputManager.isAcceptingText()) {
                 inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
@@ -103,12 +109,6 @@ public class MainActivity extends SlidingFragmentActivity  {
 
         toggleMenuButton = (ImageButton) getSupportActionBar().getCustomView().findViewById(R.id.toggleMenu);
         toggleMenuButton.setOnClickListener(toogleMenu);
-
-        String message = getIntent().getStringExtra("message");
-        if(message != null)
-            Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
-
-        onNewIntent(getIntent());
     }
 
     @Override
@@ -179,7 +179,7 @@ public class MainActivity extends SlidingFragmentActivity  {
         prefEditor.putString("session_hash", "");
         prefEditor.commit();
     }
-    //*************************
+
     public String getStInfoByParameter(String p)
     {
         return st_info_hm.get(p);
@@ -204,6 +204,27 @@ public class MainActivity extends SlidingFragmentActivity  {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+
+    }
+
+    private MessageEntity fromNotificationMessage(Intent intent)
+    {
+        String message = intent.getStringExtra("message");
+
+        if(message != null && !message.isEmpty()){
+            MessageEntity mesage = new MessageEntity();
+            mesage.setPhoto(intent.getStringExtra("photo"));
+            if(!intent.getStringExtra("reactionPhoto").equals("false"))
+                mesage.setReactionPhoto(intent.getStringExtra("reactionPhoto"));
+            else
+                mesage.setReactionPhoto("null");
+            mesage.setText(intent.getStringExtra("text"));
+            mesage.setId(new Integer(intent.getStringExtra("messageId")));
+            mesage.setRead(false);
+            mesage.setFromMe(false);
+            return mesage;
+        }
+        return null;
     }
 
     @Override

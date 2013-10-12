@@ -30,7 +30,7 @@ import com.example.reactr.reactr.models.ReactrConstants;
 public class ReactorApi {
     private int userId;
     private String session_token;
-    private String apiUrl = "http://54.200.74.218";
+    private String apiUrl = "http://api.reactrapp.com";
     private NetworkManager networkManager;
     private HashMap<String, ContentBody> postParams;
     private JSONObject jsonData;
