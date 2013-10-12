@@ -19,7 +19,11 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -610,9 +614,50 @@ public class ReactorApi {
 
     //*************
     private String convertTime(String timeFromServer, int timezone){
-        String toReturn=timeFromServer;
-        TimeZone tz = TimeZone.getDefault();// getOffset()
-       // tz.GMT();
+
+        String toReturn="";
+
+        Calendar cal = Calendar.getInstance();
+        Date dateToCal=null;
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try
+        {
+            dateToCal = formatter.parse(timeFromServer);
+        }
+        catch (java.text.ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        cal.setTime(dateToCal);
+        Date afterParse = cal.getTime();
+
+        int dayLightSaving  = cal.get(Calendar.DST_OFFSET);
+        cal.setTimeInMillis(cal.getTimeInMillis() - dayLightSaving);
+
+        TimeZone z = cal.getTimeZone();
+        int offset = z.getRawOffset();
+        int offsetHrs = offset / 1000 / 60 / 60;
+        int offsetMins = offset / 1000 / 60 % 60;
+
+        // Subtract offset of your current TimeZone
+        cal.add(Calendar.HOUR_OF_DAY, (offsetHrs));
+        cal.add(Calendar.MINUTE, (offsetMins));
+
+        cal.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+        //add offset of your TimeZone
+        cal.add(Calendar.HOUR_OF_DAY, -timezone);
+        //cal.add(Calendar.MINUTE, 30);
+        Date afterAfter = cal.getTime();
+
+    //    toReturn=cal.get(Calendar.MONTH)+"-"+cal.get(Calendar.DAY_OF_MONTH)+"-"+cal.get(Calendar.YEAR)
+    //            +" "+cal.get(Calendar.HOUR)+":"+cal.get(Calendar.MINUTE)+":"+cal.get(Calendar.SECOND);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+        toReturn=sdf.format(cal.getTime());
+
         return toReturn;
     }
 

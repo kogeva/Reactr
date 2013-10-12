@@ -83,7 +83,7 @@ public class MessageAdapter extends BaseAdapter {
 
 
         String preDate=message.getCreatedAt();
-        String formattedDate = preDate.substring(5, 10) + "-" + preDate.substring(0,4) + " " + preDate.substring(10);
+        String formattedDate = preDate;//.substring(5, 10) + "-" + preDate.substring(0,4) + " " + preDate.substring(10);
 
         message.setUsernameWithFriends(friends);
 
