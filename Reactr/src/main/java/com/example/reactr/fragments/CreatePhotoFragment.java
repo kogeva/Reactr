@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -94,7 +95,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToGalleryClick);
         //*************************************
         getActivity().getWindow().setFormat(PixelFormat.UNKNOWN);
-        cameraSurfaceView = (CameraSurfaceView)v.findViewById(R.id.bbyby);
+        cameraSurfaceView = (CameraSurfaceView)v.findViewById(R.id.campreview);
         surfaceHolder = cameraSurfaceView.getHolder();
         surfaceHolder.addCallback(this);
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
@@ -240,9 +241,10 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             if (arg0){
                 Log.d("CAMERA", "cancelAutoFocus");
                 camera.cancelAutoFocus();
-                drawingView.setVisibility(View.GONE);
+             //   cameraSurfaceView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 Log.d("CAMERA", "GONE");
             }
+            drawingView.setVisibility(View.GONE);
             float focusDistances[] = new float[3];
             arg1.getParameters().getFocusDistances(focusDistances);
         }};
@@ -326,24 +328,23 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                 {
                     // портретный вид
                     camera.setDisplayOrientation(90);
-                    lp.height = previewSurfaceHeight;
-                    lp.width = (int) (previewSurfaceHeight / aspect);
+                //    lp.height = previewSurfaceHeight;
+                //    lp.width = (int) (previewSurfaceHeight / aspect);
                 }
                 else
                 {
                     // ландшафтный
                     camera.setDisplayOrientation(0);
-                    lp.width = previewSurfaceWidth;
-                    lp.height = (int) (previewSurfaceWidth / aspect);
+                 //   lp.width = previewSurfaceWidth;
+                 //   lp.height = (int) (previewSurfaceWidth / aspect);
                 }
 
-                List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
-                Camera.Size avgSize = getAvgPictureZise((ArrayList<Camera.Size>) camera.getParameters().getSupportedPictureSizes());
-                parameters.setPictureSize(avgSize.width, avgSize.height);
-                camera.setParameters(parameters);
+             //   List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
+            //    Camera.Size avgSize = getAvgPictureZise((ArrayList<Camera.Size>) camera.getParameters().getSupportedPictureSizes());
+            //    parameters.setPictureSize(avgSize.width, avgSize.height);
+            //    camera.setParameters(parameters);
                 camera.setPreviewDisplay(holder);
-
-                cameraSurfaceView.setLayoutParams(lp);
+            //    cameraSurfaceView.setLayoutParams(lp);
                 camera.startPreview();
             }
             catch (IOException e){
@@ -361,18 +362,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         previewing = false;
     }
     //******************************
-    @Override
-    public void onPause() {
-        // TODO Auto-generated method stub
-        super.onPause();
-        drawingView.setVisibility(View.GONE);
-    }
-    @Override
-    public void onResume() {
-        // TODO Auto-generated method stub
-        super.onResume();
-        drawingView.setVisibility(View.VISIBLE);
-    }
+
 
     private Camera.Size getAvgPictureZise (ArrayList<Camera.Size> sizes)
     {
@@ -395,7 +385,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             drawingPaint = new Paint();
             drawingPaint.setColor(Color.GREEN);
             drawingPaint.setStyle(Paint.Style.STROKE);
-            drawingPaint.setStrokeWidth(2);
+            drawingPaint.setStrokeWidth(5);
             haveTouch = false;
         }
 
@@ -413,7 +403,8 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                 canvas.drawColor(Color.TRANSPARENT);
             if(haveTouch){
                 Log.d("CAMERA", "haveTouch");
-                drawingPaint.setColor(Color.BLUE);
+                drawingPaint.setColor(Color.parseColor("#00dcee"));
+
                 canvas.drawRect(touchArea.left, touchArea.top, touchArea.right, touchArea.bottom, drawingPaint);
             }
         }
