@@ -10,6 +10,7 @@ import android.graphics.Matrix;
 import android.graphics.Point;
 import android.hardware.Camera;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -51,14 +52,14 @@ public class ShowMessageFragment extends SherlockFragment {
 
     private MessageEntity message;
     private ImageView photoView;
-    private ImageView reactionPhotoView;
+    public ImageView reactionPhotoView;
     private ImageButton replyButton;
     private ImageButton closeButton;
     private ImageButton saveButton;
     private SurfaceView surfaceView;
     private Bitmap photo;
-    private Bitmap reactionPhoto;
-    private Handler handler;
+    public Bitmap reactionPhoto;
+    public Handler handler;
     private Camera camera;
     private TakePhotoWithoutPreview ph;
     private TextView text;
@@ -91,17 +92,18 @@ public class ShowMessageFragment extends SherlockFragment {
         saveButton.setOnClickListener(saveToGallery);
 
         handler = new Handler();
+        text.setText(message.getText());
 
         ReactrBase.showLoader(getSherlockActivity());
 
         if ((!message.getIsRead()) && (!message.getFromMe()))
-            ph = new TakePhotoWithoutPreview(getSherlockActivity(), surfaceView);
+            ph = new TakePhotoWithoutPreview(getSherlockActivity(), surfaceView, this);
+
         if (message.getText().length() == 0)
             text.setVisibility(View.INVISIBLE);
         else
             text.setVisibility(View.VISIBLE);
 
-        text.setText(message.getText());
 
         new Thread(new Runnable() {
             @Override
@@ -166,12 +168,7 @@ public class ShowMessageFragment extends SherlockFragment {
         public void run() {
             photoView.setImageBitmap(photo);
             if (reactionPhoto != null) {
-                //для округления изображения
-                Bitmap rounded_bm = ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, getActivity().getApplicationContext());
-                reactionPhotoView.setImageBitmap(rounded_bm);
-                Log.d("SHOWMESSAGE", "ANIMATIONS");
-                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.scale);
-                reactionPhotoView.startAnimation(animation);
+                setDecorationPhoto();
             }
             if ((!message.getIsRead()) && (!message.getFromMe())) {
                 //прочтение сообщения
@@ -180,7 +177,7 @@ public class ShowMessageFragment extends SherlockFragment {
                 ((MainActivity) getActivity()).updateMenu();
             }
             ReactrBase.hideLoader();
-            if ((!message.getIsRead()) && (!message.getFromMe())) {
+            if ((!message.getIsRead()) && (!message.getFromMe()) && message.getReactionPhoto().equals("null")) {
                 ph.takeReaction(message.getId());
             }
         }
@@ -322,12 +319,35 @@ public class ShowMessageFragment extends SherlockFragment {
         getActivity().sendBroadcast(mediaScanIntent);
     }
 
-    private boolean confirmReaction()
+    public boolean confirmReaction()
     {
+        final Boolean isConfirm = false;
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
-        builder.setMessage("").setTitle("");
+        builder.setMessage("Do you wish to share your reaction with your friend?").setTitle("");
 
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                class SendReactionPhotoAsyncTask extends AsyncTask<Void, Void, Boolean>{
+
+                    @Override
+                    protected Boolean doInBackground(Void... voids) {
+                        ReactorApi api = ((MainActivity) getSherlockActivity()).getReactorApi();
+                        return api.sendMessages(message.getFrom_user().toString(), message.getText(), reactionPhoto, photo);
+                    }
+
+                    @Override
+                    protected void onPostExecute(Boolean result) {
+                        if(result)
+                            Toast.makeText(getSherlockActivity(), "Reaction sended", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                new SendReactionPhotoAsyncTask().execute();
+            }
+        });
+
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -335,6 +355,16 @@ public class ShowMessageFragment extends SherlockFragment {
         });
 
         AlertDialog dialog = builder.create();
+        dialog.show();
+
         return true;
+    }
+
+    public void setDecorationPhoto ()
+    {
+        Bitmap rounded_bm = ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, getActivity().getApplicationContext());
+        reactionPhotoView.setImageBitmap(rounded_bm);
+        Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.scale);
+        reactionPhotoView.startAnimation(animation);
     }
 }

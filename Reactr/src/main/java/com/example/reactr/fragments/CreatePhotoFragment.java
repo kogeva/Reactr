@@ -227,7 +227,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         camera.autoFocus(myAutoFocusCallback);
         drawingView.setHaveTouch(true, tfocusRect);
         drawingView.invalidate();
-       // drawingView.setVisibility(View.GONE);
+
         Log.d("CAMERA", "AFTERFOCUS");
         }
     }
@@ -328,23 +328,19 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                 {
                     // портретный вид
                     camera.setDisplayOrientation(90);
-                //    lp.height = previewSurfaceHeight;
-                //    lp.width = (int) (previewSurfaceHeight / aspect);
                 }
                 else
                 {
                     // ландшафтный
                     camera.setDisplayOrientation(0);
-                 //   lp.width = previewSurfaceWidth;
-                 //   lp.height = (int) (previewSurfaceWidth / aspect);
                 }
 
-             //   List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
-            //    Camera.Size avgSize = getAvgPictureZise((ArrayList<Camera.Size>) camera.getParameters().getSupportedPictureSizes());
-            //    parameters.setPictureSize(avgSize.width, avgSize.height);
-            //    camera.setParameters(parameters);
+                List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
+                Camera.Size avgSize = getAvgPictureZise((ArrayList<Camera.Size>) camera.getParameters().getSupportedPictureSizes());
+                parameters.setPictureSize(avgSize.width, avgSize.height);
+                camera.setParameters(parameters);
                 camera.setPreviewDisplay(holder);
-            //    cameraSurfaceView.setLayoutParams(lp);
+//                cameraSurfaceView.setLayoutParams(lp);
                 camera.startPreview();
             }
             catch (IOException e){

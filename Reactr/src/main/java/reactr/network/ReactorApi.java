@@ -19,14 +19,11 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.TimeZone;
 
 import com.example.reactr.reactr.models.ReactrConstants;
@@ -41,21 +38,22 @@ public class ReactorApi {
     private static ReactorApi reactorApi;
 
     private final String CHECK_EMAIL_AND_PASSWORD = apiUrl + "/checkUsernameAndEmail/";
-    private final String EDIT_USER_DATA           = apiUrl + "/editUserData/";
-    private final String SET_PRIVACY_MESSAGE      = apiUrl + "/setPrivacyMessage/";
-    private final String REGISTRATION             = apiUrl + "/registration/";
-    private final String GET_USER_METHOD          = apiUrl + "/getFriends/";
-    private final String GET_WHO_ADD_ME           = apiUrl + "/getWhoAddMe/";
-    private final String ADD_FRIEND               = apiUrl + "/addFriend/";
-    private final String BLOCK_FRIEND             = apiUrl + "/blockFriend/";
-    private final String DELETE_FRIEND            = apiUrl + "/deleteFriend/";
-    private final String USER_IN_SYSTEM           = apiUrl + "/checkUserInSystem/";
-    private final String SEARCH_FRIEND            = apiUrl + "/searchFriends/";
-    private final String SEND_MESSAGES            = apiUrl + "/sendMessages/";
-    private final String GET_MESSAGES             = apiUrl + "/getMessages/";
-    private final String LOGIN                    = apiUrl + "/login/";
-    private final String ST_INFO                  = apiUrl + "/getStaticInfo/";
-    private final String READ_MSG                 = apiUrl + "/readMessages/";
+    private final String EDIT_USER_DATA = apiUrl + "/editUserData/";
+    private final String SET_PRIVACY_MESSAGE = apiUrl + "/setPrivacyMessage/";
+    private final String REGISTRATION = apiUrl + "/registration/";
+    private final String GET_USER_METHOD = apiUrl + "/getFriends/";
+    private final String GET_WHO_ADD_ME = apiUrl + "/getWhoAddMe/";
+    private final String ADD_FRIEND = apiUrl + "/addFriend/";
+    private final String BLOCK_FRIEND = apiUrl + "/blockFriend/";
+    private final String DELETE_FRIEND = apiUrl + "/deleteFriend/";
+    private final String USER_IN_SYSTEM = apiUrl + "/checkUserInSystem/";
+    private final String SEARCH_FRIEND = apiUrl + "/searchFriends/";
+    private final String SEND_MESSAGES = apiUrl + "/sendMessages/";
+    private final String DELETE_MESSAGE = apiUrl + "/deleteMessage/";
+    private final String GET_MESSAGES = apiUrl + "/getMessages/";
+    private final String LOGIN = apiUrl + "/login/";
+    private final String ST_INFO = apiUrl + "/getStaticInfo/";
+    private final String READ_MSG = apiUrl + "/readMessages/";
 
     private ReactorApi(int userId, String session_token) {
         this.userId = userId;
@@ -63,21 +61,18 @@ public class ReactorApi {
         networkManager = new NetworkManager();
     }
 
-    public static ReactorApi init(int userId, String session_token)
-    {
-        if(reactorApi != null)
+    public static ReactorApi init(int userId, String session_token) {
+        if (reactorApi != null)
             return reactorApi;
         else
             return new ReactorApi(userId, session_token);
     }
 
-    public static ReactorApi getInstance()
-    {
+    public static ReactorApi getInstance() {
         return reactorApi;
     }
 
-    public ArrayList<String> checkUsernameAndEmail(String username, String email)
-    {
+    public ArrayList<String> checkUsernameAndEmail(String username, String email) {
         ArrayList<String> errors = new ArrayList<String>();
         postParams = new HashMap<String, ContentBody>();
 
@@ -91,10 +86,9 @@ public class ReactorApi {
         }
         try {
             jsonData = new JSONObject(networkManager.sendRequest(CHECK_EMAIL_AND_PASSWORD, postParams));
-            if(jsonData.get("status").equals("success"))
-            {
-                for(int i = 0; i <= jsonData.getJSONArray("fields").length(); i++)
-                    errors.add((String)((JSONObject) jsonData.getJSONArray("fields").get(i)).keys().next());
+            if (jsonData.get("status").equals("success")) {
+                for (int i = 0; i <= jsonData.getJSONArray("fields").length(); i++)
+                    errors.add((String) ((JSONObject) jsonData.getJSONArray("fields").get(i)).keys().next());
                 return errors;
             }
         } catch (JSONException exp) {
@@ -119,7 +113,7 @@ public class ReactorApi {
         try {
             jsonData = new JSONObject(networkManager.sendRequest(REGISTRATION, postParams));
             if (jsonData.get("status").equals("success") || jsonData.get("status").equals("failed")) {
-                return  jsonData;
+                return jsonData;
             }
         } catch (JSONException exp) {
             Log.d("Reactor API: ", exp.getMessage());
@@ -127,8 +121,7 @@ public class ReactorApi {
         return jsonData;
     }
 
-    public JSONObject login(String email, String password, String deviceToken)
-    {
+    public JSONObject login(String email, String password, String deviceToken) {
         postParams = new HashMap<String, ContentBody>();
 
         try {
@@ -141,8 +134,7 @@ public class ReactorApi {
 
         try {
             jsonData = new JSONObject(networkManager.sendRequest(LOGIN, postParams));
-            if(jsonData.get("status").equals("success"))
-            {
+            if (jsonData.get("status").equals("success")) {
                 return jsonData;
             }
         } catch (JSONException exp) {
@@ -151,8 +143,7 @@ public class ReactorApi {
         return jsonData;
     }
 
-    public JSONArray checkUserInSystem(String phones)
-    {
+    public JSONArray checkUserInSystem(String phones) {
         postParams = new HashMap<String, ContentBody>();
         ArrayList<FriendEntity> friendCollection = new ArrayList<FriendEntity>();
 
@@ -165,8 +156,7 @@ public class ReactorApi {
         }
         try {
             jsonData = new JSONObject(networkManager.sendRequest(USER_IN_SYSTEM, postParams));
-            if(jsonData.get("status").equals("success"))
-            {
+            if (jsonData.get("status").equals("success")) {
                 return jsonData.getJSONArray("users");
             }
         } catch (JSONException exp) {
@@ -184,17 +174,14 @@ public class ReactorApi {
             postParams.put("session_hash", new StringBody(session_token));
         } catch (UnsupportedEncodingException exp) {
             Log.d("Reactor API: ", exp.getMessage());
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.d("Reactor API: ", e.getMessage());
         }
         try {
             jsonData = new JSONObject(networkManager.sendRequest(GET_USER_METHOD, postParams));
-            if(jsonData.get("status").equals("success"))
-            {
+            if (jsonData.get("status").equals("success")) {
                 JSONArray friendsJSONArray = (JSONArray) jsonData.get("friends");
-                for (int i = 0; i < friendsJSONArray.length(); i++)
-                {
+                for (int i = 0; i < friendsJSONArray.length(); i++) {
                     JSONObject friendJson = friendsJSONArray.getJSONObject(i);
                     FriendEntity friendEntity = new FriendEntity(
                             friendJson.getInt("id"),
@@ -217,8 +204,7 @@ public class ReactorApi {
     }
 
 
-    public ArrayList<FriendEntity> getWhoAddMe()
-    {
+    public ArrayList<FriendEntity> getWhoAddMe() {
         postParams = new HashMap<String, ContentBody>();
         ArrayList<FriendEntity> friendCollection = new ArrayList<FriendEntity>();
 
@@ -230,11 +216,9 @@ public class ReactorApi {
         }
         try {
             jsonData = new JSONObject(networkManager.sendRequest(GET_WHO_ADD_ME, postParams));
-            if(jsonData.get("status").equals("success"))
-            {
-                JSONArray friendsJSONArray = (JSONArray)jsonData.get("friends");
-                for (int i = 0; i < friendsJSONArray.length(); i++)
-                {
+            if (jsonData.get("status").equals("success")) {
+                JSONArray friendsJSONArray = (JSONArray) jsonData.get("friends");
+                for (int i = 0; i < friendsJSONArray.length(); i++) {
                     JSONObject friendJson = friendsJSONArray.getJSONObject(i);
                     FriendEntity friendEntity = new FriendEntity(
                             friendJson.getInt("id"),
@@ -253,11 +237,10 @@ public class ReactorApi {
             Log.d("Reactor API: ", exp.getMessage());
         }
 
-        return  friendCollection;
+        return friendCollection;
     }
 
-    public boolean addFriend(Long number)
-    {
+    public boolean addFriend(Long number) {
         postParams = new HashMap<String, ContentBody>();
 
         try {
@@ -267,8 +250,7 @@ public class ReactorApi {
 
             jsonData = new JSONObject(networkManager.sendRequest(ADD_FRIEND, postParams));
 
-            if(jsonData.get("status").equals("success"))
-            {
+            if (jsonData.get("status").equals("success")) {
                 return true;
             }
 
@@ -281,8 +263,7 @@ public class ReactorApi {
         return false;
     }
 
-    public ArrayList<FriendEntity> searchFriends(String username)
-    {
+    public ArrayList<FriendEntity> searchFriends(String username) {
         ArrayList<FriendEntity> friends = new ArrayList<FriendEntity>();
 
         try {
@@ -292,12 +273,10 @@ public class ReactorApi {
 
             jsonData = new JSONObject(networkManager.sendRequest(SEARCH_FRIEND, postParams));
 
-            if(jsonData.get("status").equals("success"))
-            {
+            if (jsonData.get("status").equals("success")) {
                 JSONArray friendsJsonArray = jsonData.getJSONArray("friends");
-                for (int i = 0; i < friendsJsonArray.length(); i++)
-                {
-                    JSONObject  friendJsonObject = (JSONObject) friendsJsonArray.get(i);
+                for (int i = 0; i < friendsJsonArray.length(); i++) {
+                    JSONObject friendJsonObject = (JSONObject) friendsJsonArray.get(i);
                     friends.add(new FriendEntity(
                             friendJsonObject.getInt("id"),
                             friendJsonObject.getString("username"),
@@ -316,10 +295,10 @@ public class ReactorApi {
         }
         return friends;
     }
-    public ArrayList<FriendEntity> searchFriendsWithoutMe(String username, String my_name)
-    {
+
+    public ArrayList<FriendEntity> searchFriendsWithoutMe(String username, String my_name) {
         ArrayList<FriendEntity> friends = new ArrayList<FriendEntity>();
-        String temp_str="";
+        String temp_str = "";
 
         try {
             postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
@@ -328,23 +307,21 @@ public class ReactorApi {
 
             jsonData = new JSONObject(networkManager.sendRequest(SEARCH_FRIEND, postParams));
 
-            if(jsonData.get("status").equals("success"))
-            {
+            if (jsonData.get("status").equals("success")) {
                 JSONArray friendsJsonArray = jsonData.getJSONArray("friends");
-                for (int i = 0; i < friendsJsonArray.length(); i++)
-                {
-                    JSONObject  friendJsonObject = (JSONObject) friendsJsonArray.get(i);
-                    temp_str=friendJsonObject.getString("username");
-                    if(!temp_str.equals(my_name)){
-                    friends.add(new FriendEntity(
-                            friendJsonObject.getInt("id"),
-                            friendJsonObject.getString("username"),
-                            friendJsonObject.getLong("phone"),
-                            false,
-                            false,
-                            false,
-                            false
-                    ));
+                for (int i = 0; i < friendsJsonArray.length(); i++) {
+                    JSONObject friendJsonObject = (JSONObject) friendsJsonArray.get(i);
+                    temp_str = friendJsonObject.getString("username");
+                    if (!temp_str.equals(my_name)) {
+                        friends.add(new FriendEntity(
+                                friendJsonObject.getInt("id"),
+                                friendJsonObject.getString("username"),
+                                friendJsonObject.getLong("phone"),
+                                false,
+                                false,
+                                false,
+                                false
+                        ));
                     }
                 }
             }
@@ -356,15 +333,13 @@ public class ReactorApi {
         return friends;
     }
 
-    public boolean sendMessages(String friendIds, String text, Bitmap photo, Bitmap reactionPhoto)
-    {
+    public boolean sendMessages(String friendIds, String text, Bitmap photo, Bitmap reactionPhoto) {
         postParams = new HashMap<String, ContentBody>();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         photo.compress(Bitmap.CompressFormat.JPEG, 50, stream);
         byte[] photoByteArray = stream.toByteArray();
         stream.reset();
-        if(reactionPhoto != null)
-        {
+        if (reactionPhoto != null) {
             reactionPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] reactionPhotoByteArray = stream.toByteArray();
         }
@@ -374,9 +349,9 @@ public class ReactorApi {
             postParams.put("session_hash", new StringBody(session_token));
             postParams.put("friend_ids", new StringBody(friendIds));
             postParams.put("text", new StringBody(text));
-            postParams.put("photo", new ByteArrayBody(photoByteArray, "image/jpeg","name"));
-            if(reactionPhoto != null)
-                postParams.put("reaction_photo", new ByteArrayBody(stream.toByteArray(), "image/jpeg","name"));
+            postParams.put("photo", new ByteArrayBody(photoByteArray, "image/jpeg", "name"));
+            if (reactionPhoto != null)
+                postParams.put("reaction_photo", new ByteArrayBody(stream.toByteArray(), "image/jpeg", "name"));
         } catch (UnsupportedEncodingException exp) {
             Log.d("Reactor API: ", exp.getMessage());
         }
@@ -392,8 +367,7 @@ public class ReactorApi {
         return false;
     }
 
-    public ArrayList<MessageEntity> getMessages()
-    {
+    public ArrayList<MessageEntity> getMessages() {
         postParams = new HashMap<String, ContentBody>();
         ArrayList<MessageEntity> messageArray = new ArrayList<MessageEntity>();
 
@@ -406,12 +380,10 @@ public class ReactorApi {
 
         try {
             jsonData = new JSONObject(networkManager.sendRequest(GET_MESSAGES, postParams));
-            if(jsonData.get("status").equals("success"))
-            {
+            if (jsonData.get("status").equals("success")) {
                 JSONArray messageJSONArray = (JSONArray) jsonData.getJSONArray("messages");
 
-                for (int i = 0; i < messageJSONArray.length(); i++)
-                {
+                for (int i = 0; i < messageJSONArray.length(); i++) {
                     JSONObject messageJson = messageJSONArray.getJSONObject(i);
                     MessageEntity messageEntity = new MessageEntity(
                             messageJson.getInt("id"),
@@ -427,10 +399,10 @@ public class ReactorApi {
                             messageJson.getString("to_username"),
                             messageJson.getBoolean("deleted")
                     );
-                    //***********
-                   int timeZone  = Integer.parseInt(messageJson.getJSONObject("created_at").getString("timezone_type"));
-                    messageEntity.setCreatedAt(convertTime(messageEntity.getCreatedAt(), timeZone));
-                    //*********
+
+                    int timeZone = Integer.parseInt(messageJson.getJSONObject("created_at").getString("timezone_type"));
+                    messageEntity.setCreatedAt(convertTime(messageEntity.getCreatedAt(), 0));
+
                     messageArray.add(i, messageEntity);
                 }
             }
@@ -440,10 +412,9 @@ public class ReactorApi {
         return messageArray;
     }
 
-    public HashMap<String, String> loadStInfo()
-    {
+    public HashMap<String, String> loadStInfo() {
 
-        String toRet="";
+        String toRet = "";
         HashMap<String, String> st_info_hm = new HashMap<String, String>();
         try {
             DefaultHttpClient hc = new DefaultHttpClient();
@@ -453,20 +424,19 @@ public class ReactorApi {
             JSONObject json = new JSONObject(response);
             JSONObject urls = json.getJSONObject("static_info");
 
-            st_info_hm.put(ReactrConstants.ABOUT_REACTR,urls.getString(ReactrConstants.ABOUT_REACTR));
-            st_info_hm.put(ReactrConstants.PRIVACY,urls.getString(ReactrConstants.PRIVACY));
-            st_info_hm.put(ReactrConstants.TERMS,urls.getString(ReactrConstants.TERMS));
-            st_info_hm.put(ReactrConstants.CONTACT_US,urls.getString(ReactrConstants.CONTACT_US));
+            st_info_hm.put(ReactrConstants.ABOUT_REACTR, urls.getString(ReactrConstants.ABOUT_REACTR));
+            st_info_hm.put(ReactrConstants.PRIVACY, urls.getString(ReactrConstants.PRIVACY));
+            st_info_hm.put(ReactrConstants.TERMS, urls.getString(ReactrConstants.TERMS));
+            st_info_hm.put(ReactrConstants.CONTACT_US, urls.getString(ReactrConstants.CONTACT_US));
         } catch (Exception e) {
             System.out.println("Exp=" + e);
         }
         return st_info_hm;
     }
 
-    public int countOfnewMessages()
-    {
+    public int countOfnewMessages() {
         postParams = new HashMap<String, ContentBody>();
-        int toRet=0;
+        int toRet = 0;
         try {
             postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
             postParams.put("session_hash", new StringBody(session_token));
@@ -476,13 +446,11 @@ public class ReactorApi {
 
         try {
             jsonData = new JSONObject(networkManager.sendRequest(GET_MESSAGES, postParams));
-            if(jsonData.get("status").equals("success"))
-            {
+            if (jsonData.get("status").equals("success")) {
                 JSONArray messageJSONArray = (JSONArray) jsonData.getJSONArray("messages");
-                for (int i = 0; i < messageJSONArray.length(); i++)
-                {
+                for (int i = 0; i < messageJSONArray.length(); i++) {
                     JSONObject messageJson = messageJSONArray.getJSONObject(i);
-                    if(messageJson.getString("is_read").equals("null")&&!messageJson.getBoolean("from_me")){
+                    if (messageJson.getString("is_read").equals("null") && !messageJson.getBoolean("from_me")) {
                         toRet++;
                     }
                 }
@@ -493,8 +461,7 @@ public class ReactorApi {
         return toRet;
     }
 
-    public boolean readMessage(String id_mes)
-    {
+    public boolean readMessage(String id_mes) {
         postParams = new HashMap<String, ContentBody>();
         try {
             postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
@@ -506,7 +473,7 @@ public class ReactorApi {
         try {
             jsonData = new JSONObject(networkManager.sendRequest(READ_MSG, postParams));
             Boolean result = (jsonData.get("status").equals("success")) ? true : false;
-            return result ;
+            return result;
 
         } catch (JSONException exp) {
             Log.d("Reactor API: ", exp.getMessage());
@@ -515,20 +482,19 @@ public class ReactorApi {
         return false;
     }
 
-    public boolean setPrivacyMessage(boolean state)
-    {
+    public boolean setPrivacyMessage(boolean state) {
         postParams = new HashMap<String, ContentBody>();
         try {
             postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
             postParams.put("session_hash", new StringBody(session_token));
-            postParams.put("privacy_message", new StringBody(new Integer(state? 1 : 0).toString()));
+            postParams.put("privacy_message", new StringBody(new Integer(state ? 1 : 0).toString()));
         } catch (UnsupportedEncodingException exp) {
             Log.d("Reactor API: ", exp.getMessage());
         }
         try {
             jsonData = new JSONObject(networkManager.sendRequest(SET_PRIVACY_MESSAGE, postParams));
             Boolean result = (jsonData.get("status").equals("success")) ? true : false;
-            return result ;
+            return result;
 
         } catch (JSONException exp) {
             Log.d("Reactor API: ", exp.getMessage());
@@ -537,17 +503,16 @@ public class ReactorApi {
         return false;
     }
 
-    public ArrayList<String> editUserData (String phone, String email)
-    {
+    public ArrayList<String> editUserData(String phone, String email) {
         ArrayList<String> errors = new ArrayList<String>();
         postParams = new HashMap<String, ContentBody>();
 
         try {
             postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
             postParams.put("session_hash", new StringBody(session_token));
-            if(phone != null)
+            if (phone != null)
                 postParams.put("phone", new StringBody(phone));
-            if(email != null)
+            if (email != null)
                 postParams.put("email", new StringBody(email));
         } catch (UnsupportedEncodingException exp) {
             Log.d("Reactor API: ", exp.getMessage());
@@ -555,10 +520,8 @@ public class ReactorApi {
         try {
             jsonData = new JSONObject(networkManager.sendRequest(EDIT_USER_DATA, postParams));
 
-            if(jsonData.get("status").equals("failed"))
-            {
-                for (int i = 0; i < jsonData.getJSONArray("errors").length(); i++)
-                {
+            if (jsonData.get("status").equals("failed")) {
+                for (int i = 0; i < jsonData.getJSONArray("errors").length(); i++) {
                     errors.add((String) jsonData.getJSONArray("errors").get(i));
                 }
             }
@@ -569,8 +532,7 @@ public class ReactorApi {
         return null;
     }
 
-    public Boolean deleteFriend(Integer friendId)
-    {
+    public Boolean deleteFriend(Integer friendId) {
         postParams = new HashMap<String, ContentBody>();
         try {
             postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
@@ -582,7 +544,7 @@ public class ReactorApi {
         try {
             jsonData = new JSONObject(networkManager.sendRequest(DELETE_FRIEND, postParams));
             Boolean result = (jsonData.get("status").equals("sucess")) ? true : false;
-            return result ;
+            return result;
 
         } catch (JSONException exp) {
             Log.d("Reactor API: ", exp.getMessage());
@@ -590,21 +552,20 @@ public class ReactorApi {
         return false;
     }
 
-    public Boolean blockFriend(Integer friendId, Boolean isBlock)
-    {
+    public Boolean blockFriend(Integer friendId, Boolean isBlock) {
         postParams = new HashMap<String, ContentBody>();
         try {
             postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
             postParams.put("session_hash", new StringBody(session_token));
             postParams.put("friend_id", new StringBody(friendId.toString()));
-            postParams.put("set_block", new StringBody( new Integer((isBlock) ? 1 : 0).toString()));
+            postParams.put("set_block", new StringBody(new Integer((isBlock) ? 1 : 0).toString()));
         } catch (UnsupportedEncodingException exp) {
             Log.d("Reactor API: ", exp.getMessage());
         }
         try {
             jsonData = new JSONObject(networkManager.sendRequest(BLOCK_FRIEND, postParams));
             Boolean result = (jsonData.get("status").equals("sucess")) ? true : false;
-            return result ;
+            return result;
 
         } catch (JSONException exp) {
             Log.d("Reactor API: ", exp.getMessage());
@@ -612,20 +573,37 @@ public class ReactorApi {
         return false;
     }
 
-    //*************
-    private String convertTime(String timeFromServer, int timezone){
+    public boolean deleteMessage(Integer messageId) {
+        postParams = new HashMap<String, ContentBody>();
+        try {
+            postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
+            postParams.put("session_hash", new StringBody(session_token));
+            postParams.put("message_id", new StringBody(messageId.toString()));
+        } catch (UnsupportedEncodingException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+        try {
+            jsonData = new JSONObject(networkManager.sendRequest(DELETE_MESSAGE, postParams));
+            Boolean result = (jsonData.get("status").equals("success")) ? true : false;
+            return result;
 
-        String toReturn="";
+        } catch (JSONException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+        return false;
+    }
+
+    private String convertTime(String timeFromServer, int timezone) {
+
+        String toReturn = "";
 
         Calendar cal = Calendar.getInstance();
-        Date dateToCal=null;
+        Date dateToCal = null;
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try
-        {
+        try {
             dateToCal = formatter.parse(timeFromServer);
-        }
-        catch (java.text.ParseException e) {
+        } catch (java.text.ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -633,7 +611,7 @@ public class ReactorApi {
         cal.setTime(dateToCal);
         Date afterParse = cal.getTime();
 
-        int dayLightSaving  = cal.get(Calendar.DST_OFFSET);
+        int dayLightSaving = cal.get(Calendar.DST_OFFSET);
         cal.setTimeInMillis(cal.getTimeInMillis() - dayLightSaving);
 
         TimeZone z = cal.getTimeZone();
@@ -652,13 +630,12 @@ public class ReactorApi {
         //cal.add(Calendar.MINUTE, 30);
         Date afterAfter = cal.getTime();
 
-    //    toReturn=cal.get(Calendar.MONTH)+"-"+cal.get(Calendar.DAY_OF_MONTH)+"-"+cal.get(Calendar.YEAR)
-    //            +" "+cal.get(Calendar.HOUR)+":"+cal.get(Calendar.MINUTE)+":"+cal.get(Calendar.SECOND);
+        //    toReturn=cal.get(Calendar.MONTH)+"-"+cal.get(Calendar.DAY_OF_MONTH)+"-"+cal.get(Calendar.YEAR)
+        //            +" "+cal.get(Calendar.HOUR)+":"+cal.get(Calendar.MINUTE)+":"+cal.get(Calendar.SECOND);
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
-        toReturn=sdf.format(cal.getTime());
+        toReturn = sdf.format(cal.getTime());
 
         return toReturn;
     }
-
 }

@@ -1,7 +1,10 @@
 package reactr.adaptor;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.example.reactr.MainActivity;
@@ -26,6 +30,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import reactr.network.ReactorApi;
+
 
 public class MessageAdapter extends BaseAdapter {
 
@@ -36,7 +42,7 @@ public class MessageAdapter extends BaseAdapter {
 
     public MessageAdapter(Context ctx, ArrayList<MessageEntity> messagess, ArrayList<FriendEntity> friends) {
         this.ctx = ctx;
-        this.friends  = friends;
+        this.friends = friends;
         this.messages = messagess;
         this.inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -57,41 +63,35 @@ public class MessageAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
 
-        if(view == null)
+        if (view == null)
             view = inflater.inflate(R.layout.message_list_item, parent, false);
 
-        TextView date         = (TextView) view.findViewById(R.id.date);
-        TextView user         = (TextView) view.findViewById(R.id.userText);
-        TextView reaction     = (TextView) view.findViewById(R.id.isReaction);
+        TextView date = (TextView) view.findViewById(R.id.date);
+        TextView user = (TextView) view.findViewById(R.id.userText);
+        TextView reaction = (TextView) view.findViewById(R.id.isReaction);
         ImageView typeMessage = (ImageView) view.findViewById(R.id.typeMessage);
 
         final MessageEntity message = (MessageEntity) getItem(position);
 
         //*******
-        if(!message.getIsRead()&&!message.getFromMe()){
+        if (!message.getIsRead() && !message.getFromMe()) {
             view.setBackgroundResource(R.drawable.unread);
-        }
-        else{
+        } else {
             view.setBackgroundColor(Color.WHITE);
         }
 
-
-
-
-
-        String preDate=message.getCreatedAt();
+        String preDate = message.getCreatedAt();
         String formattedDate = preDate;//.substring(5, 10) + "-" + preDate.substring(0,4) + " " + preDate.substring(10);
 
         message.setUsernameWithFriends(friends);
 
-        if(message.getFromMe()){
+        if (message.getFromMe()) {
             user.setText(message.getToUsername());
             typeMessage.setImageResource(R.drawable.rsz_arrow_forward_black);
-        }
-        else {
+        } else {
             user.setText(message.getUsername());
             typeMessage.setImageResource(R.drawable.rsz_camera_mailbox2);
         }
@@ -110,9 +110,9 @@ public class MessageAdapter extends BaseAdapter {
         }
 
         date.setText(formattedDate);
-        //*******
-        if(message.getIsRead()&&message.getFromMe()){
-            date.setText(date.getText()+ " - Delivered");
+
+        if (message.getIsRead() && message.getFromMe()) {
+            date.setText(date.getText() + " - Delivered");
         }
 
         view.setOnClickListener(new View.OnClickListener() {
@@ -122,8 +122,15 @@ public class MessageAdapter extends BaseAdapter {
             }
         });
 
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                return confirmDeleteMessage(message, position);
+            }
+        });
+
         view.setOnFocusChangeListener(myOnFocusChangeListener);
-        return  view;
+        return view;
     }
 
 
@@ -132,13 +139,54 @@ public class MessageAdapter extends BaseAdapter {
         @Override
         public void onFocusChange(View v, boolean hasFocus) {
 
-            if(!hasFocus){
+            if (!hasFocus) {
                 v.setBackgroundColor(Color.WHITE);
-            }
-            else{
+            } else {
                 v.setBackgroundColor(R.drawable.unread);
             }
         }
     };
 
+    public boolean confirmDeleteMessage(final MessageEntity message, final int position) {
+        final Boolean isConfirm = false;
+
+        final Context context = this.ctx;
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Delete message?").setTitle("");
+
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                class SendReactionPhotoAsyncTask extends AsyncTask<Void, Void, Boolean> {
+
+                    @Override
+                    protected Boolean doInBackground(Void... voids) {
+                        ReactorApi api = ((MainActivity) context).getReactorApi();
+                        return api.deleteMessage(message.getId());
+                    }
+
+                    @Override
+                    protected void onPostExecute(Boolean result) {
+                        if (result) {
+                            messages.remove(position);
+                            Toast.makeText(context, "Message Deleted", Toast.LENGTH_SHORT).show();
+                            notifyDataSetChanged();
+                        }
+                    }
+                }
+                new SendReactionPhotoAsyncTask().execute();
+            }
+        });
+
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        return true;
+    }
 }

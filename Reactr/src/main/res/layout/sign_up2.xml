@@ -37,7 +37,8 @@
             android:textColor="#fff"
             android:width="135pt"
             android:id="@+id/textView"
-          />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
 
         <Button
             android:layout_width="fill_parent"
@@ -48,6 +49,7 @@
             android:textSize="14pt"
             android:text="@string/continue_button"
             android:id="@+id/toStepThreeButton"
-          />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
     </LinearLayout>
 </LinearLayout>
