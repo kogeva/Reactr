@@ -367,13 +367,15 @@ public class ReactorApi {
         return false;
     }
 
-    public ArrayList<MessageEntity> getMessages() {
+    public ArrayList<MessageEntity> getMessages(Integer from, Integer to) {
         postParams = new HashMap<String, ContentBody>();
         ArrayList<MessageEntity> messageArray = new ArrayList<MessageEntity>();
 
         try {
             postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
             postParams.put("session_hash", new StringBody(session_token));
+            postParams.put("from", new StringBody(from.toString()));
+            postParams.put("to", new StringBody(to.toString()));
         } catch (UnsupportedEncodingException exp) {
             Log.d("Reactor API: ", exp.getMessage());
         }

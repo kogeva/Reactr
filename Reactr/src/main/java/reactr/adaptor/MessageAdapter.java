@@ -189,4 +189,17 @@ public class MessageAdapter extends BaseAdapter {
 
         return true;
     }
+
+    public void addMessagesInList(ArrayList<MessageEntity> newMessages)
+    {
+        messages.addAll(newMessages);
+        notifyDataSetChanged();
+    }
+
+    public void refreshList(ArrayList<MessageEntity> newMessages)
+    {
+        messages.removeAll(messages);
+        messages = newMessages;
+        notifyDataSetChanged();
+    }
 }

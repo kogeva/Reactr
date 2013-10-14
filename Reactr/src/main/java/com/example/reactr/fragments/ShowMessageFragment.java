@@ -334,7 +334,7 @@ public class ShowMessageFragment extends SherlockFragment {
                     @Override
                     protected Boolean doInBackground(Void... voids) {
                         ReactorApi api = ((MainActivity) getSherlockActivity()).getReactorApi();
-                        return api.sendMessages(message.getFrom_user().toString(), message.getText(), reactionPhoto, photo);
+                        return api.sendMessages(message.getFrom_user().toString(), message.getText(), photo, reactionPhoto);
                     }
 
                     @Override

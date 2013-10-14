@@ -6,8 +6,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
 import android.util.Log;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.example.reactr.fragments.MailBoxFragment;
 import com.google.android.c2dm.C2DMBaseReceiver;
 
 
@@ -37,6 +40,7 @@ public class C2DMReceiver extends C2DMBaseReceiver {
         String data = receiveIntent.getStringExtra("message");
         String photo = receiveIntent.getStringExtra("photo");
         String reactionPhoto = receiveIntent.getStringExtra("reactionPhoto");
+        String fromUser = receiveIntent.getStringExtra("senderId");
         String messageId = receiveIntent.getStringExtra("message_id");
         String text = receiveIntent.getStringExtra("text");
         if(data != null)
@@ -48,6 +52,7 @@ public class C2DMReceiver extends C2DMBaseReceiver {
             intent.putExtra("messageId", messageId);
             intent.putExtra("text", text);
             intent.putExtra("reactionPhoto", reactionPhoto);
+            intent.putExtra("from_user", fromUser);
             intent.putExtra("photo", photo);
 
             NotificationManager mManager = (NotificationManager)
@@ -57,6 +62,8 @@ public class C2DMReceiver extends C2DMBaseReceiver {
             notification.setLatestEventInfo(context,"Reactr",data,
                     PendingIntent.getActivity(this.getBaseContext(), 0,
                             intent, PendingIntent.FLAG_CANCEL_CURRENT));
+            notification.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            notification.flags |= Notification.FLAG_AUTO_CANCEL;
             mManager.notify(0, notification);
         }
     }

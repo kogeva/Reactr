@@ -219,6 +219,7 @@ public class MainActivity extends SlidingFragmentActivity  {
             else
                 mesage.setReactionPhoto("null");
             mesage.setText(intent.getStringExtra("text"));
+            mesage.setFrom_user(new Integer(intent.getStringExtra("from_user")));
             mesage.setId(new Integer(intent.getStringExtra("messageId")));
             mesage.setRead(false);
             mesage.setFromMe(false);
@@ -257,6 +258,8 @@ public class MainActivity extends SlidingFragmentActivity  {
                 ReactrBase.switchFraagment(this, new AddMessageFragment(bitmapdata, messageEntity, -1));
         }
     }
+
+
 
     public void setMessageEntity(MessageEntity me){
          messageEntity = me;
