@@ -7,11 +7,18 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.example.reactr.fragments.MailBoxFragment;
+import com.example.reactr.reactr.models.MessageEntity;
 import com.google.android.c2dm.C2DMBaseReceiver;
+
+import java.util.ArrayList;
+
+import reactr.adaptor.MessageAdapter;
+import reactr.network.ReactorApi;
 
 
 public class C2DMReceiver extends C2DMBaseReceiver {
@@ -37,6 +44,10 @@ public class C2DMReceiver extends C2DMBaseReceiver {
     @Override
     protected void onMessage(Context context, Intent receiveIntent)
     {
+        MessageAdapter messageAdapter = MailBoxFragment.getAdapter();
+        if (messageAdapter != null)
+            new LoadNewMessageAsyncTask(messageAdapter).execute();
+
         String data = receiveIntent.getStringExtra("message");
         String photo = receiveIntent.getStringExtra("photo");
         String reactionPhoto = receiveIntent.getStringExtra("reactionPhoto");
@@ -65,6 +76,27 @@ public class C2DMReceiver extends C2DMBaseReceiver {
             notification.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             notification.flags |= Notification.FLAG_AUTO_CANCEL;
             mManager.notify(0, notification);
+        }
+    }
+
+    class LoadNewMessageAsyncTask extends AsyncTask<Integer, Void, ArrayList<MessageEntity>> {
+
+        MessageAdapter adapter;
+        ReactorApi api = MainActivity.reactorApi;
+
+        LoadNewMessageAsyncTask(MessageAdapter adapter) {
+            this.adapter = adapter;
+        }
+
+        @Override
+        protected ArrayList<MessageEntity> doInBackground(Integer... voids) {
+            return api.getMessages(0, 15);
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<MessageEntity> messageEntities) {
+            adapter.refreshList(messageEntities);
+            ReactrBase.hideLoader();
         }
     }
 }

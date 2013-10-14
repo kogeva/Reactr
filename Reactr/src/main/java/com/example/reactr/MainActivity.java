@@ -38,7 +38,7 @@ import reactr.network.ReactorApi;
 public class MainActivity extends SlidingFragmentActivity  {
 
     private Fragment mContent;
-    private ReactorApi reactorApi;
+    public static ReactorApi reactorApi;
     private String sessionHash;
     private int userId;
     private static String username;

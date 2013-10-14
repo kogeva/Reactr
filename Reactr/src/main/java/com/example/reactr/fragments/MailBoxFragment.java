@@ -33,7 +33,7 @@ public class MailBoxFragment extends SherlockFragment {
     private ArrayList<MessageEntity> messageArray;
     private ArrayList<FriendEntity> friendEntities;
     private Handler handler;
-    private MessageAdapter adapter;
+    public static MessageAdapter adapter;
     private ListView messageList;
     private View actionBarView;
     Integer m_PreviousTotalCount = 0;
@@ -138,7 +138,7 @@ public class MailBoxFragment extends SherlockFragment {
         }
     }
 
-    class LoadNewMessageAsyncTask extends AsyncTask<Integer, Void, ArrayList<MessageEntity>>{
+    public class LoadNewMessageAsyncTask extends AsyncTask<Integer, Void, ArrayList<MessageEntity>>{
 
         @Override
         protected ArrayList<MessageEntity> doInBackground(Integer... voids) {
@@ -156,5 +156,10 @@ public class MailBoxFragment extends SherlockFragment {
     public void onDestroyView() {
         ((ImageButton) actionBarView.findViewById(R.id.refreshButton)).setVisibility(View.INVISIBLE);
         super.onDestroyView();
+    }
+
+    public static MessageAdapter getAdapter()
+    {
+        return adapter;
     }
 }
