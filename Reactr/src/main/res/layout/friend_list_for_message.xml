@@ -17,6 +17,7 @@
             android:background="@drawable/search_sprite"
             android:singleLine="true"
             android:id="@+id/editTextInSelectFriends"
+            android:inputType="textFilter|textNoSuggestions"
             android:layout_weight="0.5" />
 
         <ListView

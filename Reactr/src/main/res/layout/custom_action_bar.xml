@@ -33,6 +33,24 @@
         android:layout_gravity="center" />
 
     <ImageButton
+            android:scaleType="fitXY"
+            android:background="@null"
+            android:id="@+id/refreshItem"
+            android:src="@drawable/refresh_mailbox"
+
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_toLeftOf="@+id/barItem"
+
+            android:layout_width="85dp"
+            android:layout_height="50dp"
+            android:paddingLeft="44dp"
+            android:paddingTop="12dp"
+            android:paddingRight="111dp"
+            android:paddingBottom="12dp"
+            />
+
+    <ImageButton
         android:scaleType="fitXY"
         android:background="@null"
         android:id="@+id/barItem"

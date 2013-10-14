@@ -297,7 +297,7 @@ public class ShowMessageFragment extends SherlockFragment{
     {
         String fullPath=Environment
                 .getExternalStorageDirectory() + File.separator+Environment.DIRECTORY_DCIM
-                + "/Reactor/";
+                + "/Reactr/";
         File dir = new File(fullPath);
         if (!dir.exists()) {
             dir.mkdirs();

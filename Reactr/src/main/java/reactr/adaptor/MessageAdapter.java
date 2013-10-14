@@ -78,10 +78,6 @@ public class MessageAdapter extends BaseAdapter {
             view.setBackgroundColor(Color.WHITE);
         }
 
-
-
-
-
         String preDate=message.getCreatedAt();
         String formattedDate = preDate;//.substring(5, 10) + "-" + preDate.substring(0,4) + " " + preDate.substring(10);
 
@@ -123,9 +119,11 @@ public class MessageAdapter extends BaseAdapter {
         });
 
         view.setOnFocusChangeListener(myOnFocusChangeListener);
+
+
+
         return  view;
     }
-
 
     View.OnFocusChangeListener myOnFocusChangeListener = new View.OnFocusChangeListener() {
 

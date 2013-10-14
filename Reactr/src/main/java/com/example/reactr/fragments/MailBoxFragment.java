@@ -3,6 +3,7 @@ package com.example.reactr.fragments;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -62,6 +64,8 @@ public class MailBoxFragment extends SherlockFragment {
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.VISIBLE);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.act_bar_make_photo);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToTakePhoto);
+        ((ImageButton) actionBarView.findViewById(R.id.refreshItem)).setVisibility(View.VISIBLE);
+        ((ImageButton) actionBarView.findViewById(R.id.refreshItem)).setOnClickListener(refreshMailBox);
 
         return view;
     }
@@ -83,6 +87,13 @@ public class MailBoxFragment extends SherlockFragment {
         @Override
         public void onClick(View view) {
             ReactrBase.switchFraagment(getSherlockActivity(), new CreatePhotoFragment());
+        }
+    };
+    View.OnClickListener refreshMailBox = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Log.d("refreshMailBox","refreshMailBox");
+            Toast.makeText(getActivity().getBaseContext(), "refreshMailBox", Toast.LENGTH_SHORT).show();
         }
     };
 }
