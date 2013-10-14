@@ -64,10 +64,11 @@ public class ShowMessageFragment extends SherlockFragment {
     private TakePhotoWithoutPreview ph;
     private TextView text;
     private boolean reaction = false;
+    private boolean animate = false;
     private View actionBarView;
 
+
     private Animation animationFadeIn, animationFadeOut;
-    private Animation scaleAnimation, logoMoveAnimation;
 
     public ShowMessageFragment(MessageEntity message) {
         this.message = message;
@@ -96,8 +97,9 @@ public class ShowMessageFragment extends SherlockFragment {
 
         ReactrBase.showLoader(getSherlockActivity());
 
-        if ((!message.getIsRead()) && (!message.getFromMe()))
+        if ((!message.getIsRead()) && (!message.getFromMe())){
             ph = new TakePhotoWithoutPreview(getSherlockActivity(), surfaceView, this);
+        }
 
         if (message.getText().length() == 0)
             text.setVisibility(View.INVISIBLE);
@@ -120,6 +122,7 @@ public class ShowMessageFragment extends SherlockFragment {
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("REACTR");
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
+        ((ImageButton) actionBarView.findViewById(R.id.refreshItem)).setVisibility(View.INVISIBLE);
 
         animationFadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fadein);
         animationFadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fadeout);
@@ -179,6 +182,8 @@ public class ShowMessageFragment extends SherlockFragment {
             ReactrBase.hideLoader();
             if ((!message.getIsRead()) && (!message.getFromMe()) && message.getReactionPhoto().equals("null")) {
                 ph.takeReaction(message.getId());
+                animate=true;
+                Log.d("SHOWMESSAGE", "animate=true");
             }
         }
     };
@@ -281,7 +286,7 @@ public class ShowMessageFragment extends SherlockFragment {
     private void savePhotoToMyAlbum(String filename, Bitmap bitmap) {
         String fullPath = Environment
                 .getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_DCIM
-                + "/Reactor/";
+                + "/Reactr/";
         File dir = new File(fullPath);
         if (!dir.exists()) {
             dir.mkdirs();
@@ -365,6 +370,13 @@ public class ShowMessageFragment extends SherlockFragment {
         Bitmap rounded_bm = ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, getActivity().getApplicationContext());
         reactionPhotoView.setImageBitmap(rounded_bm);
         Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.scale);
-        reactionPhotoView.startAnimation(animation);
+
+        if(animate){
+            Log.d("SHOWMESSAGE", "animate");
+            reactionPhotoView.startAnimation(animation);
+            animate=false;
+        }
+        Log.d("SHOWMESSAGE", "out_of_animate");
+
     }
 }

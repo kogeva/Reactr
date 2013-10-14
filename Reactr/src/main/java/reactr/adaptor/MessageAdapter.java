@@ -189,4 +189,8 @@ public class MessageAdapter extends BaseAdapter {
 
         return true;
     }
+
+    public void addMessages(ArrayList<MessageEntity> messageAr) {
+        this.messages.addAll(messageAr);
+    }
 }

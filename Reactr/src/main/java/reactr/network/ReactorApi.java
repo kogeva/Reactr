@@ -412,6 +412,56 @@ public class ReactorApi {
         return messageArray;
     }
 
+
+    public ArrayList<MessageEntity> getMessagesFromTo(Integer from, Integer to) {
+        postParams = new HashMap<String, ContentBody>();
+        ArrayList<MessageEntity> messageArray = new ArrayList<MessageEntity>();
+
+        try {
+            postParams.put("user_id", new StringBody((new Integer(userId)).toString()));
+            postParams.put("session_hash", new StringBody(session_token));
+             postParams.put("from", new StringBody((from).toString()));
+             postParams.put("to", new StringBody((to).toString()));
+        } catch (UnsupportedEncodingException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+
+        try {
+            jsonData = new JSONObject(networkManager.sendRequest(GET_MESSAGES, postParams));
+            if (jsonData.get("status").equals("success")) {
+                JSONArray messageJSONArray = (JSONArray) jsonData.getJSONArray("messages");
+
+                for (int i = 0; i < messageJSONArray.length(); i++) {
+                    JSONObject messageJson = messageJSONArray.getJSONObject(i);
+                    MessageEntity messageEntity = new MessageEntity(
+                            messageJson.getInt("id"),
+                            messageJson.getInt("from_user"),
+                            messageJson.getInt("to_user"),
+                            messageJson.getString("text"),
+                            messageJson.getString("photo"),
+                            messageJson.getString("reaction_photo"),
+                            messageJson.getJSONObject("created_at").getString("date"),
+                            messageJson.getBoolean("from_me"),
+                            (!messageJson.getString("is_read").equals("null")) ? messageJson.getBoolean("is_read") : false,
+                            messageJson.getString("username"),
+                            messageJson.getString("to_username"),
+                            messageJson.getBoolean("deleted")
+                    );
+
+                    int timeZone = Integer.parseInt(messageJson.getJSONObject("created_at").getString("timezone_type"));
+                    messageEntity.setCreatedAt(convertTime(messageEntity.getCreatedAt(), 0));
+
+                    messageArray.add(i, messageEntity);
+                }
+            }
+        } catch (JSONException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+        return messageArray;
+    }
+
+
+
     public HashMap<String, String> loadStInfo() {
 
         String toRet = "";
