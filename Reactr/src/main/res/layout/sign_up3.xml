@@ -23,7 +23,9 @@
             android:textColor="#fff"
             android:width="135pt"
             android:id="@+id/textView"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
 
         <EditText
             android:layout_width="fill_parent"
@@ -48,7 +50,9 @@
             android:textColor="#fff"
             android:width="135pt"
             android:id="@+id/textView"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -59,7 +63,9 @@
             android:textColor="#fee7b8"
             android:width="135pt"
             android:id="@+id/textView"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
 
         <Button
             android:layout_width="fill_parent"
@@ -70,6 +76,8 @@
             android:textSize="14pt"
             android:text="@string/sign_up"
             android:id="@+id/completeButton"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
     </LinearLayout>
 </RelativeLayout>

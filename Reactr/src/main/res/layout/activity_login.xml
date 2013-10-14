@@ -63,7 +63,8 @@
                     android:textColor="#fff"
                     android:textSize="14pt"
                     android:id="@+id/loginButton"
-                    />
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp" />
         </LinearLayout>
     </LinearLayout>
 

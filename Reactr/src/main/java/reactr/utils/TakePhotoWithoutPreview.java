@@ -1,6 +1,8 @@
 package reactr.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -8,6 +10,10 @@ import android.net.Uri;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+
+import com.example.reactr.ReactrBase;
+import com.example.reactr.fragments.ShowMessageFragment;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -23,8 +29,11 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
     private SurfaceView surfaceView;
     private SurfaceHolder holder;
     private int messageId;
+    private byte[] reactionPhoto;
+    ShowMessageFragment fragment;
 
-    public TakePhotoWithoutPreview(Context context, SurfaceView surfaceView) {
+    public TakePhotoWithoutPreview(Context context, SurfaceView surfaceView, ShowMessageFragment fragment) {
+        this.fragment = fragment;
         this.context = context;
         this.surfaceView = surfaceView;
         this.holder = this.surfaceView.getHolder();
@@ -72,6 +81,9 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
     Camera.PictureCallback jpegCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
+
+            reactionPhoto = data;
+
             FileOutputStream outStream = null;
             try {
                 outStream = context.openFileOutput((new Integer(messageId)).toString() + ".jpg", Context.MODE_PRIVATE);
@@ -86,6 +98,22 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
             }
             camera.release();
             camera = null;
+            fragment.reactionPhoto = fragment.RotateBitmap(getReactionPhoto(),-90);
+            fragment.reactionPhotoView.setVisibility(View.VISIBLE);
+            fragment.setDecorationPhoto();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            fragment.handler.post(showConfirmDialog);
+                        }
+                    }, 1000);
+                }
+            }).start();
+
+
         }
     };
     public void shootSound()
@@ -101,4 +129,19 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
                 _shootMP.start();
         }
     }
+
+    public Bitmap getReactionPhoto ()
+    {
+        if (reactionPhoto != null)
+            return BitmapFactory.decodeByteArray(reactionPhoto, 0, reactionPhoto.length);
+        else
+            return null;
+    }
+
+    private Runnable showConfirmDialog = new Runnable() {
+        @Override
+        public void run() {
+            fragment.confirmReaction();
+        }
+    };
 }

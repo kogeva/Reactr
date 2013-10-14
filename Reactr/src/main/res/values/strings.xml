@@ -52,5 +52,7 @@
     <string name="settings_who_header">Who is allowed to send me photos?</string>
     <string name="settings_save_button">Save</string>
 
+    <string name="yes">yes</string>
+    <string name="no">no</string>
 
 </resources>

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class MessageEntity {
 
     private int id;
-    private int from_user;
-    private int to_user;
+    private Integer from_user;
+    private Integer to_user;
     private String text;
     private String photo;
     private String reactionPhoto;
@@ -56,7 +56,7 @@ public class MessageEntity {
         this.id = id;
     }
 
-    public int getFrom_user() {
+    public Integer getFrom_user() {
         return from_user;
     }
 
@@ -150,5 +150,13 @@ public class MessageEntity {
                     username = friends.get(i).getUsername();
             }
         }
+    }
+
+    public Boolean getRead() {
+        return isRead;
+    }
+
+    public void setRead(Boolean read) {
+        isRead = read;
     }
 }

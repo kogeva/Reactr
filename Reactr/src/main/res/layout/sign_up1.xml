@@ -55,8 +55,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
 
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:paddingLeft="0dip"
             android:paddingRight="0dip"
             />
@@ -72,6 +72,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
 
-            />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
     </LinearLayout>
 </RelativeLayout>
