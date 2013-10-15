@@ -32,6 +32,45 @@
         android:textStyle="bold"
         android:layout_gravity="center" />
 
+
+
+    <ProgressBar android:indeterminate="true"
+                 android:layout_width="50dp" android:layout_height="50dp"
+                 android:id="@+id/marker_progress" style="?android:attr/progressBarStyle"
+
+                 android:layout_centerVertical="true"
+                 android:layout_alignParentRight="true"
+
+                 android:paddingLeft="45dp"
+                 android:paddingTop="10dp"
+                 android:paddingRight="12dp"
+                 android:paddingBottom="12dp"
+                 android:layout_marginRight="100dp"
+
+
+            />
+
+
+
+
+
+    <ImageButton
+            android:scaleType="fitXY"
+            android:background="@null"
+            android:id="@+id/refreshItem"
+            android:src="@drawable/refresh_mailbox"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+
+            android:layout_width="85dp"
+            android:layout_height="50dp"
+            android:paddingLeft="45dp"
+            android:paddingTop="10dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="12dp"
+            android:layout_marginRight="50dp"
+            />
+
     <ImageButton
         android:scaleType="fitXY"
         android:background="@null"

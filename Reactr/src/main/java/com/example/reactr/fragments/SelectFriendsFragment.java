@@ -43,6 +43,7 @@ public class SelectFriendsFragment extends SherlockFragment {
     private Handler handler;
     private View actionBarView;
     private EditText selectFriends;
+    private ArrayList<FriendEntity> friends;
 
     public SelectFriendsFragment(Bitmap photo, String text)
     {
@@ -69,6 +70,7 @@ public class SelectFriendsFragment extends SherlockFragment {
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.VISIBLE);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.add_friend_btn);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToAddFriendClick);
+        ((ImageButton) actionBarView.findViewById(R.id.refreshItem)).setVisibility(View.INVISIBLE);
 
         handler = new Handler();
 
@@ -79,10 +81,17 @@ public class SelectFriendsFragment extends SherlockFragment {
             @Override
             public void run() {
                 api = ((MainActivity) getSherlockActivity()).getReactorApi();
-                friendListForMessageAdapter = new FriendListForMessageAdapter(getSherlockActivity(), ReactrBase.addInFriendContactName(api.getFriends(), contacts, new FriendsDBManager(getSherlockActivity())));
+                //**********
+                FriendsDBManager friendsDBManager = new FriendsDBManager(getSherlockActivity());
+                friends = ReactrBase.addInFriendContactName(api.getFriends(), contacts, friendsDBManager);
+                //************
+                friendListForMessageAdapter = new FriendListForMessageAdapter(getSherlockActivity(), friends);
                 handler.post(updateFrendList);
             }
         }).start();
+
+
+
 
         return view;
     }
@@ -127,8 +136,16 @@ public class SelectFriendsFragment extends SherlockFragment {
         }
 
         public void onTextChanged(CharSequence s, int start, int before, int count) {
+           //**************************
             String str = String.valueOf(selectFriends.getText()).toLowerCase();
-            friendListForMessageAdapter = new FriendListForMessageAdapter(getSherlockActivity(), ReactrBase.addInFriendContactNameByName(api.getFriends(), contacts, str));
+            ArrayList<FriendEntity> filterList = new ArrayList<FriendEntity>();
+            for (int i = 0; i < friends.size(); i++) {
+                if (friends.get(i).getUsername().toLowerCase().indexOf(str) != -1) {
+                    filterList.add(friends.get(i));
+                }
+            }
+            friendListForMessageAdapter = new FriendListForMessageAdapter(getSherlockActivity(), filterList);
+           //***************************
             handler.post(updateFrendList);
         }
     }
