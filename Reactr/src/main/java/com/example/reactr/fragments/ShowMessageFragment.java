@@ -64,7 +64,7 @@ public class ShowMessageFragment extends SherlockFragment {
     private TakePhotoWithoutPreview ph;
     private TextView text;
     private boolean reaction = false;
-    private boolean animate = false;
+    private boolean animateReaction = false;
     private View actionBarView;
 
 
@@ -182,7 +182,7 @@ public class ShowMessageFragment extends SherlockFragment {
             ReactrBase.hideLoader();
             if ((!message.getIsRead()) && (!message.getFromMe()) && message.getReactionPhoto().equals("null")) {
                 ph.takeReaction(message.getId());
-                animate=true;
+                animateReaction=true;
                 Log.d("SHOWMESSAGE", "animate=true");
             }
         }
@@ -371,10 +371,10 @@ public class ShowMessageFragment extends SherlockFragment {
         reactionPhotoView.setImageBitmap(rounded_bm);
         Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.scale);
 
-        if(animate){
+        if(animateReaction){
             Log.d("SHOWMESSAGE", "animate");
             reactionPhotoView.startAnimation(animation);
-            animate=false;
+            animateReaction=false;
         }
         Log.d("SHOWMESSAGE", "out_of_animate");
 

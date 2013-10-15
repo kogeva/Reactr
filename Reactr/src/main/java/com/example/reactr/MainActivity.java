@@ -242,11 +242,14 @@ public class MainActivity extends SlidingFragmentActivity  {
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
 
-            ImageView imageView = new ImageView(this);
-            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+           // ImageView imageView = new ImageView(this);
+            Bitmap toImageBitmap = BitmapFactory.decodeFile(picturePath);
+            Bitmap.createScaledBitmap(toImageBitmap, toImageBitmap.getWidth()/2, toImageBitmap.getHeight()/2, false);
+         //   imageView.setImageBitmap(toImageBitmap);
 
-            Drawable d=imageView.getDrawable();
-            Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
+           // Drawable d=imageView.getDrawable();
+         //   Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
+            Bitmap bitmap = toImageBitmap;
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] bitmapdata = stream.toByteArray();
