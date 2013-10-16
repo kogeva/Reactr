@@ -122,7 +122,6 @@ public class ShowMessageFragment extends SherlockFragment {
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("REACTR");
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
-        ((ImageButton) actionBarView.findViewById(R.id.refreshItem)).setVisibility(View.INVISIBLE);
 
         animationFadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fadein);
         animationFadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fadeout);

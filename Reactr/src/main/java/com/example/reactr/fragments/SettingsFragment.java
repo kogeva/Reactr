@@ -55,7 +55,6 @@ public class SettingsFragment extends SherlockFragment{
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("SETTINGS");
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
-        ((ImageButton) actionBarView.findViewById(R.id.refreshItem)).setVisibility(View.INVISIBLE);
 
         return view;
     }

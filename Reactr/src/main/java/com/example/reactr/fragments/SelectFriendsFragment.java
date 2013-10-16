@@ -70,7 +70,6 @@ public class SelectFriendsFragment extends SherlockFragment {
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.VISIBLE);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.add_friend_btn);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToAddFriendClick);
-        ((ImageButton) actionBarView.findViewById(R.id.refreshItem)).setVisibility(View.INVISIBLE);
 
         handler = new Handler();
 

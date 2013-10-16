@@ -62,8 +62,6 @@ public class MailBoxFragment extends SherlockFragment {
 
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("MAILBOX");
-        ((ImageButton) actionBarView.findViewById(R.id.refreshButton)).setVisibility(View.VISIBLE);
-        ((ImageButton) actionBarView.findViewById(R.id.refreshButton)).setOnClickListener(refreshListListener);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.VISIBLE);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.act_bar_make_photo);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToTakePhoto);
@@ -108,15 +106,6 @@ public class MailBoxFragment extends SherlockFragment {
         }
     };
 
-    View.OnClickListener refreshListListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            ReactrBase.showLoader(getSherlockActivity());
-            m_PreviousTotalCount = 0;
-            new LoadNewMessageAsyncTask().execute();
-        }
-    };
-
     View.OnClickListener goToTakePhoto = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -150,12 +139,6 @@ public class MailBoxFragment extends SherlockFragment {
             adapter.refreshList(messageEntities);
             ReactrBase.hideLoader();
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        ((ImageButton) actionBarView.findViewById(R.id.refreshButton)).setVisibility(View.INVISIBLE);
-        super.onDestroyView();
     }
 
     public static MessageAdapter getAdapter()

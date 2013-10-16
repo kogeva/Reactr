@@ -31,6 +31,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.testflightapp.lib.TestFlight;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.HashMap;
 
 import reactr.network.ReactorApi;
@@ -50,10 +51,13 @@ public class MainActivity extends SlidingFragmentActivity  {
     private static int RESULT_LOAD_IMAGE = 1;
     private MessageEntity messageEntity=null;
     private String pushNotificationId;
+    public static Boolean isRunningApplication;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isRunningApplication = true;
+
         TestFlight.takeOff(getApplication(), "fe4948e0-fb42-43a0-af7d-ab6cc9869984");
 
         C2DMessaging.register(this, "856805386889");
@@ -184,14 +188,17 @@ public class MainActivity extends SlidingFragmentActivity  {
     {
         return st_info_hm.get(p);
     }
+
     public int getSizeStInfo()
     {
         return st_info_hm.size();
     }
+
     public void loadStInfo()
     {
         st_info_hm = reactorApi.loadStInfo();
     }
+
     public void updateMenu()
     {
         menuFragment.updateMenu();
@@ -204,7 +211,6 @@ public class MainActivity extends SlidingFragmentActivity  {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
     }
 
     private MessageEntity fromNotificationMessage(Intent intent)
@@ -243,13 +249,10 @@ public class MainActivity extends SlidingFragmentActivity  {
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
 
-           // ImageView imageView = new ImageView(this);
-            Bitmap toImageBitmap = BitmapFactory.decodeFile(picturePath);
-            Bitmap.createScaledBitmap(toImageBitmap, toImageBitmap.getWidth()/2, toImageBitmap.getHeight()/2, false);
-         //   imageView.setImageBitmap(toImageBitmap);
+            File imgFile = new File(picturePath);
 
-           // Drawable d=imageView.getDrawable();
-         //   Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
+            Bitmap toImageBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            Bitmap.createScaledBitmap(toImageBitmap, toImageBitmap.getWidth()/2, toImageBitmap.getHeight()/2, false);
             Bitmap bitmap = toImageBitmap;
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -262,9 +265,18 @@ public class MainActivity extends SlidingFragmentActivity  {
         }
     }
 
-
-
     public void setMessageEntity(MessageEntity me){
          messageEntity = me;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isRunningApplication = false;
+    }
+
+    public static Boolean isRunning()
+    {
+        return isRunningApplication;
     }
 }

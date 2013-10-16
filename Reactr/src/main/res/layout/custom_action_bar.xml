@@ -33,43 +33,24 @@
         android:layout_gravity="center" />
 
 
+    <ProgressBar
+        android:indeterminate="true"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/marker_progress"
+        style="?android:attr/progressBarStyle"
 
-    <ProgressBar android:indeterminate="true"
-                 android:layout_width="50dp" android:layout_height="50dp"
-                 android:id="@+id/marker_progress" style="?android:attr/progressBarStyle"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
 
-                 android:layout_centerVertical="true"
-                 android:layout_alignParentRight="true"
-
-                 android:paddingLeft="45dp"
-                 android:paddingTop="10dp"
-                 android:paddingRight="12dp"
-                 android:paddingBottom="12dp"
-                 android:layout_marginRight="100dp"
-
-
-            />
-
+        android:paddingLeft="45dp"
+        android:paddingTop="10dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="12dp"
+        android:layout_marginRight="100dp"
 
 
-
-
-    <ImageButton
-            android:scaleType="fitXY"
-            android:background="@null"
-            android:id="@+id/refreshItem"
-            android:src="@drawable/refresh_mailbox"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-
-            android:layout_width="85dp"
-            android:layout_height="50dp"
-            android:paddingLeft="45dp"
-            android:paddingTop="10dp"
-            android:paddingRight="12dp"
-            android:paddingBottom="12dp"
-            android:layout_marginRight="50dp"
-            />
+        />
 
     <ImageButton
         android:scaleType="fitXY"
@@ -85,16 +66,5 @@
         android:paddingBottom="12dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true" />
-
-    <ImageButton
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:background="@null"
-        android:src="@drawable/refresh_button_pattern"
-        android:scaleType="fitXY"
-        android:id="@+id/refreshButton"
-        android:layout_alignTop="@+id/barTitle"
-        android:layout_alignLeft="@+id/barItem"
-        android:layout_marginTop="12dp" />
 
 </RelativeLayout>

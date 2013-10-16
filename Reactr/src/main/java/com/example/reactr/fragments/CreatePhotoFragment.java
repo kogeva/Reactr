@@ -413,4 +413,10 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             }
         }
     }
+
+    private Camera.Size getAvgPictureZise (ArrayList<Camera.Size> sizes)
+    {
+        double avg = sizes.size() / 2;
+        return sizes.get(new Double(avg).intValue());
+    }
 }
