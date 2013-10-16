@@ -44,43 +44,40 @@ public class PageFragment extends Fragment {
     ImageView tvPage = (ImageView) view.findViewById(R.id.tvPage);
 	
 
-		if(pageNumber==0)	
+		if(pageNumber == 0)
 		{
-			tvPage.setImageResource(R.drawable.slide_one);
+			tvPage.setImageResource(R.drawable.slide1);
 			
 		}
-	     if(pageNumber==1)	
+	     if(pageNumber == 1)
 	 	{
 	    	 tvPage.setImageResource(R.drawable.slide2);
-	    
 	 	}
-	     if(pageNumber==2)	
+	     if(pageNumber == 2)
 	 	{
 	    	 tvPage.setImageResource(R.drawable.slide3);
 	 	}
 	     
-	     if(pageNumber==3)	
+	     if(pageNumber == 3)
 	 	{
 	    	 tvPage.setImageResource(R.drawable.slide4); 
 	 	} 
-	     if(pageNumber==4)	
+	     if(pageNumber == 4)
 		 	{
 		    	 tvPage.setImageResource(R.drawable.slide5); 
 		 	}
-      if(pageNumber==5)
+      if(pageNumber == 5)
       {
           tvPage.setImageResource(R.drawable.slide6);
       }
-      if(pageNumber==6)
+      if(pageNumber == 6)
       {
           tvPage.setImageResource(R.drawable.slide7);
       }
-      if(pageNumber==7)
+      if(pageNumber == 7)
       {
           tvPage.setImageResource(R.drawable.slide8);
       }
-
-
 
       return view;
   }

@@ -677,9 +677,6 @@ public class ReactorApi {
         //cal.add(Calendar.MINUTE, 30);
         Date afterAfter = cal.getTime();
 
-        //    toReturn=cal.get(Calendar.MONTH)+"-"+cal.get(Calendar.DAY_OF_MONTH)+"-"+cal.get(Calendar.YEAR)
-        //            +" "+cal.get(Calendar.HOUR)+":"+cal.get(Calendar.MINUTE)+":"+cal.get(Calendar.SECOND);
-
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
         toReturn = sdf.format(cal.getTime());
 

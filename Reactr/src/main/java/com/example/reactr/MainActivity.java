@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.example.reactr.fragments.AddMessageFragment;
+import com.example.reactr.fragments.CreatePhotoFragment;
 import com.example.reactr.fragments.MailBoxFragment;
 import com.example.reactr.fragments.MenuFragment;
 import com.example.reactr.fragments.ShowMessageFragment;
@@ -248,7 +249,14 @@ public class MainActivity extends SlidingFragmentActivity  {
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
-
+            if(picturePath == null)
+            {
+                Toast.makeText(getBaseContext(), "Can't upload image, try another folder", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, this.getResultLoadImage());
+            }
+            else
+            {
             File imgFile = new File(picturePath);
 
             Bitmap toImageBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
@@ -262,6 +270,7 @@ public class MainActivity extends SlidingFragmentActivity  {
                 ReactrBase.switchFraagment(this, new AddMessageFragment(bitmapdata, -1));
             else
                 ReactrBase.switchFraagment(this, new AddMessageFragment(bitmapdata, messageEntity, -1));
+            }
         }
     }
 

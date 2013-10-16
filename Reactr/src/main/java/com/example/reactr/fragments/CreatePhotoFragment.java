@@ -317,7 +317,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                 Camera.Parameters parameters = camera.getParameters();
 
                 Camera.Size previewSize = camera.getParameters().getPreviewSize();
-                List<Camera.Size> sizes = parameters.getSupportedPreviewSizes();
                 float aspect = (float) previewSize.width / previewSize.height;
 
                 int previewSurfaceWidth = cameraSurfaceView.getWidth();
@@ -346,7 +345,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                 camera.setParameters(parameters);
                 camera.setPreviewDisplay(holder);
 
-                cameraSurfaceView.setLayoutParams(lp);
+               cameraSurfaceView.setLayoutParams(lp);
                 camera.startPreview();
             }
             catch (IOException e){

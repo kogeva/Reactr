@@ -83,7 +83,7 @@ public abstract class C2DMBaseReceiver extends IntentService {
             String data = receiveIntent.getStringExtra("message");
             if(data != null)
             {
-                Log.w("C2DMReceiver", data);
+                Log.w("C2DMReceiver", data+" BASE");
 
                 Intent intent = new Intent(this,MainActivity.class);
                 intent.putExtra("message", data);
