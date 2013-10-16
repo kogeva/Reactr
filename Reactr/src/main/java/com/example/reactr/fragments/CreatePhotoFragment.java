@@ -317,6 +317,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                 Camera.Parameters parameters = camera.getParameters();
 
                 Camera.Size previewSize = camera.getParameters().getPreviewSize();
+                List<Camera.Size> sizes = parameters.getSupportedPreviewSizes();
                 float aspect = (float) previewSize.width / previewSize.height;
 
                 int previewSurfaceWidth = cameraSurfaceView.getWidth();
@@ -327,7 +328,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                 {
                     // портретный вид
                     camera.setDisplayOrientation(90);
-                    lp.height = previewSurfaceHeight;
+                    lp.height = previewSurfaceHeight - 100;
                     lp.width = (int) (previewSurfaceHeight / aspect);
                 }
                 else
@@ -338,9 +339,10 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                     lp.height = (int) (previewSurfaceWidth / aspect);
                 }
 
-                List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
+                List<Camera.Size> sizesss = parameters.getSupportedPictureSizes();
                 Camera.Size avgSize = getAvgPictureZise((ArrayList<Camera.Size>) camera.getParameters().getSupportedPictureSizes());
                 parameters.setPictureSize(avgSize.width, avgSize.height);
+
                 camera.setParameters(parameters);
                 camera.setPreviewDisplay(holder);
 
