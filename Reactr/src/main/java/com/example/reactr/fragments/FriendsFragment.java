@@ -116,7 +116,6 @@ public class FriendsFragment extends SherlockFragment {
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
 
         ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.back_btn);
-//        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setPadding(10, 14, 63, 14);
         ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setOnClickListener(goBackClick);
 
         return view;

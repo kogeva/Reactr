@@ -1,6 +1,7 @@
 package com.example.reactr.fragments;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -67,7 +68,6 @@ public class ShowMessageFragment extends SherlockFragment {
     private boolean animateReaction = false;
     private View actionBarView;
 
-
     private Animation animationFadeIn, animationFadeOut;
 
     public ShowMessageFragment(MessageEntity message) {
@@ -122,6 +122,8 @@ public class ShowMessageFragment extends SherlockFragment {
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("REACTR");
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.back_btn);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setOnClickListener(goBackClick);
 
         animationFadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fadein);
         animationFadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fadeout);
@@ -336,6 +338,12 @@ public class ShowMessageFragment extends SherlockFragment {
                 class SendReactionPhotoAsyncTask extends AsyncTask<Void, Void, Boolean>{
 
                     @Override
+                    protected void onPreExecute() {
+                        ReactrBase.showLoader(getSherlockActivity());
+                        super.onPreExecute();
+                    }
+
+                    @Override
                     protected Boolean doInBackground(Void... voids) {
                         ReactorApi api = ((MainActivity) getSherlockActivity()).getReactorApi();
                         return api.sendMessages(message.getFrom_user().toString(), message.getText(), photo, reactionPhoto);
@@ -343,6 +351,8 @@ public class ShowMessageFragment extends SherlockFragment {
 
                     @Override
                     protected void onPostExecute(Boolean result) {
+                        ReactrBase.hideLoader();
+                        super.onPostExecute(result);
                         if(result)
                             Toast.makeText(getSherlockActivity(), "Reaction sended", Toast.LENGTH_SHORT).show();
                     }
@@ -378,4 +388,13 @@ public class ShowMessageFragment extends SherlockFragment {
         Log.d("SHOWMESSAGE", "out_of_animate");
 
     }
+
+    View.OnClickListener goBackClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.to_menu);
+            ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setOnClickListener(((MainActivity) getSherlockActivity()).toogleMenu);
+             ReactrBase.switchFraagment(getSherlockActivity(), new MailBoxFragment());
+        }
+    };
 }

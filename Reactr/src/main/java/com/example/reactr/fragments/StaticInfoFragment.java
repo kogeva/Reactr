@@ -50,7 +50,6 @@ public class StaticInfoFragment extends SherlockFragment {
     final String mimeType = "text/html";
     final String encoding = "UTF-8";
     String parameter = " ", toWV = "";
-    private ProgressDialog dialog;
     private MainActivity ma;
     private HashMap<String, String> hm_st_title;
     private View actionBarView;
@@ -107,22 +106,19 @@ public class StaticInfoFragment extends SherlockFragment {
             }
             return null;
         }
+         @Override
+         protected void onPreExecute() {
+             ReactrBase.showLoader(getSherlockActivity());
+             super.onPreExecute();
+         }
 
         @Override
         protected void onPostExecute(String result) {
-            dialog.dismiss();
+            ReactrBase.hideLoader();
             super.onPostExecute(result);
         }
 
-        @Override
-        protected void onPreExecute() {
-            dialog = new ProgressDialog(getSherlockActivity());
-            dialog.setMessage("Loading...");
-            dialog.setIndeterminate(true);
-            dialog.setCancelable(true);
-            dialog.show();
-            super.onPreExecute();
-        }
+
     }
 
 }

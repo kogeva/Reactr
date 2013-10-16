@@ -341,10 +341,10 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                 List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
                 Camera.Size avgSize = getAvgPictureZise((ArrayList<Camera.Size>) camera.getParameters().getSupportedPictureSizes());
                 parameters.setPictureSize(avgSize.width, avgSize.height);
-                camera.setParameters(parameters);
+             //   camera.setParameters(parameters);
                 camera.setPreviewDisplay(holder);
 
-                cameraSurfaceView.setLayoutParams(lp);
+             //   cameraSurfaceView.setLayoutParams(lp);
                 camera.startPreview();
             }
             catch (IOException e){
