@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+
 import java.util.HashMap;
 
 import reactr.network.ReactorApi;
@@ -20,9 +22,8 @@ public class LoadActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().hide();
-        handler = new Handler();
 
+        handler = new Handler();
         preference = ReactrBase.getAppProperty(getApplicationContext());
 
         new Thread(new Runnable() {

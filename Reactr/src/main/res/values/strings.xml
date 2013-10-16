@@ -30,7 +30,7 @@
         - We will not show your phone # to other users.\n
         - Phone # will only be used to find your friends.\n
         - Phone # will be stored as unique mathematical\n
-        representation (or "hashes"), which ca be used\n
+        representation (or "hashes"), which can be used\n
         to see which users match, but are not the actual\n
         phone numbers themselves.
     </string>

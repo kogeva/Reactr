@@ -6,6 +6,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -70,14 +72,24 @@ public class C2DMReceiver extends C2DMBaseReceiver {
 
                 NotificationManager mManager = (NotificationManager)
                         getSystemService(Context.NOTIFICATION_SERVICE);
-                Notification notification = new Notification(R.drawable.ic_launcher,
-                        data, System.currentTimeMillis());
-                notification.setLatestEventInfo(context,"Reactr",data,
-                        PendingIntent.getActivity(this.getBaseContext(), 0,
-                                intent, PendingIntent.FLAG_CANCEL_CURRENT));
-                notification.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                //****************
+                Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_large);
+
+                Notification.Builder nb = new Notification.Builder(context)
+                        .setContentTitle("Reactr")
+                        .setContentText(data)
+                        .setAutoCancel(true)
+                        .setLargeIcon(largeIcon)
+                        .setSmallIcon(R.drawable.ic_launcher_small)
+                        .setTicker(data)
+                        .setContentIntent(PendingIntent.getActivity(this.getBaseContext(), 0,
+                        intent, PendingIntent.FLAG_CANCEL_CURRENT));
+
+                Notification notification = nb.build();
                 notification.flags |= Notification.FLAG_AUTO_CANCEL;
-                mManager.notify(0, notification);
+
+                NotificationManager nm = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+                nm.notify(0, notification);
             }
         }
     }
