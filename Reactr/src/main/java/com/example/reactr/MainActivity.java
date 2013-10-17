@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
@@ -33,6 +34,8 @@ import com.testflightapp.lib.TestFlight;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.net.URI;
+import java.net.URL;
 import java.util.HashMap;
 
 import reactr.network.ReactorApi;
@@ -259,7 +262,19 @@ public class MainActivity extends SlidingFragmentActivity  {
             {
             File imgFile = new File(picturePath);
 
-            Bitmap toImageBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                try {
+                    Bitmap bmp=null;
+                    if(picturePath.toLowerCase().contains("http://")||picturePath.toLowerCase().contains("https://"))
+                    {
+                        URL url = new URL(picturePath);
+                        bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                    }
+                    else
+                    {
+                        bmp = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    }
+
+            Bitmap toImageBitmap = bmp;
             Bitmap.createScaledBitmap(toImageBitmap, toImageBitmap.getWidth()/2, toImageBitmap.getHeight()/2, false);
             Bitmap bitmap = toImageBitmap;
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -270,7 +285,14 @@ public class MainActivity extends SlidingFragmentActivity  {
                 ReactrBase.switchFraagment(this, new AddMessageFragment(bitmapdata, -1));
             else
                 ReactrBase.switchFraagment(this, new AddMessageFragment(bitmapdata, messageEntity, -1));
+
+                }
+                catch (Exception e) {
+                    Log.e("Error", e.getMessage());
+                    e.printStackTrace();
+                }
             }
+
         }
     }
 
