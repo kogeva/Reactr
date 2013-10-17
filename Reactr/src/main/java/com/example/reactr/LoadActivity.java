@@ -30,7 +30,7 @@ public class LoadActivity extends Activity
             @Override
             public void run() {
                 reactorApi = ReactorApi.init(new Integer(preference.get("user_id")), preference.get("session_hash"));
-                if (reactorApi.getFriends() != null)
+                if (reactorApi.getFriends() != null && ReactrBase.isOnline(LoadActivity.this))
                 {
                     switchActivity("MainActivity");
                 } else {

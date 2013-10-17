@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,9 @@ public class SelectFriendsFragment extends SherlockFragment {
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.VISIBLE);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.add_friend_btn);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToAddFriendClick);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.to_menu);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setOnClickListener(((MainActivity) getSherlockActivity()).toogleMenu);
+
 
         handler = new Handler();
 
@@ -107,7 +111,11 @@ public class SelectFriendsFragment extends SherlockFragment {
         @Override
         public void onClick(View v) {
             final String friendIds = friendListForMessageAdapter.getFriendIds();
-            ReactrBase.showLoader(getSherlockActivity());
+            Log.d("latuhov", "friends "+friendIds);
+            if(friendIds.equals(""))
+                Toast.makeText(getActivity().getBaseContext(), "Choose at least one friend!", Toast.LENGTH_SHORT).show();
+            else{
+                ReactrBase.showLoader(getSherlockActivity());
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -116,6 +124,7 @@ public class SelectFriendsFragment extends SherlockFragment {
                     ((MainActivity) getSherlockActivity()).switchContent(new MailBoxFragment());
                 }
             }).start();
+            }
         }
     };
 

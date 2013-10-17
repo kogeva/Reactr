@@ -38,7 +38,7 @@
         android:layout_alignParentLeft="true"
         android:autoText="false"
         android:singleLine="true"
-        android:maxLength="50"
+        android:maxLength="30"
         />
 
     <RelativeLayout

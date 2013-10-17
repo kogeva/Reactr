@@ -101,6 +101,12 @@ public class ShowMessageFragment extends SherlockFragment {
             ph = new TakePhotoWithoutPreview(getSherlockActivity(), surfaceView, this);
         }
 
+        if (message.getFromMe()){
+            Log.d("latuhov", "replyButton");
+            replyButton.setVisibility(View.INVISIBLE);
+        }
+
+
         if (message.getText().length() == 0)
             text.setVisibility(View.INVISIBLE);
         else
@@ -354,7 +360,7 @@ public class ShowMessageFragment extends SherlockFragment {
                         ReactrBase.hideLoader();
                         super.onPostExecute(result);
                         if(result)
-                            Toast.makeText(getSherlockActivity(), "Reaction sended", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getSherlockActivity(), "Reaction sent", Toast.LENGTH_SHORT).show();
                     }
                 }
                 new SendReactionPhotoAsyncTask().execute();
@@ -392,7 +398,7 @@ public class ShowMessageFragment extends SherlockFragment {
     View.OnClickListener goBackClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.to_menu);
+             ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.to_menu);
             ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setOnClickListener(((MainActivity) getSherlockActivity()).toogleMenu);
              ReactrBase.switchFraagment(getSherlockActivity(), new MailBoxFragment());
         }
