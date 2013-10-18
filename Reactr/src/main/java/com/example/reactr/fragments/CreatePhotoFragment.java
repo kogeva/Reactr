@@ -244,11 +244,11 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             if (arg0){
                 Log.d("CAMERA", "cancelAutoFocus");
                 camera.cancelAutoFocus();
-                drawingView.setVisibility(View.GONE);
                 Log.d("CAMERA", "GONE");
             }
             float focusDistances[] = new float[3];
             arg1.getParameters().getFocusDistances(focusDistances);
+            drawingView.setVisibility(View.GONE);
         }};
 
     ShutterCallback myShutterCallback = new ShutterCallback(){

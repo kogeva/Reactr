@@ -25,11 +25,10 @@
     <!--Signup3 layout-->
     <string name="signup3_text_top">Enter your mobile phone number to find friends and help them find you.</string>
     <string name="signup3_text_center">Reactr uses phone numbers from your address book to find the Reactr usernames of your friends.</string>
-    <string name="signup3_text_bottom">
-        - We will not spam or auto-add your friends.\n
-        - We will not show your phone # to other users.\n
-        - Phone # will only be used to find your friends.\n
-        - Phone # will be stored as unique mathematical\n
+    <string name="signup3_text_bottom">\u0020- We will not spam or auto-add your friends.\n
+       - We will not show your phone # to other users.\n
+       - Phone # will only be used to find your friends.\n
+       - Phone # will be stored as unique mathematical\n
         representation (or "hashes"), which can be used\n
         to see which users match, but are not the actual\n
         phone numbers themselves.

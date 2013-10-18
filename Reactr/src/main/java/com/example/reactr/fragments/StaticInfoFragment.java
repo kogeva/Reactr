@@ -60,7 +60,7 @@ public class StaticInfoFragment extends SherlockFragment {
         tvPage = (WebView) view.findViewById(R.id.wv_st_info);
         ma = (MainActivity) getSherlockActivity();
         hm_st_title=new HashMap<String, String>();
-        hm_st_title.put(ReactrConstants.ABOUT_REACTR,"ABOUT REACTOR");
+        hm_st_title.put(ReactrConstants.ABOUT_REACTR,"ABOUT");
         hm_st_title.put(ReactrConstants.TERMS,"TERMS");
         hm_st_title.put(ReactrConstants.PRIVACY,"PRIVACY");
         hm_st_title.put(ReactrConstants.CONTACT_US,"CONTACT US");
