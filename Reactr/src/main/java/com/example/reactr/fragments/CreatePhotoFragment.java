@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ScheduledExecutorService;
-
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -26,14 +24,13 @@ import android.hardware.Camera.ShutterCallback;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -45,7 +42,10 @@ import com.example.reactr.reactr.models.MessageEntity;
 
 public class CreatePhotoFragment extends SherlockFragment implements SurfaceHolder.Callback {
 
+    private static final int PICTURE_SIZE_MAX_WIDTH = 1280;
+    private static final int PREVIEW_SIZE_MAX_WIDTH = 640;
 
+    private int cameraId;
     private ImageButton shootButton;
     private ImageButton switchCamera;
     private ToggleButton toggleFlash;
@@ -309,49 +309,54 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        if(camera == null)
-        {
-            try {
-                Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
-                camera = camera.open(currentCamera);
-                Camera.Parameters parameters = camera.getParameters();
 
-                Camera.Size previewSize = camera.getParameters().getPreviewSize();
-                float aspect = (float) previewSize.width / previewSize.height;
+        this.surfaceHolder = holder;
 
-                int previewSurfaceWidth = cameraSurfaceView.getWidth();
-                int previewSurfaceHeight = cameraSurfaceView.getHeight();
-                ViewGroup.LayoutParams lp = cameraSurfaceView.getLayoutParams();
+        startCameraPreview();
 
-                if (this.getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE)
-                {
-                    // портретный вид
-                    camera.setDisplayOrientation(90);
-                    lp.height = previewSurfaceHeight - 100;
-                    lp.width = (int) (previewSurfaceHeight / aspect);
-                }
-                else
-                {
-                    // ландшафтный
-                    camera.setDisplayOrientation(0);
-                    lp.width = previewSurfaceWidth;
-                    lp.height = (int) (previewSurfaceWidth / aspect);
-                }
-
-                List<Camera.Size> sizesss = parameters.getSupportedPictureSizes();
-                Camera.Size avgSize = getAvgPictureZise((ArrayList<Camera.Size>) camera.getParameters().getSupportedPictureSizes());
-                parameters.setPictureSize(avgSize.width, avgSize.height);
-
-                camera.setParameters(parameters);
-                camera.setPreviewDisplay(holder);
-
-               cameraSurfaceView.setLayoutParams(lp);
-                camera.startPreview();
-            }
-            catch (IOException e){
-                Log.d("CAMERA", e.getMessage());
-            }
-        }
+//        if(camera == null)
+//        {
+//            try {
+//                Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+//                camera = camera.open(currentCamera);
+//                Camera.Parameters parameters = camera.getParameters();
+//
+//                Camera.Size previewSize = camera.getParameters().getPreviewSize();
+//                float aspect = (float) previewSize.width / previewSize.height;
+//
+//                int previewSurfaceWidth = cameraSurfaceView.getWidth();
+//                int previewSurfaceHeight = cameraSurfaceView.getHeight();
+//                ViewGroup.LayoutParams lp = cameraSurfaceView.getLayoutParams();
+//
+//                if (this.getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE)
+//                {
+//                    // портретный вид
+//                    camera.setDisplayOrientation(90);
+//                    lp.height = previewSurfaceHeight - 100;
+//                    lp.width = (int) (previewSurfaceHeight / aspect);
+//                }
+//                else
+//                {
+//                    // ландшафтный
+//                    camera.setDisplayOrientation(0);
+//                    lp.width = previewSurfaceWidth;
+//                    lp.height = (int) (previewSurfaceWidth / aspect);
+//                }
+//
+//                List<Camera.Size> sizesss = parameters.getSupportedPictureSizes();
+//                Camera.Size avgSize = getAvgPictureZise((ArrayList<Camera.Size>) camera.getParameters().getSupportedPictureSizes());
+//                parameters.setPictureSize(avgSize.width, avgSize.height);
+//
+//                camera.setParameters(parameters);
+//                camera.setPreviewDisplay(holder);
+//
+//               cameraSurfaceView.setLayoutParams(lp);
+//                camera.startPreview();
+//            }
+//            catch (IOException e){
+//                Log.d("CAMERA", e.getMessage());
+//            }
+//        }
     }
 
     @Override
@@ -369,10 +374,21 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         super.onPause();
         drawingView.setVisibility(View.GONE);
     }
+
+    /**
+     * On fragment getting resumed.
+     */
     @Override
     public void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
+
+        try {
+            camera = Camera.open(cameraId);
+        } catch (Exception exception) {
+            Log.e("false", "Can't open camera with id " + cameraId, exception);
+
+            return;
+        }
     }
 
     //******************************************************************
@@ -419,5 +435,114 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     {
         double avg = sizes.size() / 2;
         return sizes.get(new Double(avg).intValue());
+    }
+
+
+    /**
+     * Start the camera preview.
+     */
+    private synchronized void startCameraPreview() {
+        determineDisplayOrientation();
+        setupCamera();
+
+        try {
+            camera.setPreviewDisplay(surfaceHolder);
+            camera.startPreview();
+        } catch (IOException exception) {
+            Log.e("Error", "Can't start camera preview due to IOException", exception);
+        }
+    }
+
+    /**
+     * Determine the current display orientation and rotate the camera preview
+     * accordingly.
+     */
+    public void determineDisplayOrientation() {
+        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+        Camera.getCameraInfo(cameraId, cameraInfo);
+
+        int rotation = getActivity().getWindowManager().getDefaultDisplay().getRotation();
+        int degrees  = 0;
+
+        switch (rotation) {
+            case Surface.ROTATION_0:
+                degrees = 0;
+                break;
+
+            case Surface.ROTATION_90:
+                degrees = 90;
+                break;
+
+            case Surface.ROTATION_180:
+                degrees = 180;
+                break;
+
+            case Surface.ROTATION_270:
+                degrees = 270;
+                break;
+        }
+
+        int displayOrientation;
+
+        if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            displayOrientation = (cameraInfo.orientation + degrees) % 360;
+            displayOrientation = (360 - displayOrientation) % 360;
+        } else {
+            displayOrientation = (cameraInfo.orientation - degrees + 360) % 360;
+        }
+
+        camera.setDisplayOrientation(displayOrientation);
+    }
+
+    /**
+     * Setup the camera parameters.
+     */
+    public void setupCamera() {
+        Camera.Parameters parameters = camera.getParameters();
+
+        Camera.Size bestPreviewSize = determineBestPreviewSize(parameters);
+        Camera.Size bestPictureSize = determineBestPictureSize(parameters);
+
+        parameters.setPreviewSize(bestPreviewSize.width, bestPreviewSize.height);
+        //parameters.setPictureSize(bestPictureSize.width, bestPictureSize.height);
+
+        List<Camera.Size> sizesss = parameters.getSupportedPictureSizes();
+        Camera.Size avgSize = getAvgPictureZise((ArrayList<Camera.Size>) camera.getParameters().getSupportedPictureSizes());
+        parameters.setPictureSize(avgSize.width, avgSize.height);
+
+        camera.setParameters(parameters);
+    }
+
+
+    private Camera.Size determineBestPreviewSize(Camera.Parameters parameters) {
+        List<Camera.Size> sizes = parameters.getSupportedPreviewSizes();
+
+        return determineBestSize(sizes, PREVIEW_SIZE_MAX_WIDTH);
+    }
+
+    private Camera.Size determineBestPictureSize(Camera.Parameters parameters) {
+        List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
+
+        return determineBestSize(sizes, PICTURE_SIZE_MAX_WIDTH);
+    }
+
+    protected Camera.Size determineBestSize(List<Camera.Size> sizes, int widthThreshold) {
+        Camera.Size bestSize = null;
+
+        for (Camera.Size currentSize : sizes) {
+            boolean isDesiredRatio = (currentSize.width / 4) == (currentSize.height / 3);
+            boolean isBetterSize = (bestSize == null || currentSize.width > bestSize.width);
+            boolean isInBounds = currentSize.width <= PICTURE_SIZE_MAX_WIDTH;
+
+            if (isDesiredRatio && isInBounds && isBetterSize) {
+                bestSize = currentSize;
+            }
+        }
+
+        if (bestSize == null) {
+            return sizes.get(0);
+        }
+
+        return bestSize;
     }
 }
