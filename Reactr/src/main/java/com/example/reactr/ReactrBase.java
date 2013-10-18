@@ -1,14 +1,18 @@
 package com.example.reactr;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.CursorLoader;
+import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -215,4 +219,17 @@ public class ReactrBase {
         }
         return tempFrends;
     }
+    public  static boolean isOnline(Activity a) {
+        ConnectivityManager cm =
+                (ConnectivityManager) a.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            Log.d("latuhov", "inet true");
+            return true;
+        }
+        Log.d("latuhov", "inet false");
+        return false;
+    }
+
+
 }

@@ -93,6 +93,9 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.VISIBLE);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.dots_menu);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToGalleryClick);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.to_menu);
+        ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setOnClickListener(((MainActivity) getSherlockActivity()).toogleMenu);
+
         //*************************************
         getActivity().getWindow().setFormat(PixelFormat.UNKNOWN);
         cameraSurfaceView = (CameraSurfaceView)v.findViewById(R.id.cameraSurface);
