@@ -52,7 +52,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     private MessageEntity messageEntity;
     private View actionBarView;
     boolean backCameraIsActive = true;
-    public int currentCamera;
+   // public int currentCamera;
     Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
 
     Camera camera;
@@ -157,8 +157,8 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                 drawingView.setVisibility(View.GONE);
             }
             camera = Camera.open(cameraInfo.facing);
-            determineDisplayOrientation();
             setupCamera();
+            determineDisplayOrientation();
             try {
                 camera.setPreviewDisplay(surfaceHolder);
             } catch (IOException e) {
@@ -317,9 +317,9 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             }
             //     drawingView.setVisibility(View.GONE);
             if (messageEntity == null)
-                ReactrBase.switchFraagment(getSherlockActivity(), new AddMessageFragment(data, currentCamera));
+                ReactrBase.switchFraagment(getSherlockActivity(), new AddMessageFragment(data, cameraInfo.facing));
             else
-                ReactrBase.switchFraagment(getSherlockActivity(), new AddMessageFragment(data, messageEntity, currentCamera));
+                ReactrBase.switchFraagment(getSherlockActivity(), new AddMessageFragment(data, messageEntity, cameraInfo.facing));
         }
 
     };
@@ -481,9 +481,9 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
      * Start the camera preview.
      */
     private synchronized void startCameraPreview() {
-        determineDisplayOrientation();
-        setupCamera();
 
+        setupCamera();
+        determineDisplayOrientation();
         try {
             camera.setPreviewDisplay(surfaceHolder);
             camera.startPreview();

@@ -3,9 +3,12 @@ package com.example.reactr;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -18,7 +21,27 @@ public class LoadActivity extends Activity
     private ReactorApi reactorApi;
     private HashMap<String, String> preference;
     private Handler handler;
+    ConnectivityManager connectivityManager;
 
+    public boolean isOnline(Context con) {
+
+        boolean connected=false;
+        try {
+            connectivityManager = (ConnectivityManager) con
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+             connected = networkInfo != null && networkInfo.isAvailable() &&
+                    networkInfo.isConnected();
+            return connected;
+
+
+        } catch (Exception e) {
+            System.out.println("CheckConnectivity Exception: " + e.getMessage());
+            Log.v("connectivity", e.toString());
+        }
+        return connected;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +49,16 @@ public class LoadActivity extends Activity
         handler = new Handler();
         preference = ReactrBase.getAppProperty(getApplicationContext());
 
+        /////
+
+    //    ConnectivityManager connectivityManager = (ConnectivityManager)
+     //           getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE );
+    //    NetworkInfo activeNetInfoGSM = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+   //     NetworkInfo activeNetInfoWIFI = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+   //     boolean isConnected = (activeNetInfoGSM != null) || (activeNetInfoWIFI!=null);
+        if (isOnline(getBaseContext()))
+        {
+           // Log.i("INET", "connected" + isConnected);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -36,9 +69,19 @@ public class LoadActivity extends Activity
                 } else {
                     switchActivity("StartActivity");
                 }
-            }
+                }
+
+
         }).start();
         setContentView(R.layout.load_layout);
+          //  Toast.makeText(getBaseContext(), "No internet connection!", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(getBaseContext(), "No internet!", Toast.LENGTH_SHORT).show();
+           // setContentView(R.layout.load_layout);
+         finish();
+        }
     }
 
     private void switchActivity(String activityName)
