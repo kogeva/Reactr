@@ -94,7 +94,7 @@ public class LoginActivity extends Activity {
                         Toast.makeText(getApplicationContext(), "Incorrect password or email", Toast.LENGTH_SHORT).show();
                     }
                 } else
-                    Toast.makeText(getApplicationContext(), "Connection to server failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Connection to the server failed", Toast.LENGTH_SHORT).show();
             }
             catch (JSONException e) {
                 e.printStackTrace();

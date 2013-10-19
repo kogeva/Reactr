@@ -169,7 +169,7 @@ public class MessageAdapter extends BaseAdapter {
                     protected void onPostExecute(Boolean result) {
                         if (result) {
                             messages.remove(position);
-                            Toast.makeText(context, "Message Deleted", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Message deleted", Toast.LENGTH_SHORT).show();
                             notifyDataSetChanged();
                         }
                     }

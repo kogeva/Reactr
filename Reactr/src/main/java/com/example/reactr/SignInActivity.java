@@ -75,13 +75,13 @@ public class SignInActivity extends Activity {
         @Override
         public void onClick(View view) {
 
-         //   handler.post(switchToSlideActivity);
+            handler.post(switchToSlideActivity);
         //    startActivity(new Intent(SignInActivity.this, PhotoViewActivity.class));
             email = emailEditText.getText().toString();
             password = passwordEditText.getText().toString();
            
             if(email.isEmpty() || password.isEmpty())
-                Toast.makeText(context, "Email and password a required", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Email and password are required", Toast.LENGTH_LONG).show();
             else {
                 if(password.length() < 6)
                     Toast.makeText(context, "Password less then 6 characters", Toast.LENGTH_LONG).show();
@@ -104,7 +104,7 @@ public class SignInActivity extends Activity {
         public void onClick(View view) {
             username = usernameEditTexts.getText().toString();
             if(username.isEmpty())
-                Toast.makeText(context, "Username a required", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Username is required", Toast.LENGTH_LONG).show();
             else {
                 ReactrBase.showLoader(context);
                 new Thread(validationRequestTwo).start();
@@ -130,7 +130,7 @@ public class SignInActivity extends Activity {
                 toStepThreeButton = (Button) findViewById(R.id.toStepThreeButton);
                 toStepThreeButton.setOnClickListener(toStepThreeClick);
             } else {
-                Toast.makeText(context, "Email exist in system", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Email exist in the system", Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -153,7 +153,7 @@ public class SignInActivity extends Activity {
                 registrationComplete = (Button) findViewById(R.id.completeButton);
                 registrationComplete.setOnClickListener(registerClick);
             } else {
-                Toast.makeText(context, "Username exist in system", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Username exist in the system", Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -192,7 +192,7 @@ public class SignInActivity extends Activity {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(context, "This phone exist in system", Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, "This phone exist in the system", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
