@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -151,6 +152,7 @@ public class MessageAdapter extends BaseAdapter {
         final Boolean isConfirm = false;
 
         final Context context = this.ctx;
+        /*
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage("Delete message?").setTitle("");
 
@@ -186,7 +188,50 @@ public class MessageAdapter extends BaseAdapter {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+           */
+        //*******************************************
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Delete message?");
 
+        CharSequence[] cs;
+        cs = new CharSequence[]{"Yes", "No"};
+        builder.setItems(cs, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Time now = new Time();
+                now.setToNow();
+                String str = "IMG_" + now.year + "_" + now.month + "." + now.monthDay + "_" + now.hour + ":" + now.minute + ":" + now.second;
+                if (which == 0) {
+                    class SendReactionPhotoAsyncTask extends AsyncTask<Void, Void, Boolean> {
+
+                        @Override
+                        protected Boolean doInBackground(Void... voids) {
+                            ReactorApi api = ((MainActivity) context).getReactorApi();
+                            return api.deleteMessage(message.getId());
+                        }
+
+                        @Override
+                        protected void onPostExecute(Boolean result) {
+                            if (result) {
+                                messages.remove(position);
+                                Toast.makeText(context, "Message deleted", Toast.LENGTH_SHORT).show();
+                                notifyDataSetChanged();
+                            }
+                        }
+                    }
+                    new SendReactionPhotoAsyncTask().execute();
+                }
+                if (which == 1) {
+                    dialog.cancel();
+                }
+            }
+        });
+
+
+        builder.setInverseBackgroundForced(true);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        //***************************
         return true;
     }
 

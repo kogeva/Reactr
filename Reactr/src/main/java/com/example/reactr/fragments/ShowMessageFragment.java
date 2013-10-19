@@ -335,7 +335,8 @@ public class ShowMessageFragment extends SherlockFragment {
     {
         final Boolean isConfirm = false;
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
+        //*******************
+  /*      AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
         builder.setMessage("Do you wish to share your reaction with your friend?").setTitle("");
 
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -376,20 +377,73 @@ public class ShowMessageFragment extends SherlockFragment {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+*/
+        //***********************
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Do you wish to share your reaction with your friend?");
+
+        CharSequence[] cs;
+         cs = new CharSequence[]{"Yes", "No"};
+        builder.setItems(cs, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Time now = new Time();
+                now.setToNow();
+                String str = "IMG_" + now.year + "_" + now.month + "." + now.monthDay + "_" + now.hour + ":" + now.minute + ":" + now.second;
+                if (which == 0) {
+
+                    class SendReactionPhotoAsyncTask extends AsyncTask<Void, Void, Boolean>{
+
+                        @Override
+                        protected void onPreExecute() {
+                            ReactrBase.showLoader(getSherlockActivity());
+                            super.onPreExecute();
+                        }
+
+                        @Override
+                        protected Boolean doInBackground(Void... voids) {
+                            ReactorApi api = ((MainActivity) getSherlockActivity()).getReactorApi();
+                            return api.sendMessages(message.getFrom_user().toString(), message.getText(), photo, reactionPhoto);
+                        }
+
+                        @Override
+                        protected void onPostExecute(Boolean result) {
+                            ReactrBase.hideLoader();
+                            super.onPostExecute(result);
+                            if(result)
+                                Toast.makeText(getSherlockActivity(), "Reaction sent", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    new SendReactionPhotoAsyncTask().execute();
+                }
+                if (which == 1) {
+                    dialog.cancel();
+                }
+            }
+        });
+        builder.setInverseBackgroundForced(true);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
         return true;
     }
 
     public void setDecorationPhoto ()
     {
-        Bitmap rounded_bm = ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, getActivity().getApplicationContext());
-        reactionPhotoView.setImageBitmap(rounded_bm);
-        Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.scale);
-
         if(animateReaction){
             Log.d("SHOWMESSAGE", "animate");
+            Bitmap rounded_bm = ImageHelper.getRoundedCornerBitmap(reactionPhoto, Color.WHITE, getActivity().getApplicationContext());
+            reactionPhotoView.setImageBitmap(rounded_bm);
+            Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.scale);
             reactionPhotoView.startAnimation(animation);
             animateReaction=false;
+        }
+        else
+        {
+            reaction=true;
+            Bitmap rounded_bm = ImageHelper.getRoundedCornerBitmap(photo, Color.WHITE, getActivity().getApplicationContext());
+            reactionPhotoView.setImageBitmap(rounded_bm);
+            photoView.setImageBitmap(reactionPhoto);
         }
         Log.d("SHOWMESSAGE", "out_of_animate");
 
