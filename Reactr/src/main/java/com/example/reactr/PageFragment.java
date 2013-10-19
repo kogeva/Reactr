@@ -46,7 +46,7 @@ public class PageFragment extends Fragment {
 
 		if(pageNumber == 0)
 		{
-			tvPage.setImageResource(R.drawable.slide1);
+			tvPage.setImageResource(R.drawable.slide_one);
 			
 		}
 	     if(pageNumber == 1)
