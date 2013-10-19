@@ -129,6 +129,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             switchCamera.setVisibility(View.INVISIBLE);
         }
         return v;
+
     }
 
     private View.OnClickListener shootClick = new View.OnClickListener() {

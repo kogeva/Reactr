@@ -43,11 +43,14 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
 
     public void takeReaction(int messageid)
     {
+
         this.messageId = messageid;
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
+               // fragment.setVisibilityOnTakeReaction(false);
                 camera.takePicture(null, null ,jpegCallback);
+             //   fragment.setVisibilityOnTakeReaction(true);
                 shootSound();
             }
         },700);

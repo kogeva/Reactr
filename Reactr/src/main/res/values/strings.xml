@@ -28,9 +28,9 @@
     <string name="signup3_text_bottom">\u0020- We will not spam or auto-add your friends.\n
        - We will not show your phone # to other users.\n
        - Phone # will only be used to find your friends.\n
-       - Phone # will be stored as unique mathematical\n
-        representation (or "hashes"), which can be used\n
-        to see which users match, but are not the actual\n
+       - Phone # will be stored as unique mathematical
+        representation (or "hashes"), which can be used
+        to see which users match, but are not the actual
         phone numbers themselves.
     </string>
     <string name="phone_text">Mobile #</string>

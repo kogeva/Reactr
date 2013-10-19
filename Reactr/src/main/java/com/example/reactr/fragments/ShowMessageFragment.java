@@ -74,6 +74,19 @@ public class ShowMessageFragment extends SherlockFragment {
         this.message = message;
     }
 
+    public ImageButton getReplyButton()
+    {
+        return replyButton;
+    }
+    public ImageButton getSaveButton ()
+    {
+        return closeButton;
+    }
+    public ImageButton getCloseButton ()
+    {
+        return closeButton;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.show_message_layout, container, false);
@@ -172,7 +185,21 @@ public class ShowMessageFragment extends SherlockFragment {
         }
         return bmp;
     }
-
+public void setVisibilityOnTakeReaction(boolean visible)
+{
+    if(!visible)
+    {
+    closeButton.setVisibility(View.INVISIBLE);
+    replyButton.setVisibility(View.INVISIBLE);
+    saveButton.setVisibility(View.INVISIBLE);
+    }
+    else
+    {
+        closeButton.setVisibility(View.VISIBLE);
+        replyButton.setVisibility(View.VISIBLE);
+        saveButton.setVisibility(View.VISIBLE);
+    }
+}
     private Runnable updateImageView = new Runnable() {
         @Override
         public void run() {

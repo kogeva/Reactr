@@ -56,7 +56,7 @@ public class AddMessageFragment extends SherlockFragment{
             this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length, options), 90);
         if (camId == -1)
             this.photo = BitmapFactory.decodeByteArray(photo, 0, photo.length, options);
-        this.photo = BitmapMemoryManager.codec(this.photo, Bitmap.CompressFormat.JPEG, 70);
+        this.photo = BitmapMemoryManager.codec(this.photo, Bitmap.CompressFormat.JPEG, 75);
     }
 
     public AddMessageFragment(byte[] photo, MessageEntity messageEntity, int camId) {
