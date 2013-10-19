@@ -66,6 +66,7 @@ public class AddMessageFragment extends SherlockFragment{
             this.photo = RotateBitmap(BitmapFactory.decodeByteArray(photo, 0, photo.length), 90);
         if (camId == -1)
             this.photo = BitmapFactory.decodeByteArray(photo, 0, photo.length);
+        this.messageEntity=messageEntity;
     }
 
     @Override
@@ -136,6 +137,7 @@ public class AddMessageFragment extends SherlockFragment{
             }
         }
     };
+
 
     View.OnClickListener addTextClick = new View.OnClickListener() {
         @Override
