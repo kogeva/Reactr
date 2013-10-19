@@ -138,6 +138,7 @@ public class AddMessageFragment extends SherlockFragment{
         }
     };
 
+
     View.OnClickListener addTextClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
