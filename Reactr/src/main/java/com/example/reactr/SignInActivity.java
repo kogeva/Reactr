@@ -42,6 +42,27 @@ public class SignInActivity extends Activity {
     private SharedPreferences.Editor prefEditor;
     private TextView st_tv;
     private String pushNotificationId;
+    private int screenNumber=1;
+
+    @Override
+    public void onBackPressed() {
+        switch (screenNumber)
+        {
+            case 1:
+                finish();
+                break;
+            case 2:
+                screenNumber=1;
+                setContentView(R.layout.sign_up1);
+                break;
+            case 3:
+                screenNumber=2;
+                setContentView(R.layout.sign_up2);
+                break;
+        }
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +146,7 @@ public class SignInActivity extends Activity {
         public void run() {
             ReactrBase.hideLoader();
             if(errors.size() < 1) {
+                screenNumber=2;
                 ((SignInActivity) context).setContentView(R.layout.sign_up2);
                 usernameEditTexts = (EditText) findViewById(R.id.usernameEditText);
                 toStepThreeButton = (Button) findViewById(R.id.toStepThreeButton);
@@ -148,6 +170,7 @@ public class SignInActivity extends Activity {
         public void run() {
             ReactrBase.hideLoader();
             if(errors.size() < 1) {
+                screenNumber=3;
                 ((SignInActivity) context).setContentView(R.layout.sign_up3);
                 phoneEditText = (EditText) findViewById(R.id.phoneEdiText);
                 registrationComplete = (Button) findViewById(R.id.completeButton);
