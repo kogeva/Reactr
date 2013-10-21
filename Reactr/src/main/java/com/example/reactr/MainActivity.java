@@ -308,6 +308,11 @@ public class MainActivity extends SlidingFragmentActivity  {
         super.onPause();
         isRunningApplication = false;
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isRunningApplication = true;
+    }
 
     public static Boolean isRunning()
     {

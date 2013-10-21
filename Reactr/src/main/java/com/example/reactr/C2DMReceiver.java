@@ -50,7 +50,6 @@ public class C2DMReceiver extends C2DMBaseReceiver {
         MessageAdapter messageAdapter = MailBoxFragment.getAdapter();
         if (messageAdapter != null)
             new LoadNewMessageAsyncTask(messageAdapter).execute();
-
         if(!MainActivity.isRunning()&&!MainActivity.IsInGallery)
         {
             String data = receiveIntent.getStringExtra("message");
@@ -59,12 +58,13 @@ public class C2DMReceiver extends C2DMBaseReceiver {
             String fromUser = receiveIntent.getStringExtra("senderId");
             String messageId = receiveIntent.getStringExtra("message_id");
             String text = receiveIntent.getStringExtra("text");
+
             if(data != null)
             {
                 Log.w("C2DMReceiver", data);
-
                 Intent intent = new Intent(this,MainActivity.class);
                 intent.putExtra("message", data);
+
                 intent.putExtra("messageId", messageId);
                 intent.putExtra("text", text);
                 intent.putExtra("reactionPhoto", reactionPhoto);
