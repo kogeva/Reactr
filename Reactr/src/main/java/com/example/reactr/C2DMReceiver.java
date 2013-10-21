@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -82,6 +83,7 @@ public class C2DMReceiver extends C2DMBaseReceiver {
                         .setLargeIcon(largeIcon)
                         .setSmallIcon(R.drawable.ic_launcher_small)
                         .setTicker(data)
+                        .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                         .setContentIntent(PendingIntent.getActivity(this.getBaseContext(), 0,
                         intent, PendingIntent.FLAG_CANCEL_CURRENT));
 
