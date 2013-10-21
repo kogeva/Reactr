@@ -56,6 +56,7 @@ public class MainActivity extends SlidingFragmentActivity  {
     private MessageEntity messageEntity=null;
     private String pushNotificationId;
     public static Boolean isRunningApplication;
+    public static boolean IsInGallery;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -241,8 +242,10 @@ public class MainActivity extends SlidingFragmentActivity  {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        IsInGallery = false;
         if (null != data) {
             Uri selectedImage = data.getData();
+
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
             Cursor cursor = getContentResolver().query(selectedImage,

@@ -225,6 +225,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    MainActivity.IsInGallery=true;
                     Intent intent = new Intent(
                             Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     if (messageEntity != null)

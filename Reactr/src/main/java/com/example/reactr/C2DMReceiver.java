@@ -51,7 +51,7 @@ public class C2DMReceiver extends C2DMBaseReceiver {
         if (messageAdapter != null)
             new LoadNewMessageAsyncTask(messageAdapter).execute();
 
-        if(!MainActivity.isRunning())
+        if(!MainActivity.isRunning()&&!MainActivity.IsInGallery)
         {
             String data = receiveIntent.getStringExtra("message");
             String photo = receiveIntent.getStringExtra("photo");
