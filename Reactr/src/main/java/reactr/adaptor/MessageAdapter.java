@@ -156,7 +156,7 @@ public class MessageAdapter extends BaseAdapter {
         final Context context = this.ctx;
 
   AlertDialog.Builder  builder = new AlertDialog.Builder(context);
-        builder.setMessage(Html.fromHtml("<font color='#00dcee'>Delete message?</font>"));
+        builder.setMessage("Delete message?");
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

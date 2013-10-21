@@ -365,8 +365,7 @@ public void setVisibilityOnTakeReaction(boolean visible)
 
         //*******************
       AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
-      //  builder.setTitle("Do you wish to share your reaction with your friend?");
-        builder.setMessage(Html.fromHtml("<font color='#00dcee'>Do you wish to share your reaction with your friend?</font>"));
+        builder.setMessage("Do you wish to share your reaction with your friend?");
 
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
