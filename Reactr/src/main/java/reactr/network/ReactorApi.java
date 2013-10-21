@@ -404,7 +404,7 @@ public class ReactorApi {
                     );
 
                     int timeZone = Integer.parseInt(messageJson.getJSONObject("created_at").getString("timezone_type"));
-                    messageEntity.setCreatedAt(convertTime(messageEntity.getCreatedAt(), 0));
+                    messageEntity.setCreatedAt(convertTime(messageEntity.getCreatedAt(), timeZone));
 
                     messageArray.add(i, messageEntity);
                 }
@@ -673,7 +673,7 @@ public class ReactorApi {
         cal.setTimeZone(TimeZone.getTimeZone("GMT"));
 
         //add offset of your TimeZone
-        cal.add(Calendar.HOUR_OF_DAY, -timezone);
+        //cal.add(Calendar.HOUR_OF_DAY, -timezone);
         //cal.add(Calendar.MINUTE, 30);
         Date afterAfter = cal.getTime();
 

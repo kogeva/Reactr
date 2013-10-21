@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.text.Html;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.Display;
@@ -110,7 +111,7 @@ public class ShowMessageFragment extends SherlockFragment {
 
         ReactrBase.showLoader(getSherlockActivity());
 
-        if ((!message.getIsRead()) && (!message.getFromMe())){
+        if ((!message.getIsRead()) && (!message.getFromMe()) && message.getReactionPhoto().equals("null")){
             ph = new TakePhotoWithoutPreview(getSherlockActivity(), surfaceView, this);
         }
 
@@ -363,8 +364,9 @@ public void setVisibilityOnTakeReaction(boolean visible)
         final Boolean isConfirm = false;
 
         //*******************
-  /*      AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
-        builder.setMessage("Do you wish to share your reaction with your friend?").setTitle("");
+      AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
+      //  builder.setTitle("Do you wish to share your reaction with your friend?");
+        builder.setMessage(Html.fromHtml("<font color='#00dcee'>Do you wish to share your reaction with your friend?</font>"));
 
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
@@ -404,53 +406,7 @@ public void setVisibilityOnTakeReaction(boolean visible)
 
         AlertDialog dialog = builder.create();
         dialog.show();
-*/
-        //***********************
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Do you wish to share your reaction with your friend?");
 
-        CharSequence[] cs;
-         cs = new CharSequence[]{"Yes", "No"};
-        builder.setItems(cs, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Time now = new Time();
-                now.setToNow();
-                String str = "IMG_" + now.year + "_" + now.month + "." + now.monthDay + "_" + now.hour + ":" + now.minute + ":" + now.second;
-                if (which == 0) {
-
-                    class SendReactionPhotoAsyncTask extends AsyncTask<Void, Void, Boolean>{
-
-                        @Override
-                        protected void onPreExecute() {
-                            ReactrBase.showLoader(getSherlockActivity());
-                            super.onPreExecute();
-                        }
-
-                        @Override
-                        protected Boolean doInBackground(Void... voids) {
-                            ReactorApi api = ((MainActivity) getSherlockActivity()).getReactorApi();
-                            return api.sendMessages(message.getFrom_user().toString(), message.getText(), photo, reactionPhoto);
-                        }
-
-                        @Override
-                        protected void onPostExecute(Boolean result) {
-                            ReactrBase.hideLoader();
-                            super.onPostExecute(result);
-                            if(result)
-                                Toast.makeText(getSherlockActivity(), "Reaction sent", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    new SendReactionPhotoAsyncTask().execute();
-                }
-                if (which == 1) {
-                    dialog.cancel();
-                }
-            }
-        });
-        builder.setInverseBackgroundForced(true);
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
 
         return true;
     }
