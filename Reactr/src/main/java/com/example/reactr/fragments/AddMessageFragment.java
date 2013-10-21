@@ -80,12 +80,12 @@ public class AddMessageFragment extends SherlockFragment{
         text = (EditText) view.findViewById(R.id.message_edit_text);
         reactionPhoto = (ImageView) view.findViewById(R.id.reactionPhoto);
 
-        if (messageEntity != null && getReactionPhotoFromStorage(messageEntity.getId()) != null)
+/*        if (messageEntity != null && getReactionPhotoFromStorage(messageEntity.getId()) != null)
         {
             Bitmap toReactionPhoto = getReactionPhotoFromStorage(messageEntity.getId());
             toReactionPhoto = ImageHelper.getRoundedCornerBitmap(toReactionPhoto, Color.WHITE, getActivity().getApplicationContext());
             reactionPhoto.setImageBitmap(toReactionPhoto);
-        }
+        }*/
 
 
         imageView.setImageBitmap(photo);
@@ -120,20 +120,17 @@ public class AddMessageFragment extends SherlockFragment{
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        if(ReactrBase.isOnline(getSherlockActivity()))
-                        {
-                        Bitmap reaction = null;
-                        if(getReactionPhotoFromStorage(messageEntity.getId()) != null)
-                            reaction = getReactionPhotoFromStorage(messageEntity.getId());
+                    ///    Bitmap reaction = null;
+                     ///   if(getReactionPhotoFromStorage(messageEntity.getId()) != null)
+                     ///       reaction = getReactionPhotoFromStorage(messageEntity.getId());
                         ((MainActivity)getSherlockActivity()).getReactorApi()
                                 .sendMessages(
                                         new Integer(messageEntity.getFrom_user()).toString(),
                                         text.getText().toString(),
                                         photo,
-                                        reaction
+                                        null//reaction
                                 );
                         ReactrBase.hideLoader();
-                        }
                         ma.switchContent(new MailBoxFragment());
                     }
                 }).start();

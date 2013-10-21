@@ -21,7 +21,9 @@ import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.ShutterCallback;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Surface;
@@ -31,6 +33,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -39,6 +42,8 @@ import com.example.reactr.R;
 import com.example.reactr.ReactrBase;
 import com.example.reactr.reactr.models.CameraSurfaceView;
 import com.example.reactr.reactr.models.MessageEntity;
+
+import reactr.network.ReactorApi;
 
 public class CreatePhotoFragment extends SherlockFragment implements SurfaceHolder.Callback {
 
@@ -188,7 +193,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         public void onClick(View view) {
             //     drawingView.setVisibility(View.GONE);
             //*******************************
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+         /*   AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("Upload photo from library?");
 
             CharSequence[] cs;
@@ -212,7 +217,31 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             });
             builder.setInverseBackgroundForced(true);
             AlertDialog dialog = builder.create();
+            dialog.show();*/
+            //****************************************************************************
+            AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
+         //   builder.setTitle("Upload photo from library?");
+            builder.setMessage(Html.fromHtml("<font color='#00dcee'>Upload photo from library?</font>"));
+            builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent intent = new Intent(
+                            Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    if (messageEntity != null)
+                        ((MainActivity)getActivity()).setMessageEntity(messageEntity);
+                    startActivityForResult(intent, ((MainActivity) getActivity()).getResultLoadImage());
+                }
+            });
+
+            builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            AlertDialog dialog = builder.create();
             dialog.show();
+
         }
     };
 
