@@ -127,7 +127,6 @@ public class MainActivity extends SlidingFragmentActivity  {
 
     public void switchContent(Fragment fragment) {
         mContent = fragment;
-
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content_frame, fragment).addToBackStack(String.valueOf(fragment.getId()))

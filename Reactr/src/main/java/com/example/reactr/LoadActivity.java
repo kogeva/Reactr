@@ -21,27 +21,9 @@ public class LoadActivity extends Activity
     private ReactorApi reactorApi;
     private HashMap<String, String> preference;
     private Handler handler;
-    ConnectivityManager connectivityManager;
-
-    public boolean isOnline(Context con) {
-
-        boolean connected=false;
-        try {
-            connectivityManager = (ConnectivityManager) con
-                    .getSystemService(Context.CONNECTIVITY_SERVICE);
-
-            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-             connected = networkInfo != null && networkInfo.isAvailable() &&
-                    networkInfo.isConnected();
-            return connected;
 
 
-        } catch (Exception e) {
-            System.out.println("CheckConnectivity Exception: " + e.getMessage());
-            Log.v("connectivity", e.toString());
-        }
-        return connected;
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +38,8 @@ public class LoadActivity extends Activity
     //    NetworkInfo activeNetInfoGSM = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
    //     NetworkInfo activeNetInfoWIFI = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
    //     boolean isConnected = (activeNetInfoGSM != null) || (activeNetInfoWIFI!=null);
-        if (isOnline(getBaseContext()))
-        {
+       // if (isOnline(getBaseContext()))
+       // {
            // Log.i("INET", "connected" + isConnected);
         new Thread(new Runnable() {
             @Override
@@ -75,13 +57,13 @@ public class LoadActivity extends Activity
         }).start();
         setContentView(R.layout.load_layout);
           //  Toast.makeText(getBaseContext(), "No internet connection!", Toast.LENGTH_SHORT).show();
-        }
-        else
+      //  }
+      /*  else
         {
             Toast.makeText(getBaseContext(), "No internet!", Toast.LENGTH_SHORT).show();
            // setContentView(R.layout.load_layout);
          finish();
-        }
+        }*/
     }
 
     private void switchActivity(String activityName)
