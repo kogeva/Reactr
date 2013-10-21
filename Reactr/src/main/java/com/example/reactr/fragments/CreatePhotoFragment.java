@@ -309,7 +309,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             // TODO Auto-generated method stub
             if (arg0){
                 Log.d("CAMERA", "cancelAutoFocus");
-                camera.cancelAutoFocus();
+                //camera.cancelAutoFocus();
                 Log.d("CAMERA", "GONE");
             }
             //     float focusDistances[] = new float[3];

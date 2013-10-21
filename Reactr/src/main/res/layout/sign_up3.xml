@@ -6,7 +6,11 @@
               android:layout_height="match_parent"
               android:background="#d6614d"
               android:gravity="center">
-
+    <ScrollView
+            android:id="@+id/myview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
@@ -66,7 +70,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/yellow_btn"
-            android:layout_marginTop="10pt"
+            android:layout_marginTop="0pt"
             android:textColor="#fff"
             android:textSize="14pt"
             android:text="@string/sign_up"
@@ -75,4 +79,5 @@
             android:layout_marginBottom="5dp"
             android:layout_marginRight="5dp" />
     </LinearLayout>
+    </ScrollView>
 </LinearLayout>
