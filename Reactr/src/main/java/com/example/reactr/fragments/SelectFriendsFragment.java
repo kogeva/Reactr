@@ -45,6 +45,7 @@ public class SelectFriendsFragment extends SherlockFragment {
     private View actionBarView;
     private EditText selectFriends;
     private ArrayList<FriendEntity> friends;
+    boolean isNowOnline;
 
     public SelectFriendsFragment(Bitmap photo, String text)
     {
@@ -67,19 +68,18 @@ public class SelectFriendsFragment extends SherlockFragment {
 
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("SEND TO...");
-        ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.VISIBLE);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setImageResource(R.drawable.add_friend_btn);
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setOnClickListener(goToAddFriendClick);
         ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setImageResource(R.drawable.to_menu);
         ((ImageButton) actionBarView.findViewById(R.id.toggleMenu)).setOnClickListener(((MainActivity) getSherlockActivity()).toogleMenu);
 
-
+        isNowOnline=ReactrBase.isOnline(getSherlockActivity());
         handler = new Handler();
-
         contacts = ReactrBase.getContacts(getActivity());
-
-        ReactrBase.showLoader(getSherlockActivity());
+        if(isNowOnline)
+        {
+            ReactrBase.showLoader(getSherlockActivity());
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -92,10 +92,7 @@ public class SelectFriendsFragment extends SherlockFragment {
                 handler.post(updateFrendList);
             }
         }).start();
-
-
-
-
+        }
         return view;
     }
 
@@ -110,6 +107,8 @@ public class SelectFriendsFragment extends SherlockFragment {
     View.OnClickListener sendClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            if(isNowOnline)
+            {
             final String friendIds = friendListForMessageAdapter.getFriendIds();
             Log.d("latuhov", "friends "+friendIds);
             if(friendIds.equals(""))
@@ -124,6 +123,7 @@ public class SelectFriendsFragment extends SherlockFragment {
                     ((MainActivity) getSherlockActivity()).switchContent(new MailBoxFragment());
                 }
             }).start();
+            }
             }
         }
     };
@@ -171,6 +171,7 @@ public class SelectFriendsFragment extends SherlockFragment {
     View.OnClickListener goToAddFriendClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            if(isNowOnline)
             ReactrBase.switchFraagment(getSherlockActivity(), new FriendsFragment(photo, text));
         }
     };

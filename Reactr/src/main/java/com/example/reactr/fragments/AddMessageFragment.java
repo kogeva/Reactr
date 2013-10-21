@@ -120,6 +120,8 @@ public class AddMessageFragment extends SherlockFragment{
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        if(ReactrBase.isOnline(getSherlockActivity()))
+                        {
                         Bitmap reaction = null;
                         if(getReactionPhotoFromStorage(messageEntity.getId()) != null)
                             reaction = getReactionPhotoFromStorage(messageEntity.getId());
@@ -131,6 +133,7 @@ public class AddMessageFragment extends SherlockFragment{
                                         reaction
                                 );
                         ReactrBase.hideLoader();
+                        }
                         ma.switchContent(new MailBoxFragment());
                     }
                 }).start();

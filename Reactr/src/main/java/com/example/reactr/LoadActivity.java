@@ -23,7 +23,6 @@ public class LoadActivity extends Activity
     private Handler handler;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

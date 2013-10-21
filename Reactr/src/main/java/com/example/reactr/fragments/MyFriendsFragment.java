@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.MenuItem;
@@ -67,14 +68,15 @@ public class MyFriendsFragment extends SherlockFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                FriendsDBManager friendsDBManager = new FriendsDBManager(getSherlockActivity());
 
+                FriendsDBManager friendsDBManager = new FriendsDBManager(getSherlockActivity());
                 friends = ReactrBase.addInFriendContactName(api.getFriends(), contacts, friendsDBManager);
                 myFrendsAdapter = new MyFrendsAdapter(getActivity(), friends);
                 mainHandler.post(updateFrendlist);
+
+
             }
         }).start();
-
         return view;
     }
 

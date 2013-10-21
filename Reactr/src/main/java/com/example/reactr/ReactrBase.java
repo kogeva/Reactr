@@ -2,8 +2,10 @@ package com.example.reactr;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
@@ -192,6 +194,7 @@ public class ReactrBase {
 
     public static void showLoader(Context context)
     {
+
          progressDialog  = ProgressDialog.show(context , "Loading", "Please Wait");
     }
 
@@ -228,6 +231,16 @@ public class ReactrBase {
             return true;
         }
         Log.d("latuhov", "inet false");
+        AlertDialog.Builder builder = new AlertDialog.Builder(a);
+        builder.setMessage("No internet connection!")
+                .setCancelable(false)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // do something if OK
+                    }
+                })
+        ;
+        builder.create().show();
         return false;
     }
 

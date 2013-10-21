@@ -59,6 +59,7 @@ public class LoginActivity extends Activity {
     private View.OnClickListener loginClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
             ReactrBase.showLoader(context);
             new Thread(new Runnable() {
                 @Override
@@ -66,9 +67,10 @@ public class LoginActivity extends Activity {
                     reactorApi = ReactorApi.init(0, "");
                     responseJson = reactorApi.login(email.getText().toString(), password.getText().toString(), C2DMessaging.getRegistrationId(getApplicationContext()));
                     handler.post(checkUserDone);
+
                 }
             }).start();
-        }
+            }
     };
 
     Runnable checkUserDone = new Runnable() {

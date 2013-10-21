@@ -1,5 +1,7 @@
 package com.example.reactr.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -10,9 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.reactr.MainActivity;
 import com.example.reactr.R;
+import com.example.reactr.ReactrBase;
 import com.example.reactr.StartActivity;
 import com.example.reactr.reactr.models.MenuItem;
 
@@ -56,12 +60,15 @@ public class MenuFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         Log.d("MESSSSAGE", (new Integer(position)).toString());
         Fragment newContent = null;
+        boolean online=ReactrBase.isOnline(getActivity());
+        if(online)
+        {
         switch (position){
             case 0:
                 newContent = new CreatePhotoFragment();
                 break;
             case 1:
-                newContent = new MailBoxFragment();
+                  newContent = new MailBoxFragment();
                 break;
             case 2:
                 newContent = new MyFriendsFragment();
@@ -87,6 +94,7 @@ public class MenuFragment extends ListFragment {
                 ((MainActivity ) getActivity()).startActivity(new Intent(getActivity(), StartActivity.class));
 
                 break;
+        }
         }
         ((MainActivity) getActivity()).toggle();
         if(newContent != null)

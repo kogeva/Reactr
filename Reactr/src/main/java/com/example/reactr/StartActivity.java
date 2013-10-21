@@ -31,15 +31,15 @@ public class StartActivity extends Activity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.loginButton :
-                    if(!ReactrBase.isOnline(StartActivity.this))
-                        Toast.makeText(getBaseContext(), "No internet connection!", Toast.LENGTH_SHORT).show();
-                    else
+                    if(ReactrBase.isOnline(StartActivity.this))
+                       // Toast.makeText(getBaseContext(), "No internet connection!", Toast.LENGTH_SHORT).show();
+                   // else
                         startActivity(new Intent(StartActivity.this, LoginActivity.class));
                     break;
                 case R.id.sigInButton :
-                    if(!ReactrBase.isOnline(StartActivity.this))
-                        Toast.makeText(getBaseContext(), "No internet connection!", Toast.LENGTH_SHORT).show();
-                    else
+                    if(ReactrBase.isOnline(StartActivity.this))
+                   //     Toast.makeText(getBaseContext(), "No internet connection!", Toast.LENGTH_SHORT).show();
+                   // else
                         startActivity(new Intent(StartActivity.this, SignInActivity.class));
                     break;
             }
