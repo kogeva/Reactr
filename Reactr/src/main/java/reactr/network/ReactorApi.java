@@ -337,11 +337,11 @@ public class ReactorApi {
     public boolean sendMessages(String friendIds, String text, Bitmap photo, Bitmap reactionPhoto) {
         postParams = new HashMap<String, ContentBody>();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        photo.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+        photo.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] photoByteArray = stream.toByteArray();
         stream.reset();
         if (reactionPhoto != null) {
-            reactionPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            reactionPhoto.compress(Bitmap.CompressFormat.JPEG, 75, stream);
             byte[] reactionPhotoByteArray = stream.toByteArray();
         }
 

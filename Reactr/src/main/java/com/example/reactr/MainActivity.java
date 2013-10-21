@@ -57,6 +57,7 @@ public class MainActivity extends SlidingFragmentActivity  {
     private String pushNotificationId;
     public static Boolean isRunningApplication;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
