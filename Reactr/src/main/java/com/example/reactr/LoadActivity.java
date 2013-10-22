@@ -22,6 +22,13 @@ public class LoadActivity extends Activity
     private HashMap<String, String> preference;
     private Handler handler;
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
