@@ -70,18 +70,16 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
 
 
     public CreatePhotoFragment() {
-        Log.e("REACRT", "Construstor no param");
     }
 
     public CreatePhotoFragment(MessageEntity messageEntity) {
         this.messageEntity = messageEntity;
-        Log.e("REACRT", "Construstor with param");
     }
     /** Called when the activity is first created. */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("REACRT", "onCreate");
+
         //*************************************
         View v = inflater.inflate(R.layout.camera_layout, container ,false);
 
@@ -222,11 +220,11 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             dialog.show();*/
             //****************************************************************************
             AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
-            builder.setMessage("Upload photo from library?");
+            //   builder.setTitle("Upload photo from library?");
+            builder.setMessage(Html.fromHtml("<font color='#00dcee'>Upload photo from library?</font>"));
             builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    MainActivity.IsInGallery=true;
                     Intent intent = new Intent(
                             Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     if (messageEntity != null)
@@ -308,11 +306,10 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
 
         @Override
         public void onAutoFocus(boolean arg0, Camera arg1) {
-            Log.e("REACRT", "Focus");
             // TODO Auto-generated method stub
             if (arg0){
                 Log.d("CAMERA", "cancelAutoFocus");
-                //camera.cancelAutoFocus();
+               // camera.cancelAutoFocus();
                 Log.d("CAMERA", "GONE");
             }
             //     float focusDistances[] = new float[3];
@@ -336,7 +333,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
             Log.d("CAMERA", "onPictureTaken");
-            Log.e("REACRT", "onPictureTaken");
             FileOutputStream outStream = null;
             try {
                 outStream = new FileOutputStream("/sdcard/test.jpg");
@@ -362,18 +358,14 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
                                int height) {
 
-        Log.e("REACRT", "surfaceChanged");
-
         // TODO Auto-generated method stub
         if(previewing){
-            Log.e("REACRT", "previewing");
             camera.stopPreview();
             previewing = false;
         }
 
         if (camera != null){
             try {
-                Log.e("REACRT", "cam!=null");
                 camera.setPreviewDisplay(surfaceHolder);
                 camera.startPreview();
                 previewing = true;
@@ -386,8 +378,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-
-        Log.e("REACRT", "surfaceCreated");
 
         this.surfaceHolder = holder;
         determineDisplayOrientation();
@@ -440,25 +430,16 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        Log.e("REACRT", "surfaceDestroyed");
 
-        try
-        {
         camera.stopPreview();
         camera.release();
         camera = null;
-        }
-        catch (Exception e) {}
-        finally {
-            previewing = false;
-        }
-
+        previewing = false;
     }
     //******************************
     @Override
     public void onPause() {
         // TODO Auto-generated method stub
-        Log.e("REACRT", "onPause");
         super.onPause();
         drawingView.setVisibility(View.GONE);
     }
@@ -469,11 +450,9 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("REACRT", "onResume");
-        try {
 
-            Log.e("REACRT", "tryOpen");
-        //    camera = Camera.open(cameraInfo.facing);
+        try {
+            camera = Camera.open(cameraInfo.facing);
         } catch (Exception exception) {
             Log.e("false", "Can't open camera with id " + cameraInfo.facing, exception);
 
@@ -534,8 +513,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     private synchronized void startCameraPreview() {
 
         setupCamera();
-
-        Log.e("REACRT", "startCameraPreview and setupCamera");
         determineDisplayOrientation();
         try {
             camera.setPreviewDisplay(surfaceHolder);
@@ -550,7 +527,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
      * accordingly.
      */
     public void determineDisplayOrientation() {
-        Log.e("REACRT", "determineDisplayOrientation");
         Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
         Camera.getCameraInfo(cameraInfo.facing, cameraInfo);
 
@@ -584,25 +560,13 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             displayOrientation = (cameraInfo.orientation - degrees + 360) % 360;
         }
 
-        try
-        {
-
-            Log.e("REACRT", "determineDisplayOrientation TRY");
         camera.setDisplayOrientation(displayOrientation);
-        }
-        catch (Exception e)
-        {
-
-            Log.e("REACRT", "determineDisplayOrientation CATCH");
-        }
     }
 
     /**
      * Setup the camera parameters.
      */
     public void setupCamera() {
-
-        Log.e("REACRT", "setupCamera");
         Camera.Parameters parameters = camera.getParameters();
 
         Camera.Size bestPreviewSize = determineBestPreviewSize(parameters);
@@ -611,8 +575,8 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         parameters.setPreviewSize(bestPreviewSize.width, bestPreviewSize.height);
         parameters.setPictureSize(bestPictureSize.width, bestPictureSize.height);
 
-      //  List<Camera.Size> sizesss = parameters.getSupportedPictureSizes();
-        //Camera.Size avgSize = getAvgPictureZise((ArrayList<Camera.Size>) camera.getParameters().getSupportedPictureSizes());
+       // List<Camera.Size> sizesss = parameters.getSupportedPictureSizes();
+      //  Camera.Size avgSize = getAvgPictureZise((ArrayList<Camera.Size>) camera.getParameters().getSupportedPictureSizes());
       //  parameters.setPictureSize(avgSize.width, avgSize.height);
 
         camera.setParameters(parameters);

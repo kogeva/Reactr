@@ -39,41 +39,26 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
         this.holder = this.surfaceView.getHolder();
         this.holder.addCallback(this);
         this.holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-
-        Log.e("REACRT", "TakeWP construstor");
     }
 
     public void takeReaction(int messageid)
     {
 
         this.messageId = messageid;
-        Log.e("REACRT", "TPWP takeReaction");
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                // fragment.setVisibilityOnTakeReaction(false);
-               // camera=Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
                 camera.takePicture(null, null ,jpegCallback);
              //   fragment.setVisibilityOnTakeReaction(true);
                 shootSound();
-            //    camera.release();
             }
         },700);
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-
-        Log.e("REACRT", "TPWP surfaceCreated");
-
-        try {
-            camera = (Camera.getNumberOfCameras() == 1) ? Camera.open(0) : Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
-            }
-        catch (Exception e) {
-//            camera.release();
-            camera = null;
-        }
-
+        camera = (Camera.getNumberOfCameras() == 1) ? Camera.open(0) : Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
         if(camera != null)
         {
             try {
@@ -88,25 +73,22 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i2, int i3) {
-        Log.e("REACRT", "TPWP surfaceChanged");
+
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-        Log.e("REACRT", "TPWP surfaceDestroyed");
 
     }
 
     Camera.PictureCallback jpegCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
-            Log.e("REACRT", "TPWP onPictureTaken");
+
             reactionPhoto = data;
-            camera.release();
-            camera = null;
+
             FileOutputStream outStream = null;
             try {
-                Log.e("REACRT", "TPWP onPictureTaken in TRY");
                 outStream = context.openFileOutput((new Integer(messageId)).toString() + ".jpg", Context.MODE_PRIVATE);
                 outStream.write(data);
                 outStream.close();
@@ -117,7 +99,8 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
             catch (IOException e){
                 Log.d("CAMERA", e.getMessage());
             }
-
+            camera.release();
+            camera = null;
             fragment.reactionPhoto = fragment.RotateBitmap(getReactionPhoto(),-90);
             fragment.reactionPhotoView.setVisibility(View.VISIBLE);
             fragment.setDecorationPhoto();
@@ -138,7 +121,6 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
     };
     public void shootSound()
     {
-        Log.e("REACRT", "shootSound");
         AudioManager meng = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         int volume = meng.getStreamVolume( AudioManager.STREAM_NOTIFICATION);
         MediaPlayer _shootMP=null;
