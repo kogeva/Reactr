@@ -431,16 +431,34 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
 
+        try
+        {
         camera.stopPreview();
         camera.release();
         camera = null;
-        previewing = false;
+        }
+        catch (Exception e) {}
+        finally {
+            previewing = false;
+        }
+
     }
     //******************************
     @Override
     public void onPause() {
         // TODO Auto-generated method stub
         super.onPause();
+        try {
+            camera.release();
+        }
+        catch(Exception e)
+        {
+
+        }
+        finally {
+
+            drawingView.setVisibility(View.GONE);
+        }
         drawingView.setVisibility(View.GONE);
     }
 
