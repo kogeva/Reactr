@@ -31,6 +31,7 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
     private int messageId;
     private byte[] reactionPhoto;
     ShowMessageFragment fragment;
+    private boolean isSurfaceCreated;
 
     public TakePhotoWithoutPreview(Context context, SurfaceView surfaceView, ShowMessageFragment fragment) {
         this.fragment = fragment;
@@ -39,6 +40,7 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
         this.holder = this.surfaceView.getHolder();
         this.holder.addCallback(this);
         this.holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        camera = (Camera.getNumberOfCameras() == 1) ? Camera.open(0) : Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
     }
 
     public void takeReaction(int messageid)
@@ -58,12 +60,13 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        camera = (Camera.getNumberOfCameras() == 1) ? Camera.open(0) : Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
-        if(camera != null)
+     //   camera = (Camera.getNumberOfCameras() == 1) ? Camera.open(0) : Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
+        if(camera != null && !isSurfaceCreated)
         {
             try {
                 camera.setPreviewDisplay(holder);
                 camera.startPreview();
+                isSurfaceCreated=true;
             } catch (IOException e) {
                 camera.release();
                 camera = null;
@@ -101,6 +104,8 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
             }
             camera.release();
             camera = null;
+           // isSurfaceCreated=false;
+          //  holder.removeCallback(TakePhotoWithoutPreview.this);
             fragment.reactionPhoto = fragment.RotateBitmap(getReactionPhoto(),-90);
             fragment.reactionPhotoView.setVisibility(View.VISIBLE);
             fragment.setDecorationPhoto();
