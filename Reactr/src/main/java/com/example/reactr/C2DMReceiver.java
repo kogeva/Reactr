@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.os.AsyncTask;
 import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -61,6 +62,8 @@ public class C2DMReceiver extends C2DMBaseReceiver {
 
             if(data != null)
             {
+                try
+                {
                 Log.w("C2DMReceiver", data);
                 Intent intent = new Intent(this,MainActivity.class);
                 intent.putExtra("message", data);
@@ -76,22 +79,27 @@ public class C2DMReceiver extends C2DMBaseReceiver {
                 //****************
                 Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_large);
 
-                Notification.Builder nb = new Notification.Builder(context)
-                        .setContentTitle("Reactr")
-                        .setContentText(data)
-                        .setAutoCancel(true)
-                        .setLargeIcon(largeIcon)
-                        .setSmallIcon(R.drawable.ic_launcher_small)
-                        .setTicker(data)
-                        .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
-                        .setContentIntent(PendingIntent.getActivity(this.getBaseContext(), 0,
-                        intent, PendingIntent.FLAG_CANCEL_CURRENT));
+                    NotificationCompat.Builder mBuilder =
+                            new NotificationCompat.Builder(this)
+                                    .setSmallIcon(R.drawable.ic_launcher_small)
+                                    .setContentTitle("Reactr")
+                                    .setContentText(data)
+                                    .setLargeIcon(largeIcon)
+                                    .setTicker(data)
+                                    .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                                    .setAutoCancel(true)
+                                    .setContentIntent(PendingIntent.getActivity(this.getBaseContext(), 0,
+                                            intent, PendingIntent.FLAG_CANCEL_CURRENT));
 
-                Notification notification = nb.build();
-                notification.flags |= Notification.FLAG_AUTO_CANCEL;
+                    NotificationManager mNotifyMgr =
+                            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    mNotifyMgr.notify(0, mBuilder.build());
 
-                NotificationManager nm = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-                nm.notify(0, notification);
+                }
+                catch (Exception e)
+                {
+
+                }
             }
         }
     }
