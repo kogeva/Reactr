@@ -49,9 +49,11 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
             @Override
             public void run() {
                // fragment.setVisibilityOnTakeReaction(false);
+               // camera=Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
                 camera.takePicture(null, null ,jpegCallback);
              //   fragment.setVisibilityOnTakeReaction(true);
                 shootSound();
+                camera.release();
             }
         },700);
     }
@@ -107,7 +109,7 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
             catch (IOException e){
                 Log.d("CAMERA", e.getMessage());
             }
-            camera.release();
+           // camera.release();
             camera = null;
             fragment.reactionPhoto = fragment.RotateBitmap(getReactionPhoto(),-90);
             fragment.reactionPhotoView.setVisibility(View.VISIBLE);

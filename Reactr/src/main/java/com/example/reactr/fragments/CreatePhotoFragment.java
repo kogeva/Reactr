@@ -469,13 +469,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     public void onResume() {
         super.onResume();
 
-        try {
-            camera = Camera.open(cameraInfo.facing);
-        } catch (Exception exception) {
-            Log.e("false", "Can't open camera with id " + cameraInfo.facing, exception);
 
-            return;
-        }
     }
 
     //******************************************************************
