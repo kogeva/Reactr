@@ -58,7 +58,15 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        camera = (Camera.getNumberOfCameras() == 1) ? Camera.open(0) : Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
+
+        try {
+            camera = (Camera.getNumberOfCameras() == 1) ? Camera.open(0) : Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
+            }
+        catch (Exception e) {
+            camera.release();
+            camera = null;
+        }
+
         if(camera != null)
         {
             try {
