@@ -592,6 +592,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
      * Setup the camera parameters.
      */
     public void setupCamera() {
+        try{
         Camera.Parameters parameters = camera.getParameters();
 
         Camera.Size bestPreviewSize = determineBestPreviewSize(parameters);
@@ -605,6 +606,10 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
      //   parameters.setPictureSize(avgSize.width, avgSize.height);
 
         camera.setParameters(parameters);
+        }
+        catch (Exception e){
+
+        }
     }
 
 
