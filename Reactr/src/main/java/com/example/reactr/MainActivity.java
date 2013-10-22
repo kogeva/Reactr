@@ -58,7 +58,6 @@ public class MainActivity extends SlidingFragmentActivity  {
     public static Boolean isRunningApplication;
     public static boolean IsInGallery;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

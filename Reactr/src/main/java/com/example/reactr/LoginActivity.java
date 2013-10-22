@@ -90,7 +90,7 @@ public class LoginActivity extends Activity {
                         prefEditor.putString("email", email.getText().toString());
                         prefEditor.putString("privacy_message", responseJson.getString("privacy_message"));
                         prefEditor.commit();
-
+                        StartActivity.isLoggedOut=false;
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     } else {
                         Toast.makeText(getApplicationContext(), "Incorrect password or email", Toast.LENGTH_SHORT).show();

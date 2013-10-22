@@ -89,10 +89,10 @@ public class MenuFragment extends ListFragment {
                 newContent = new StaticInfoFragment(ReactrConstants.CONTACT_US);
                 break;
             case 8:
+                StartActivity.isLoggedOut=true;
                 C2DMessaging.unregister(getActivity());
                 ((MainActivity ) getActivity()).removeSessionHash();
                 ((MainActivity ) getActivity()).startActivity(new Intent(getActivity(), StartActivity.class));
-
                 break;
         }
         }

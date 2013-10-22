@@ -17,7 +17,7 @@ import reactr.network.ReactorApi;
 
 public class LoadActivity extends Activity
 {
-
+    private boolean appStarted=false;
     private ReactorApi reactorApi;
     private HashMap<String, String> preference;
     private Handler handler;
@@ -27,7 +27,13 @@ public class LoadActivity extends Activity
         super.onBackPressed();
         finish();
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(appStarted)
+            finish();
+        appStarted=true;
+    }
 
 
     @Override
@@ -81,4 +87,5 @@ public class LoadActivity extends Activity
             startActivity(new Intent(LoadActivity.this, StartActivity.class));
         }
     }
+
 }

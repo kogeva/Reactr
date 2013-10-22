@@ -12,6 +12,7 @@ public class StartActivity extends Activity {
 
     private Button login;
     private Button signIn;
+    public static boolean  isLoggedOut=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,12 @@ public class StartActivity extends Activity {
         login.setOnClickListener(switchMenu);
         signIn.setOnClickListener(switchMenu);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+       if(!isLoggedOut)
+            finish();
     }
 
     View.OnClickListener switchMenu = new View.OnClickListener() {

@@ -216,20 +216,7 @@ public void setVisibilityOnTakeReaction(boolean visible)
             }
             ReactrBase.hideLoader();
             if ((!message.getIsRead()) && (!message.getFromMe()) && message.getReactionPhoto().equals("null")) {
-                if(Camera.getNumberOfCameras()==1)
-                {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
-                    builder.setMessage("You can't send a reaction. No front camera in your device!")
-                            .setCancelable(false)
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    // do something if OK
-                                }
-                            })
-                    ;
-                    builder.create().show();
-                }
-                else
+                if(Camera.getNumberOfCameras()!=1)
                 {
                 ph.takeReaction(message.getId());
                 animateReaction=true;
