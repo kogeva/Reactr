@@ -342,7 +342,7 @@ public class ReactorApi {
         stream.reset();
         if (reactionPhoto != null) {
             //75
-            reactionPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            reactionPhoto.compress(Bitmap.CompressFormat.JPEG, 75, stream);
             byte[] reactionPhotoByteArray = stream.toByteArray();
         }
 
