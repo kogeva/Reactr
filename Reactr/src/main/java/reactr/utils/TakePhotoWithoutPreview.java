@@ -53,7 +53,7 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
                 camera.takePicture(null, null ,jpegCallback);
              //   fragment.setVisibilityOnTakeReaction(true);
                 shootSound();
-                camera.release();
+            //    camera.release();
             }
         },700);
     }
@@ -65,8 +65,8 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
             camera = (Camera.getNumberOfCameras() == 1) ? Camera.open(0) : Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
             }
         catch (Exception e) {
-//            camera.release();
- //           camera = null;
+            camera.release();
+            camera = null;
         }
 
         if(camera != null)
@@ -96,7 +96,8 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
         public void onPictureTaken(byte[] data, Camera camera) {
 
             reactionPhoto = data;
-
+            camera.release();
+            camera = null;
             FileOutputStream outStream = null;
             try {
                 outStream = context.openFileOutput((new Integer(messageId)).toString() + ".jpg", Context.MODE_PRIVATE);
@@ -109,8 +110,7 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
             catch (IOException e){
                 Log.d("CAMERA", e.getMessage());
             }
-           // camera.release();
-            camera = null;
+
             fragment.reactionPhoto = fragment.RotateBitmap(getReactionPhoto(),-90);
             fragment.reactionPhotoView.setVisibility(View.VISIBLE);
             fragment.setDecorationPhoto();

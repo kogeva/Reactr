@@ -448,17 +448,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     public void onPause() {
         // TODO Auto-generated method stub
         super.onPause();
-        try {
-            camera.release();
-        }
-        catch(Exception e)
-        {
-
-        }
-        finally {
-
-            drawingView.setVisibility(View.GONE);
-        }
         drawingView.setVisibility(View.GONE);
     }
 
@@ -469,7 +458,13 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     public void onResume() {
         super.onResume();
 
+        try {
+            camera = Camera.open(cameraInfo.facing);
+        } catch (Exception exception) {
+            Log.e("false", "Can't open camera with id " + cameraInfo.facing, exception);
 
+            return;
+        }
     }
 
     //******************************************************************
@@ -586,7 +581,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
      * Setup the camera parameters.
      */
     public void setupCamera() {
-        try{
         Camera.Parameters parameters = camera.getParameters();
 
         Camera.Size bestPreviewSize = determineBestPreviewSize(parameters);
@@ -596,14 +590,10 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         parameters.setPictureSize(bestPictureSize.width, bestPictureSize.height);
 
       //  List<Camera.Size> sizesss = parameters.getSupportedPictureSizes();
-      //  Camera.Size avgSize = getAvgPictureZise((ArrayList<Camera.Size>) camera.getParameters().getSupportedPictureSizes());
-     //   parameters.setPictureSize(avgSize.width, avgSize.height);
+        //Camera.Size avgSize = getAvgPictureZise((ArrayList<Camera.Size>) camera.getParameters().getSupportedPictureSizes());
+      //  parameters.setPictureSize(avgSize.width, avgSize.height);
 
         camera.setParameters(parameters);
-        }
-        catch (Exception e){
-
-        }
     }
 
 
