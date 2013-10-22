@@ -640,6 +640,7 @@ public class ReactorApi {
         return false;
     }
 
+
     private String convertTime(String timeFromServer, int timezone) {
 
         String toReturn = "";
@@ -656,7 +657,6 @@ public class ReactorApi {
         }
 
         cal.setTime(dateToCal);
-        Date afterParse = cal.getTime();
 
         int dayLightSaving = cal.get(Calendar.DST_OFFSET);
         cal.setTimeInMillis(cal.getTimeInMillis() - dayLightSaving);
@@ -665,17 +665,10 @@ public class ReactorApi {
         int offset = z.getRawOffset();
         int offsetHrs = offset / 1000 / 60 / 60;
         int offsetMins = offset / 1000 / 60 % 60;
-
         // Subtract offset of your current TimeZone
         cal.add(Calendar.HOUR_OF_DAY, (offsetHrs));
         cal.add(Calendar.MINUTE, (offsetMins));
-
         cal.setTimeZone(TimeZone.getTimeZone("GMT"));
-
-        //add offset of your TimeZone
-        //cal.add(Calendar.HOUR_OF_DAY, -timezone);
-        //cal.add(Calendar.MINUTE, 30);
-        Date afterAfter = cal.getTime();
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
         toReturn = sdf.format(cal.getTime());
