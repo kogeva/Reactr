@@ -153,7 +153,7 @@ public class ShowMessageFragment extends SherlockFragment {
 
     private Bitmap downloadImage(String url) {
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 2;
+        options.inSampleSize = 1;
 
         InputStream image = null;
         Bitmap bmp = null;
