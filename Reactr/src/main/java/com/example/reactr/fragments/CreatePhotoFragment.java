@@ -578,7 +578,14 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             displayOrientation = (cameraInfo.orientation - degrees + 360) % 360;
         }
 
+        try
+        {
         camera.setDisplayOrientation(displayOrientation);
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 
     /**
