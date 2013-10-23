@@ -222,7 +222,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             //****************************************************************************
             AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
             //   builder.setTitle("Upload photo from library?");
-            builder.setMessage(Html.fromHtml("<font color='#00dcee'>Upload photo from library?</font>"));
+            builder.setMessage("Upload photo from library?");
             builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {

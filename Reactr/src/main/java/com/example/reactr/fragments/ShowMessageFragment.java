@@ -38,6 +38,7 @@ import com.example.reactr.R;
 import com.example.reactr.ReactrBase;
 import com.example.reactr.reactr.models.MessageEntity;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -45,6 +46,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.ByteBuffer;
 
 import reactr.network.ReactorApi;
 import reactr.utils.ImageHelper;
@@ -68,6 +70,7 @@ public class ShowMessageFragment extends SherlockFragment {
     private boolean reaction = false;
     private boolean animateReaction = false;
     private View actionBarView;
+    private Bitmap originalPhoto;
 
     private Animation animationFadeIn, animationFadeOut;
 
@@ -130,10 +133,12 @@ public class ShowMessageFragment extends SherlockFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                photo = downloadImage(message.getPhoto());
+                originalPhoto = downloadImage(message.getPhoto(), 1);
+
+                photo = comress(originalPhoto);
 
                 if (!message.getReactionPhoto().equals("null"))
-                    reactionPhoto = downloadImage(message.getReactionPhoto());
+                    reactionPhoto = downloadImage(message.getReactionPhoto(), 1);
 
                 handler.post(updateImageView);
             }
@@ -151,9 +156,9 @@ public class ShowMessageFragment extends SherlockFragment {
         return view;
     }
 
-    private Bitmap downloadImage(String url) {
+    private Bitmap downloadImage(String url, int sampleSize) {
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 1;
+        options.inSampleSize = sampleSize;
 
         InputStream image = null;
         Bitmap bmp = null;
@@ -184,8 +189,21 @@ public class ShowMessageFragment extends SherlockFragment {
             if (bmp != null)
                 break;
         }
+
+
+
+
+
         return bmp;
     }
+
+    public Bitmap  comress(Bitmap toImageBitmap){
+        Bitmap bitmap = toImageBitmap;
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+        return bitmap;
+    }
+
 public void setVisibilityOnTakeReaction(boolean visible)
 {
     if(!visible)
@@ -274,7 +292,7 @@ public void setVisibilityOnTakeReaction(boolean visible)
                     now.setToNow();
                     String str = "IMG_" + now.year + "_" + now.month + "." + now.monthDay + "_" + now.hour + ":" + now.minute + ":" + now.second;
                     if (which == 0) {
-                        savePhotoToMyAlbum(str, photo);
+                        savePhotoToMyAlbum(str, originalPhoto);
                     }
                     if (which == 1 && reactionPhoto != null) {
                         savePhotoToMyAlbum(str, reactionPhoto);
