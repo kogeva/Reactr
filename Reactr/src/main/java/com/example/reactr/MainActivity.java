@@ -63,6 +63,7 @@ public class MainActivity extends SlidingFragmentActivity  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setBehindContentView(R.layout.load_layout);
         isRunningApplication = true;
 
 
@@ -283,7 +284,11 @@ public class MainActivity extends SlidingFragmentActivity  {
                     }
                     else
                     {
+                        try
+                        {
                         bmp = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                        }
+                        catch (Exception e){}
                     }
 
             Bitmap toImageBitmap = bmp;
