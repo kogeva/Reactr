@@ -144,8 +144,49 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         }
     };
 
-    private View.OnClickListener onClickListener;
-    private View.OnClickListener switchCameraClick = onClickListener;
+    private View.OnClickListener switchCameraClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            // CreatePhotoFragment frag = new CreatePhotoFragment();
+
+            camera.stopPreview();
+            camera.release();
+            if (backCameraIsActive) {
+                cameraInfo.facing = Camera.CameraInfo.CAMERA_FACING_FRONT;
+                backCameraIsActive = false;
+                toggleFlash.setVisibility(View.INVISIBLE);
+                drawingView.setVisibility(View.INVISIBLE);
+            } else {
+                cameraInfo.facing = Camera.CameraInfo.CAMERA_FACING_BACK;
+                backCameraIsActive = true;
+                toggleFlash.setVisibility(View.VISIBLE);
+                drawingView.setVisibility(View.GONE);
+            }
+            camera = Camera.open(cameraInfo.facing);
+            setupCamera();
+            determineDisplayOrientation();
+            try {
+                camera.setPreviewDisplay(surfaceHolder);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            camera.startPreview();
+            //if(currentCamera == 1)
+          /*  if(!backCameraIsActive)
+            {
+                frag.currentCamera = 0;
+                drawingView.setVisibility(View.GONE);
+            }
+            else
+            {
+                frag.currentCamera = 1;
+                drawingView.setVisibility(View.VISIBLE);
+            }
+*/
+
+            //    ReactrBase.switchFraagment(getSherlockActivity(), frag);
+        }
+    };
 
 
     View.OnClickListener goToGalleryClick = new View.OnClickListener() {
