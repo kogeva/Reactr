@@ -64,7 +64,6 @@ public class ShowMessageFragment extends SherlockFragment {
     private Bitmap photo;
     public Bitmap reactionPhoto;
     public Handler handler;
-    private Camera camera;
     private TakePhotoWithoutPreview ph;
     private TextView text;
     private boolean reaction = false;
@@ -76,19 +75,6 @@ public class ShowMessageFragment extends SherlockFragment {
 
     public ShowMessageFragment(MessageEntity message) {
         this.message = message;
-    }
-
-    public ImageButton getReplyButton()
-    {
-        return replyButton;
-    }
-    public ImageButton getSaveButton ()
-    {
-        return closeButton;
-    }
-    public ImageButton getCloseButton ()
-    {
-        return closeButton;
     }
 
     @Override
@@ -189,39 +175,22 @@ public class ShowMessageFragment extends SherlockFragment {
             if (bmp != null)
                 break;
         }
-
-
-
-
-
         return bmp;
     }
 
-    public Bitmap  comress(Bitmap toImageBitmap){
-        Bitmap bitmap = toImageBitmap;
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
-        return bitmap;
+    public Bitmap  comress(Bitmap toImageBitmap ){
+      //  ByteArrayOutputStream os = new ByteArrayOutputStream();
+      //  toImageBitmap.compress(Bitmap.CompressFormat.JPEG, 3, os);
+      //  byte[] array = os.toByteArray();
+     //   return BitmapFactory.decodeByteArray(array, 0, array.length);
+
+        return Bitmap.createScaledBitmap(toImageBitmap, photoView.getWidth(), photoView.getHeight(), true);
     }
 
-public void setVisibilityOnTakeReaction(boolean visible)
-{
-    if(!visible)
-    {
-    closeButton.setVisibility(View.INVISIBLE);
-    replyButton.setVisibility(View.INVISIBLE);
-    saveButton.setVisibility(View.INVISIBLE);
-    }
-    else
-    {
-        closeButton.setVisibility(View.VISIBLE);
-        replyButton.setVisibility(View.VISIBLE);
-        saveButton.setVisibility(View.VISIBLE);
-    }
-}
     private Runnable updateImageView = new Runnable() {
         @Override
         public void run() {
+
             photoView.setImageBitmap(photo);
             if (reactionPhoto != null) {
                 setDecorationPhoto();
@@ -382,9 +351,7 @@ public void setVisibilityOnTakeReaction(boolean visible)
 
     public boolean confirmReaction()
     {
-        final Boolean isConfirm = false;
 
-        //*******************
       AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
         builder.setMessage("Do you wish to share your reaction with your friend?");
 
