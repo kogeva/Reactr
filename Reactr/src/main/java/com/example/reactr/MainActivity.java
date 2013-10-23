@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -87,6 +89,9 @@ public class MainActivity extends SlidingFragmentActivity  {
                 mContent = new MailBoxFragment();
         }
 
+       getWindow().setTitle("Loading...");
+       getWindow().setTitleColor(Color.WHITE);
+        setContentView(R.layout.load_layout);
         setBehindContentView(R.layout.menu_frame);
         getSupportFragmentManager()
                 .beginTransaction()
