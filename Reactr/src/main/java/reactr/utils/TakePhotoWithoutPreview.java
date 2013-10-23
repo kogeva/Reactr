@@ -50,9 +50,7 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-               // fragment.setVisibilityOnTakeReaction(false);
                 camera.takePicture(null, null ,jpegCallback);
-             //   fragment.setVisibilityOnTakeReaction(true);
                 shootSound();
             }
         },700);
@@ -60,7 +58,6 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-     //   camera = (Camera.getNumberOfCameras() == 1) ? Camera.open(0) : Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
         if(camera != null && !isSurfaceCreated)
         {
             try {
@@ -104,8 +101,6 @@ public class TakePhotoWithoutPreview implements SurfaceHolder.Callback {
             }
             camera.release();
             camera = null;
-           // isSurfaceCreated=false;
-          //  holder.removeCallback(TakePhotoWithoutPreview.this);
             fragment.reactionPhoto = fragment.RotateBitmap(getReactionPhoto(),-90);
             fragment.reactionPhotoView.setVisibility(View.VISIBLE);
             fragment.setDecorationPhoto();

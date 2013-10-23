@@ -65,7 +65,6 @@ public class MainActivity extends SlidingFragmentActivity  {
         super.onCreate(savedInstanceState);
         isRunningApplication = true;
 
-        //TestFlight.takeOff(getApplication(), "fe4948e0-fb42-43a0-af7d-ab6cc9869984");
 
         C2DMessaging.register(this, "856805386889");
         pushNotificationId = C2DMessaging.getRegistrationId(this);
@@ -89,9 +88,6 @@ public class MainActivity extends SlidingFragmentActivity  {
                 mContent = new MailBoxFragment();
         }
 
-       getWindow().setTitle("Loading...");
-       getWindow().setTitleColor(Color.WHITE);
-        setContentView(R.layout.load_layout);
         setBehindContentView(R.layout.menu_frame);
         getSupportFragmentManager()
                 .beginTransaction()

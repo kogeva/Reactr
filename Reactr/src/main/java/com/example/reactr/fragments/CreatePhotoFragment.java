@@ -1,16 +1,9 @@
 package com.example.reactr.fragments;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -21,9 +14,7 @@ import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.ShutterCallback;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Surface;
@@ -33,7 +24,6 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -43,21 +33,21 @@ import com.example.reactr.ReactrBase;
 import com.example.reactr.reactr.models.CameraSurfaceView;
 import com.example.reactr.reactr.models.MessageEntity;
 
-import reactr.network.ReactorApi;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreatePhotoFragment extends SherlockFragment implements SurfaceHolder.Callback {
 
     private static final int PICTURE_SIZE_MAX_WIDTH = 1280;
     private static final int PREVIEW_SIZE_MAX_WIDTH = 640;
 
-    //  private int cameraId;
     private ImageButton shootButton;
     private ImageButton switchCamera;
     private ToggleButton toggleFlash;
     private MessageEntity messageEntity;
     private View actionBarView;
     boolean backCameraIsActive = true;
-     public int currentCamera;
     Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
 
     Camera camera;
@@ -91,10 +81,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         switchCamera.setOnClickListener(switchCameraClick);
         toggleFlash.setOnClickListener(toogleFlashLightClick);
 
-        // if(currentCamera == Camera.CameraInfo.CAMERA_FACING_FRONT)
-        //  if(!backCameraIsActive)
-        //    toggleFlash.setBackgroundColor(000);
-
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("TAKE PICTURE");
 
@@ -113,7 +99,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
 
         drawingView = new DrawingView(this.getActivity().getBaseContext());
 
-        //if(currentCamera == 0)
         if(backCameraIsActive)
             drawingView.setVisibility(View.VISIBLE);
         else
@@ -147,8 +132,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     private View.OnClickListener switchCameraClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            // CreatePhotoFragment frag = new CreatePhotoFragment();
-
             camera.stopPreview();
             camera.release();
             if (backCameraIsActive) {
@@ -171,20 +154,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
                 e.printStackTrace();
             }
             camera.startPreview();
-            //if(currentCamera == 1)
-          /*  if(!backCameraIsActive)
-            {
-                frag.currentCamera = 0;
-                drawingView.setVisibility(View.GONE);
-            }
-            else
-            {
-                frag.currentCamera = 1;
-                drawingView.setVisibility(View.VISIBLE);
-            }
-*/
-
-            //    ReactrBase.switchFraagment(getSherlockActivity(), frag);
         }
     };
 
@@ -192,40 +161,13 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     View.OnClickListener goToGalleryClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            //     drawingView.setVisibility(View.GONE);
-            //*******************************
-         /*   AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("Upload photo from library?");
 
-            CharSequence[] cs;
-            cs = new CharSequence[]{"YES", getResources().getString(R.string.cancel)};
-
-            builder.setItems(cs, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-
-                    if (which == 0) {
-                        Intent i = new Intent(
-                                Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        if (messageEntity != null)
-                            ((MainActivity)getActivity()).setMessageEntity(messageEntity);
-                        startActivityForResult(i, ((MainActivity) getActivity()).getResultLoadImage());
-                    }
-                    if (which == 1) {
-                        //   drawingView.setVisibility(View.GONE);
-                        dialog.cancel();
-                    }
-                }
-            });
-            builder.setInverseBackgroundForced(true);
-            AlertDialog dialog = builder.create();
-            dialog.show();*/
-            //****************************************************************************
             AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
-            //   builder.setTitle("Upload photo from library?");
             builder.setMessage("Upload photo from library?");
             builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    MainActivity.IsInGallery=true;
                     Intent intent = new Intent(
                             Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     if (messageEntity != null)
@@ -268,8 +210,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     //*********************************************************************************************
     public void touchFocus(final Rect tfocusRect){
         Log.d("CAMERA", "TOUCHFOCUS");
-
-        //if(currentCamera == 0)
         if(backCameraIsActive)
         {
             drawingView.setVisibility(View.VISIBLE);
@@ -297,7 +237,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             camera.autoFocus(myAutoFocusCallback);
             drawingView.setHaveTouch(true, tfocusRect);
             drawingView.invalidate();
-            // drawingView.setVisibility(View.GONE);
             Log.d("CAMERA", "AFTERFOCUS");
         }
     }
@@ -307,14 +246,11 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
 
         @Override
         public void onAutoFocus(boolean arg0, Camera arg1) {
-            // TODO Auto-generated method stub
             if (arg0){
                 Log.d("CAMERA", "cancelAutoFocus");
                // camera.cancelAutoFocus();
                 Log.d("CAMERA", "GONE");
             }
-            //     float focusDistances[] = new float[3];
-            //     arg1.getParameters().getFocusDistances(focusDistances);
             drawingView.setVisibility(View.GONE);
         }};
 
@@ -383,50 +319,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         this.surfaceHolder = holder;
         determineDisplayOrientation();
         startCameraPreview();
-
-//        if(camera == null)
-//        {
-//            try {
-//                Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
-//                camera = camera.open(currentCamera);
-//                Camera.Parameters parameters = camera.getParameters();
-//
-//                Camera.Size previewSize = camera.getParameters().getPreviewSize();
-//                float aspect = (float) previewSize.width / previewSize.height;
-//
-//                int previewSurfaceWidth = cameraSurfaceView.getWidth();
-//                int previewSurfaceHeight = cameraSurfaceView.getHeight();
-//                ViewGroup.LayoutParams lp = cameraSurfaceView.getLayoutParams();
-//
-//                if (this.getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE)
-//                {
-//                    // портретный вид
-//                    camera.setDisplayOrientation(90);
-//                    lp.height = previewSurfaceHeight - 100;
-//                    lp.width = (int) (previewSurfaceHeight / aspect);
-//                }
-//                else
-//                {
-//                    // ландшафтный
-//                    camera.setDisplayOrientation(0);
-//                    lp.width = previewSurfaceWidth;
-//                    lp.height = (int) (previewSurfaceWidth / aspect);
-//                }
-//
-//                List<Camera.Size> sizesss = parameters.getSupportedPictureSizes();
-//                Camera.Size avgSize = getAvgPictureZise((ArrayList<Camera.Size>) camera.getParameters().getSupportedPictureSizes());
-//                parameters.setPictureSize(avgSize.width, avgSize.height);
-//
-//                camera.setParameters(parameters);
-//                camera.setPreviewDisplay(holder);
-//
-//               cameraSurfaceView.setLayoutParams(lp);
-//                camera.startPreview();
-//            }
-//            catch (IOException e){
-//                Log.d("CAMERA", e.getMessage());
-//            }
-//        }
     }
 
     @Override
@@ -442,12 +334,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     public void onPause() {
         // TODO Auto-generated method stub
         super.onPause();
-       /* if (camera != null) {
-        //    camera.setPreviewCallback(null);
-            cameraSurfaceView.getHolder().removeCallback(this);
-            camera.release();
-        }*/
-
         drawingView.setVisibility(View.GONE);
     }
     @Override
@@ -482,10 +368,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             haveTouch = false;
         }
 
-        public void setHaveFace(boolean h){
-            haveFace = h;
-        }
-
         public void setHaveTouch(boolean t, Rect tArea){
             haveTouch = t;
             touchArea = tArea;
@@ -502,13 +384,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
             }
         }
     }
-
-    private Camera.Size getAvgPictureZise (ArrayList<Camera.Size> sizes)
-    {
-        double avg = sizes.size() / 2;
-        return sizes.get(new Double(avg).intValue());
-    }
-
 
     /**
      * Start the camera preview.
@@ -571,17 +446,10 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
      */
     public void setupCamera() {
         Camera.Parameters parameters = camera.getParameters();
-
         Camera.Size bestPreviewSize = determineBestPreviewSize(parameters);
         Camera.Size bestPictureSize = determineBestPictureSize(parameters);
-
         parameters.setPreviewSize(bestPreviewSize.width, bestPreviewSize.height);
         parameters.setPictureSize(bestPictureSize.width, bestPictureSize.height);
-
-       // List<Camera.Size> sizesss = parameters.getSupportedPictureSizes();
-      //  Camera.Size avgSize = getAvgPictureZise((ArrayList<Camera.Size>) camera.getParameters().getSupportedPictureSizes());
-      //  parameters.setPictureSize(avgSize.width, avgSize.height);
-
         camera.setParameters(parameters);
     }
 
