@@ -1,4 +1,4 @@
-package com.example.reactr;
+package com.jelvix.reactr;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +11,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
+
+import com.jelvix.reactr.R;
 
 public class PhotoViewActivity extends FragmentActivity {
 

@@ -44,7 +44,7 @@ import android.widget.SpinnerAdapter;
  * <p>From your activity, you can retrieve an instance of {@link ActionBar} by calling {@link
  * android.app.Activity#getActionBar getActionBar()}.</p>
  * <p>In some cases, the action bar may be overlayed by another bar that enables contextual actions,
- * using an {@link android.view.ActionMode}. For example, when the user selects one or more items in
+ * using an {@link android.view.ActionMode}. For jelvix, when the user selects one or more items in
  * your activity, you can enable an action mode that offers actions specific to the selected
  * items, with a UI that temporarily replaces the action bar. Although the UI may occupy the
  * same space, the {@link android.view.ActionMode} APIs are distinct and independent from those for
@@ -502,7 +502,7 @@ public abstract class ActionBar {
      * <p>Very often tabs will be used to switch between {@link Fragment}
      * objects.  Here is a typical implementation of such tabs:</p>
      *
-     * {@sample development/samples/ApiDemos/src/com/example/android/apis/app/FragmentTabs.java
+     * {@sample development/samples/ApiDemos/src/com/jelvix/android/apis/app/FragmentTabs.java
      *      complete}
      *
      * @return A new Tab

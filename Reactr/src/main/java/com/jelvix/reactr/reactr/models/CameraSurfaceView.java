@@ -1,4 +1,4 @@
-package com.example.reactr.reactr.models;
+package com.jelvix.reactr.reactr.models;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
-import com.example.reactr.fragments.CreatePhotoFragment;
+import com.jelvix.reactr.fragments.CreatePhotoFragment;
 
 public class CameraSurfaceView extends SurfaceView {
 

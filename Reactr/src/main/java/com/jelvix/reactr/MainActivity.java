@@ -1,4 +1,4 @@
-package com.example.reactr;
+package com.jelvix.reactr;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,37 +6,32 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
-import com.example.reactr.fragments.AddMessageFragment;
-import com.example.reactr.fragments.CreatePhotoFragment;
-import com.example.reactr.fragments.MailBoxFragment;
-import com.example.reactr.fragments.MenuFragment;
-import com.example.reactr.fragments.ShowMessageFragment;
-import com.example.reactr.reactr.models.MessageEntity;
+import com.jelvix.reactr.fragments.AddMessageFragment;
+import com.jelvix.reactr.fragments.CreatePhotoFragment;
+import com.jelvix.reactr.fragments.MailBoxFragment;
+import com.jelvix.reactr.fragments.MenuFragment;
+import com.jelvix.reactr.fragments.ShowMessageFragment;
+import com.jelvix.reactr.reactr.models.MessageEntity;
 import com.google.android.c2dm.C2DMessaging;
+import com.jelvix.reactr.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 //import com.testflightapp.lib.TestFlight;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.net.URI;
 import java.net.URL;
 import java.util.HashMap;
 

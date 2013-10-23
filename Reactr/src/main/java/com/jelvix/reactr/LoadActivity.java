@@ -1,14 +1,11 @@
-package com.example.reactr;
+package com.jelvix.reactr;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.widget.Toast;
+
+import com.jelvix.reactr.R;
 
 import java.util.HashMap;
 

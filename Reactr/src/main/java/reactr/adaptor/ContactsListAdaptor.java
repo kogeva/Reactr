@@ -12,8 +12,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.reactr.MainActivity;
-import com.example.reactr.R;
+import com.jelvix.reactr.MainActivity;
+import com.jelvix.reactr.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

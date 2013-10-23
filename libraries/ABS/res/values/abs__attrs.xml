@@ -285,7 +285,7 @@
         <!-- The drawable to show in the button for expanding the activities overflow popup.
              <strong>Note:</strong> Clients would like to set this drawable
              as a clue about the action the chosen activity will perform. For
-             example, if share activity is to be chosen the drawable should
+             jelvix, if share activity is to be chosen the drawable should
              give a clue that sharing is to be performed.
          -->
         <attr name="expandActivityOverflowButtonDrawable" format="reference" />

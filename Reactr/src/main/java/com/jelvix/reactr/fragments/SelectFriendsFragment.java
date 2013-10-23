@@ -1,4 +1,4 @@
-package com.example.reactr.fragments;
+package com.jelvix.reactr.fragments;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,16 +18,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.example.reactr.MainActivity;
-import com.example.reactr.R;
-import com.example.reactr.ReactrBase;
-import com.example.reactr.reactr.models.FriendEntity;
+import com.jelvix.reactr.MainActivity;
+import com.jelvix.reactr.R;
+import com.jelvix.reactr.ReactrBase;
+import com.jelvix.reactr.reactr.models.FriendEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import reactr.adaptor.FriendListForMessageAdapter;
-import reactr.adaptor.MyFrendsAdapter;
 import reactr.network.ReactorApi;
 import reactr.utils.FriendsDBManager;
 

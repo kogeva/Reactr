@@ -3,8 +3,8 @@ package reactr.network;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.example.reactr.reactr.models.FriendEntity;
-import com.example.reactr.reactr.models.MessageEntity;
+import com.jelvix.reactr.reactr.models.FriendEntity;
+import com.jelvix.reactr.reactr.models.MessageEntity;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.TimeZone;
 
-import com.example.reactr.reactr.models.ReactrConstants;
+import com.jelvix.reactr.reactr.models.ReactrConstants;
 
 public class ReactorApi {
     private int userId;

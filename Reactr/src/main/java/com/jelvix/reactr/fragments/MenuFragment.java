@@ -1,7 +1,5 @@
-package com.example.reactr.fragments;
+package com.jelvix.reactr.fragments;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -12,18 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.reactr.MainActivity;
-import com.example.reactr.R;
-import com.example.reactr.ReactrBase;
-import com.example.reactr.StartActivity;
-import com.example.reactr.reactr.models.MenuItem;
+import com.jelvix.reactr.MainActivity;
+import com.jelvix.reactr.R;
+import com.jelvix.reactr.ReactrBase;
+import com.jelvix.reactr.StartActivity;
+import com.jelvix.reactr.reactr.models.MenuItem;
 
 import java.util.ArrayList;
 
 import reactr.adaptor.MenuAdapter;
-import com.example.reactr.reactr.models.ReactrConstants;
+import com.jelvix.reactr.reactr.models.ReactrConstants;
 import com.google.android.c2dm.C2DMessaging;
 
 public class MenuFragment extends ListFragment {

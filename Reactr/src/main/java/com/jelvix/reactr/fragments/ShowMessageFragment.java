@@ -1,7 +1,6 @@
-package com.example.reactr.fragments;
+package com.jelvix.reactr.fragments;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,7 +14,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.text.Html;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.Display;
@@ -33,12 +31,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.example.reactr.MainActivity;
-import com.example.reactr.R;
-import com.example.reactr.ReactrBase;
-import com.example.reactr.reactr.models.MessageEntity;
+import com.jelvix.reactr.MainActivity;
+import com.jelvix.reactr.R;
+import com.jelvix.reactr.ReactrBase;
+import com.jelvix.reactr.reactr.models.MessageEntity;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -46,7 +43,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.ByteBuffer;
 
 import reactr.network.ReactorApi;
 import reactr.utils.ImageHelper;

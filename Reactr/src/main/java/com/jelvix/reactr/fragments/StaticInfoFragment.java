@@ -1,14 +1,12 @@
-package com.example.reactr.fragments;
+package com.jelvix.reactr.fragments;
 
 /**
  * Created by Kykmyrna on 17.09.13.
  */
 
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,20 +14,14 @@ import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.example.reactr.MainActivity;
-import com.example.reactr.R;
-import com.example.reactr.ReactrBase;
-import com.example.reactr.reactr.models.FriendEntity;
-import com.example.reactr.reactr.models.MessageEntity;
-import com.example.reactr.reactr.models.ReactrConstants;
-
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
+import com.jelvix.reactr.MainActivity;
+import com.jelvix.reactr.R;
+import com.jelvix.reactr.ReactrBase;
+import com.jelvix.reactr.reactr.models.FriendEntity;
+import com.jelvix.reactr.reactr.models.MessageEntity;
+import com.jelvix.reactr.reactr.models.ReactrConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;

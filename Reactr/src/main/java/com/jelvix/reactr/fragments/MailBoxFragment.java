@@ -1,6 +1,5 @@
-package com.example.reactr.fragments;
+package com.jelvix.reactr.fragments;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,17 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.example.reactr.MainActivity;
-import com.example.reactr.R;
-import com.example.reactr.ReactrBase;
-import com.example.reactr.reactr.models.FriendEntity;
-import com.example.reactr.reactr.models.MessageEntity;
+import com.jelvix.reactr.MainActivity;
+import com.jelvix.reactr.R;
+import com.jelvix.reactr.ReactrBase;
+import com.jelvix.reactr.reactr.models.FriendEntity;
+import com.jelvix.reactr.reactr.models.MessageEntity;
 
 import java.util.ArrayList;
 

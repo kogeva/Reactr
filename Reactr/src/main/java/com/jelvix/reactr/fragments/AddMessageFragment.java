@@ -1,14 +1,11 @@
-package com.example.reactr.fragments;
+package com.jelvix.reactr.fragments;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +17,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.example.reactr.MainActivity;
-import com.example.reactr.R;
-import com.example.reactr.ReactrBase;
-import com.example.reactr.reactr.models.MessageEntity;
+import com.jelvix.reactr.MainActivity;
+import com.jelvix.reactr.R;
+import com.jelvix.reactr.ReactrBase;
+import com.jelvix.reactr.reactr.models.MessageEntity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -31,7 +28,6 @@ import java.io.IOException;
 
 import reactr.network.ReactorApi;
 import reactr.utils.BitmapMemoryManager;
-import reactr.utils.ImageHelper;
 
 public class AddMessageFragment extends SherlockFragment{
 

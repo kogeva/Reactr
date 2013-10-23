@@ -1,4 +1,4 @@
-package com.example.reactr.reactr.models;
+package com.jelvix.reactr.reactr.models;
 
 /**
  * Created by vova on 30.08.13.

@@ -1,4 +1,4 @@
-package com.example.reactr.reactr.models;
+package com.jelvix.reactr.reactr.models;
 
 /**
  * Created by Kykmyrna on 19.09.13.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.reactr"
+    package="com.jelvix.reactr"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -18,7 +18,7 @@
             android:normalScreens="true"
             android:smallScreens="true" android:xlargeScreens="true"/>
         <activity
-            android:name="com.example.reactr.LoadActivity"
+            android:name="com.jelvix.reactr.LoadActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation"
             android:noHistory="true"
@@ -31,9 +31,9 @@
         </activity>
         <activity android:label="LoginActivity" android:name=".LoginActivity"
                   android:screenOrientation="portrait"/>
-        <activity android:label="SignInActivity" android:name="com.example.reactr.SignInActivity" android:screenOrientation="portrait"/>
-         <activity android:label="StartActivity" android:name="com.example.reactr.StartActivity" android:screenOrientation="portrait"/>
-        <activity android:label="PhotoViewActivity" android:name="com.example.reactr.PhotoViewActivity" android:screenOrientation="portrait"/>
+        <activity android:label="SignInActivity" android:name="com.jelvix.reactr.SignInActivity" android:screenOrientation="portrait"/>
+         <activity android:label="StartActivity" android:name="com.jelvix.reactr.StartActivity" android:screenOrientation="portrait"/>
+        <activity android:label="PhotoViewActivity" android:name="com.jelvix.reactr.PhotoViewActivity" android:screenOrientation="portrait"/>
         <activity android:label="MainActivity" android:name=".MainActivity"
                   android:screenOrientation="portrait"
                   android:configChanges="orientation" ></activity>
@@ -70,7 +70,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-feature android:name="android.hardware.camera" />
     <permission
-        android:name="com.example.reactr.permission.C2D_MESSAGE"
+        android:name="com.jelvix.reactr.permission.C2D_MESSAGE"
         android:protectionLevel="signature"/>
     <uses-permission android:name="com.example.reactr.permission.C2D_MESSAGE"/>
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>

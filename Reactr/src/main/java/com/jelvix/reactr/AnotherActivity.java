@@ -1,8 +1,7 @@
-package com.example.reactr;
+package com.jelvix.reactr;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,9 +12,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.example.reactr.fragments.MyFriendsFragment;
-import com.example.reactr.reactr.models.ReactrConstants;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.jelvix.reactr.reactr.models.ReactrConstants;
+import com.jelvix.reactr.R;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;

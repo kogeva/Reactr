@@ -3,15 +3,9 @@
 package com.google.android.c2dm;
 
 import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-
-import com.example.reactr.*;
 
 /**
  * Helper class to handle BroadcastReciver behavior.
@@ -28,7 +22,7 @@ public class C2DMBroadcastReceiver extends BroadcastReceiver {
     public final void onReceive(Context context, Intent intent) {
         // To keep things in one place.
         myContext=context;
-        com.example.reactr.C2DMReceiver.runIntentInService(context, intent);
+        com.jelvix.reactr.C2DMReceiver.runIntentInService(context, intent);
         setResult(Activity.RESULT_OK, null /* data */, null /* extra */);        
     }
 

@@ -3,14 +3,13 @@ package reactr.adaptor;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.reactr.R;
-import com.example.reactr.reactr.models.MenuItem;
+import com.jelvix.reactr.R;
+import com.jelvix.reactr.reactr.models.MenuItem;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.reactr.fragments;
+package com.jelvix.reactr.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -27,11 +27,11 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.example.reactr.MainActivity;
-import com.example.reactr.R;
-import com.example.reactr.ReactrBase;
-import com.example.reactr.reactr.models.CameraSurfaceView;
-import com.example.reactr.reactr.models.MessageEntity;
+import com.jelvix.reactr.MainActivity;
+import com.jelvix.reactr.R;
+import com.jelvix.reactr.ReactrBase;
+import com.jelvix.reactr.reactr.models.CameraSurfaceView;
+import com.jelvix.reactr.reactr.models.MessageEntity;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.reactr;
+package com.jelvix.reactr;
 
 
 import android.app.Activity;
@@ -12,13 +12,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.CursorLoader;
 import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.example.reactr.reactr.models.FriendEntity;
+import com.jelvix.reactr.reactr.models.FriendEntity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

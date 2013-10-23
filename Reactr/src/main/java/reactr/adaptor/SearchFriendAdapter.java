@@ -4,14 +4,13 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.reactr.MainActivity;
-import com.example.reactr.R;
-import com.example.reactr.reactr.models.FriendEntity;
+import com.jelvix.reactr.MainActivity;
+import com.jelvix.reactr.R;
+import com.jelvix.reactr.reactr.models.FriendEntity;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,6 @@
 package com.google.android.c2dm;
-import com.example.reactr.MainActivity;
-import com.example.reactr.R;
-import com.google.android.c2dm.C2DMBaseReceiver;
+import com.jelvix.reactr.MainActivity;
+import com.jelvix.reactr.R;
 
 import android.app.Notification;
 import android.app.NotificationManager;
