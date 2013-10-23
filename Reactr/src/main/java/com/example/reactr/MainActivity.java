@@ -32,7 +32,7 @@ import com.example.reactr.reactr.models.MessageEntity;
 import com.google.android.c2dm.C2DMessaging;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-import com.testflightapp.lib.TestFlight;
+//import com.testflightapp.lib.TestFlight;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -65,7 +65,7 @@ public class MainActivity extends SlidingFragmentActivity  {
         super.onCreate(savedInstanceState);
         isRunningApplication = true;
 
-        TestFlight.takeOff(getApplication(), "fe4948e0-fb42-43a0-af7d-ab6cc9869984");
+        //TestFlight.takeOff(getApplication(), "fe4948e0-fb42-43a0-af7d-ab6cc9869984");
 
         C2DMessaging.register(this, "856805386889");
         pushNotificationId = C2DMessaging.getRegistrationId(this);
