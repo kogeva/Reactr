@@ -101,7 +101,10 @@ public class ShowMessageFragment extends SherlockFragment {
         ReactrBase.showLoader(getSherlockActivity());
 
         if ((!message.getIsRead()) && (!message.getFromMe()) && message.getReactionPhoto().equals("null")){
+            if(Camera.getNumberOfCameras()!=1)
+            {
             ph = new TakePhotoWithoutPreview(getSherlockActivity(), surfaceView, this);
+            }
         }
 
         if (message.getFromMe()){
