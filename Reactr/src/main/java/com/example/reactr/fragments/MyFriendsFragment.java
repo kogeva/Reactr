@@ -64,6 +64,8 @@ public class MyFriendsFragment extends SherlockFragment {
         mainHandler = new Handler();
         contacts = ReactrBase.getContacts(getActivity());
         api = ((MainActivity) getSherlockActivity()).getReactorApi();
+        if(ReactrBase.isOnline(getSherlockActivity()))
+        {
         ReactrBase.showLoader(getSherlockActivity());
         new Thread(new Runnable() {
             @Override
@@ -77,6 +79,7 @@ public class MyFriendsFragment extends SherlockFragment {
 
             }
         }).start();
+        }
         return view;
     }
 

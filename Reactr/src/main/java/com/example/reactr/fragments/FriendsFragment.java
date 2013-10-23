@@ -91,6 +91,8 @@ public class FriendsFragment extends SherlockFragment {
         mainActivity = (MainActivity) getSherlockActivity();
         api = mainActivity.getReactorApi();
 
+        if(ReactrBase.isOnline(getSherlockActivity()))
+        {
         ReactrBase.showLoader(getSherlockActivity());
         new Thread(new Runnable() {
             @Override
@@ -110,7 +112,7 @@ public class FriendsFragment extends SherlockFragment {
         }).start();
 
         friendsAdded.setAdapter(friendsAddedAdapter);
-
+        }
         actionBarView = getSherlockActivity().getSupportActionBar().getCustomView();
         ((TextView) actionBarView.findViewById(R.id.barTitle)).setText("ADD FRIENDS");
         ((ImageButton) actionBarView.findViewById(R.id.barItem)).setVisibility(View.INVISIBLE);
