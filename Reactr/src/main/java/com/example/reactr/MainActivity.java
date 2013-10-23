@@ -91,13 +91,13 @@ public class MainActivity extends SlidingFragmentActivity  {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.menu_frame, menuFragment)
-                .commit();
+                .commitAllowingStateLoss();
 
         setContentView(R.layout.content_fragment);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content_frame, mContent)
-                .commit();
+                .commitAllowingStateLoss();
         getSlidingMenu().setBehindOffset(200);
         getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
         getSlidingMenu().setShadowDrawable(R.drawable.shadow);
@@ -123,7 +123,14 @@ public class MainActivity extends SlidingFragmentActivity  {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        if(mContent instanceof  CreatePhotoFragment){
+            Log.d("ErrorR", "instanceof");
+            switchContent(mContent);
+        }
+          else{
+            Log.d("ErrorR", "else instance");
         getSupportFragmentManager().putFragment(outState, "mContent", mContent);
+        }
     }
 
     public void switchContent(Fragment fragment) {
@@ -131,7 +138,8 @@ public class MainActivity extends SlidingFragmentActivity  {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content_frame, fragment).addToBackStack(String.valueOf(fragment.getId()))
-                .commit();
+             //   .commit();
+        .commitAllowingStateLoss();
     }
 
     @Override
