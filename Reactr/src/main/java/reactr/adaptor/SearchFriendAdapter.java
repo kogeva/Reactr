@@ -44,7 +44,7 @@ public class SearchFriendAdapter extends FriendsAddedAdapter {
             public void onClick(View view) {
 
                ImageButton i=(ImageButton)view;
-                i.setImageResource(R.drawable.remove_friend_orange);
+                i.setVisibility(View.INVISIBLE);
                 new AddFriendAsyncTask().execute((FriendEntity)getItem(position));
             }
         });

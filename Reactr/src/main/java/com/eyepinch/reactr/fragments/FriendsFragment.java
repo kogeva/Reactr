@@ -182,7 +182,7 @@ public class FriendsFragment extends SherlockFragment {
             if (view.getId() == searchEditText.getId())
             {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER))
-                    ReactrBase.showLoader(getSherlockActivity());
+                   // ReactrBase.showLoader(getSherlockActivity());
                     new Thread(searchFriends).start();
             }
             return false;

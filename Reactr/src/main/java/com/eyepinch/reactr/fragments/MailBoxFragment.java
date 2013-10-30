@@ -89,13 +89,13 @@ public class MailBoxFragment extends SherlockFragment {
                         ReactrBase.showLoader(getSherlockActivity());
                         new LoadMessageAsyncTask().execute(totalItemCount, totalItemCount + 15);
                     }
-                    if(messagePosition!=0)
-                    {
+                  // if(messagePosition!=0)
+                   // {
                       //ReactrBase.showLoader(getSherlockActivity());
-                      new LoadMessageAsyncTask().execute(totalItemCount, totalItemCount+ 30);
-                      absListView.smoothScrollToPosition((m_PreviousTotalCount+totalItemCount+messagePosition));
-                      messagePosition=0;
-                    }
+                  //    new LoadMessageAsyncTask().execute(totalItemCount, totalItemCount+ 30);
+                  //    absListView.smoothScrollToPosition((m_PreviousTotalCount+totalItemCount+messagePosition));
+                   //   messagePosition=0;
+                   // }
                 }
             }
         });
