@@ -113,8 +113,12 @@ public class MainActivity extends SlidingFragmentActivity  {
             public void onOpen() {
                 InputMethodManager inputManager = (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (inputManager.isAcceptingText()) {
+                    try
+                    {
                 inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+                    catch (Exception e){}
                 }
             }
         });
@@ -159,7 +163,10 @@ public class MainActivity extends SlidingFragmentActivity  {
     public View.OnClickListener toogleMenu = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            try{
             toggle();
+            }
+            catch (Exception e){}
         }
     };
 

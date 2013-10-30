@@ -18,11 +18,7 @@ public class SlidingFragmentActivity extends SherlockFragmentActivity implements
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-        try
-        {
 		super.onCreate(savedInstanceState);
-        }
-        catch (Exception e){}
 		mHelper = new SlidingActivityHelper(this);
 		mHelper.onCreate(savedInstanceState);
 	}

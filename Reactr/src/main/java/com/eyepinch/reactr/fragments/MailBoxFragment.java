@@ -35,6 +35,7 @@ public class MailBoxFragment extends SherlockFragment {
     private View actionBarView;
     Integer m_PreviousTotalCount = 0;
     public static  int messagePosition=0;
+    private int loadsCount=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,15 +84,16 @@ public class MailBoxFragment extends SherlockFragment {
                     boolean loadMore = firstVisibleItem + visibleItemCount>= totalItemCount;
                     if (loadMore)
                     {
+                        loadsCount++;
                         m_PreviousTotalCount = totalItemCount;
                         ReactrBase.showLoader(getSherlockActivity());
                         new LoadMessageAsyncTask().execute(totalItemCount, totalItemCount + 15);
                     }
-                    if(messagePosition!=0 && messagePosition>visibleItemCount)
+                    if(messagePosition!=0)
                     {
                       //ReactrBase.showLoader(getSherlockActivity());
-                      new LoadMessageAsyncTask().execute(totalItemCount, totalItemCount + messagePosition);
-                      absListView.smoothScrollToPosition(messagePosition);
+                      new LoadMessageAsyncTask().execute(totalItemCount, totalItemCount+ 30);
+                      absListView.smoothScrollToPosition((m_PreviousTotalCount+totalItemCount+messagePosition));
                       messagePosition=0;
                     }
                 }

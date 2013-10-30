@@ -114,9 +114,10 @@ public class MessageAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 if(!message.getDeleted())
+                {
                     MailBoxFragment.messagePosition=position;
-                ReactrBase.switchFraagment((SherlockFragmentActivity) ctx, new ShowMessageFragment(message));
-
+                    ReactrBase.switchFraagment((SherlockFragmentActivity) ctx, new ShowMessageFragment(message));
+                }
             }
         });
 
