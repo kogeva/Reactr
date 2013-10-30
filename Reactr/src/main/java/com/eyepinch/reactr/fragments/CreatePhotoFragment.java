@@ -126,6 +126,8 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         @Override
         public void onClick(View v) {
             shootButton.setEnabled(false);
+            switchCamera.setEnabled(false);
+            switchCamera.setEnabled(false);
             camera.takePicture(myShutterCallback, myPictureCallback_RAW, myPictureCallback_JPG);
         }
     };
@@ -272,6 +274,8 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         public void onPictureTaken(byte[] data, Camera camera) {
             Log.d("CAMERA", "onPictureTaken");
             shootButton.setEnabled(true);
+            switchCamera.setEnabled(true);
+            toggleFlash.setEnabled(true);
             if (messageEntity == null)
                 ReactrBase.switchFraagment(getSherlockActivity(), new AddMessageFragment(data, cameraInfo.facing));
             else
