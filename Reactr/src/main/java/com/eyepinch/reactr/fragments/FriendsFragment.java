@@ -24,6 +24,7 @@ import com.eyepinch.reactr.reactr.models.FriendEntity;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -155,22 +156,31 @@ public class FriendsFragment extends SherlockFragment {
         public void run() {
             searchFriendsCollection = api.searchFriendsWithoutMe(searchEditText.getText().toString(), ((MainActivity)getActivity()).getUsername());
             //////
-          try  {
+        //  try  {
+           boolean deleted=false;
+            ArrayList<FriendEntity> temp_fr_en = new ArrayList<FriendEntity>();
 
-            for(int i=0;i<searchFriendsCollection.size();i++)
+            temp_fr_en.addAll(searchFriendsCollection);
+           for(int i=0;i<friendCollection.size();i++)
             {
-                for (int j=0;j<friendCollection.size();j++)
-                    if (friendCollection.get(j).getUsername().equals(searchFriendsCollection.get(i).getUsername()))
+                if(!deleted)
+               for (int j=0;j<searchFriendsCollection.size();j++)
+               {
+                   String frcol = friendCollection.get(i).getUsername();
+                   String sear_frcol = searchFriendsCollection.get(j).getUsername();
+                    if (frcol.equalsIgnoreCase(sear_frcol))
                     {
-                        searchFriendsCollection.remove(i);
+                        temp_fr_en.remove(j);
+                        deleted=true;
                         break;
                     }
+               }
             }
 
             ///////
-            }
-          catch(Exception e){}
-            searchFriendAdapter = new SearchFriendAdapter(getSherlockActivity(),searchFriendsCollection, api);
+          //  }
+         // catch(Exception e){}
+            searchFriendAdapter = new SearchFriendAdapter(getSherlockActivity(),temp_fr_en, api);
             uiHandler.post(updateSearchFrendList);
         }
     };
@@ -182,6 +192,7 @@ public class FriendsFragment extends SherlockFragment {
             if (view.getId() == searchEditText.getId())
             {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER))
+
                    // ReactrBase.showLoader(getSherlockActivity());
                     new Thread(searchFriends).start();
             }
