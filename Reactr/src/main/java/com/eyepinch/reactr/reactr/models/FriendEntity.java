@@ -1,4 +1,4 @@
-package com.jelvix.reactr.reactr.models;
+package com.eyepinch.reactr.reactr.models;
 
 /**
  * Created by vova on 30.08.13.

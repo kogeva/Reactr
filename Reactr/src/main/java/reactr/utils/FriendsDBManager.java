@@ -37,14 +37,6 @@ public class FriendsDBManager extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
     }
 
-    public SQLiteDatabase getDescriptor ()
-    {
-        if(sqLiteDatabase == null)
-            return this.getWritableDatabase();
-        else
-            return sqLiteDatabase;
-    }
-
     public Boolean insetFriendRow (int friendId, String friendName, String friendPhone)
     {
         contentValues.put("friend_id", friendId);

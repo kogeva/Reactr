@@ -1,4 +1,4 @@
-package com.jelvix.reactr;
+package com.eyepinch.reactr;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -18,14 +19,13 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
-import com.jelvix.reactr.fragments.AddMessageFragment;
-import com.jelvix.reactr.fragments.CreatePhotoFragment;
-import com.jelvix.reactr.fragments.MailBoxFragment;
-import com.jelvix.reactr.fragments.MenuFragment;
-import com.jelvix.reactr.fragments.ShowMessageFragment;
-import com.jelvix.reactr.reactr.models.MessageEntity;
+import com.eyepinch.reactr.fragments.AddMessageFragment;
+import com.eyepinch.reactr.fragments.CreatePhotoFragment;
+import com.eyepinch.reactr.fragments.MailBoxFragment;
+import com.eyepinch.reactr.fragments.MenuFragment;
+import com.eyepinch.reactr.fragments.ShowMessageFragment;
+import com.eyepinch.reactr.reactr.models.MessageEntity;
 import com.google.android.c2dm.C2DMessaging;
-import com.jelvix.reactr.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 //import com.testflightapp.lib.TestFlight;
@@ -54,10 +54,16 @@ public class MainActivity extends SlidingFragmentActivity  {
     private String pushNotificationId;
     public static Boolean isRunningApplication;
     public static boolean IsInGallery;
+    private static long back_pressed;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        try
+        {
         super.onCreate(savedInstanceState);
+        }
+        catch (Exception e) {finish();}
         setBehindContentView(R.layout.load_layout);
         isRunningApplication = true;
 
@@ -126,9 +132,15 @@ public class MainActivity extends SlidingFragmentActivity  {
         }
           else{
             Log.d("ErrorR", "else instance");
-        getSupportFragmentManager().putFragment(outState, "mContent", mContent);
-        }
-    }
+                        try{
+
+                        getSupportFragmentManager().putFragment(outState, "mContent", mContent);
+                        }
+                        catch (Exception e)
+                        { }
+                    }
+                    }
+
 
     public void switchContent(Fragment fragment) {
         mContent = fragment;
@@ -326,5 +338,15 @@ public class MainActivity extends SlidingFragmentActivity  {
     public static Boolean isRunning()
     {
         return isRunningApplication;
+    }
+    @Override
+    public void onBackPressed()
+    {
+        if (back_pressed + 2000 > System.currentTimeMillis())
+        {
+            finish();
+        }
+        else Toast.makeText(getBaseContext(), "Press again to exit!", Toast.LENGTH_SHORT).show();
+        back_pressed = System.currentTimeMillis();
     }
 }

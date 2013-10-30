@@ -22,7 +22,7 @@ public class C2DMBroadcastReceiver extends BroadcastReceiver {
     public final void onReceive(Context context, Intent intent) {
         // To keep things in one place.
         myContext=context;
-        com.jelvix.reactr.C2DMReceiver.runIntentInService(context, intent);
+        com.eyepinch.reactr.C2DMReceiver.runIntentInService(context, intent);
         setResult(Activity.RESULT_OK, null /* data */, null /* extra */);        
     }
 

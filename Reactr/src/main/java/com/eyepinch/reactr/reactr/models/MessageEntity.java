@@ -1,4 +1,4 @@
-package com.jelvix.reactr.reactr.models;
+package com.eyepinch.reactr.reactr.models;
 
 import java.util.ArrayList;
 

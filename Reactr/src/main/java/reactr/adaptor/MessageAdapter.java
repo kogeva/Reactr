@@ -14,12 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.jelvix.reactr.MainActivity;
-import com.jelvix.reactr.R;
-import com.jelvix.reactr.ReactrBase;
-import com.jelvix.reactr.fragments.ShowMessageFragment;
-import com.jelvix.reactr.reactr.models.FriendEntity;
-import com.jelvix.reactr.reactr.models.MessageEntity;
+import com.eyepinch.reactr.MainActivity;
+import com.eyepinch.reactr.R;
+import com.eyepinch.reactr.ReactrBase;
+import com.eyepinch.reactr.fragments.MailBoxFragment;
+import com.eyepinch.reactr.fragments.ShowMessageFragment;
+import com.eyepinch.reactr.reactr.models.FriendEntity;
+import com.eyepinch.reactr.reactr.models.MessageEntity;
 
 import java.util.ArrayList;
 
@@ -100,6 +101,7 @@ public class MessageAdapter extends BaseAdapter {
             reaction.setBackgroundColor(Color.parseColor("#D6614D"));
             reaction.setText("EXPIRED");
             reaction.setVisibility(View.VISIBLE);
+
         }
 
         date.setText(formattedDate);
@@ -111,7 +113,10 @@ public class MessageAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!message.getDeleted())
+                    MailBoxFragment.messagePosition=position;
                 ReactrBase.switchFraagment((SherlockFragmentActivity) ctx, new ShowMessageFragment(message));
+
             }
         });
 

@@ -597,7 +597,7 @@ public class ValueAnimator extends Animator {
                     }
                     // pendingAnims holds any animations that have requested to be started
                     // We're going to clear sPendingAnimations, but starting animation may
-                    // cause more to be added to the pending list (for jelvix, if one animation
+                    // cause more to be added to the pending list (for eyepinch, if one animation
                     // starting triggers another starting). So we loop until sPendingAnimations
                     // is empty.
                     while (pendingAnimations.size() > 0) {
@@ -886,7 +886,7 @@ public class ValueAnimator extends Animator {
      * of <code>startValue</code> and <code>endValue</code> in the constructor. But if these values
      * are not one of these primitive types, or if different evaluation is desired (such as is
      * necessary with int values that represent colors), a custom evaluator needs to be assigned.
-     * For jelvix, when running an animation on color values, the {@link ArgbEvaluator}
+     * For eyepinch, when running an animation on color values, the {@link ArgbEvaluator}
      * should be used to get correct RGB color interpolation.
      *
      * <p>If this ValueAnimator has only one set of values being animated between, this evaluator

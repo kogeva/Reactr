@@ -267,8 +267,8 @@ public final class MenuItemImpl implements MenuItem {
 
     /**
      * @return The label to show for the shortcut. This includes the chording
-     *         key (for jelvix 'Menu+a'). Also, any non-human readable
-     *         characters should be human readable (for jelvix 'Menu+enter').
+     *         key (for eyepinch 'Menu+a'). Also, any non-human readable
+     *         characters should be human readable (for eyepinch 'Menu+enter').
      */
     String getShortcutLabel() {
 

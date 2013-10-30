@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.jelvix.reactr.R;
-import com.jelvix.reactr.reactr.models.MenuItem;
+import com.eyepinch.reactr.R;
+import com.eyepinch.reactr.reactr.models.MenuItem;
 
 import java.util.ArrayList;
 

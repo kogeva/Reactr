@@ -1,4 +1,4 @@
-package com.jelvix.reactr.fragments;
+package com.eyepinch.reactr.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -31,10 +31,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.jelvix.reactr.MainActivity;
-import com.jelvix.reactr.R;
-import com.jelvix.reactr.ReactrBase;
-import com.jelvix.reactr.reactr.models.MessageEntity;
+import com.eyepinch.reactr.MainActivity;
+import com.eyepinch.reactr.R;
+import com.eyepinch.reactr.ReactrBase;
+import com.eyepinch.reactr.reactr.models.MessageEntity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -182,8 +182,9 @@ public class ShowMessageFragment extends SherlockFragment {
       //  toImageBitmap.compress(Bitmap.CompressFormat.JPEG, 3, os);
       //  byte[] array = os.toByteArray();
      //   return BitmapFactory.decodeByteArray(array, 0, array.length);
-
+         if(toImageBitmap!=null)
         return Bitmap.createScaledBitmap(toImageBitmap, photoView.getWidth(), photoView.getHeight(), true);
+        else  return null;
     }
 
     private Runnable updateImageView = new Runnable() {

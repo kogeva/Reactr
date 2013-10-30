@@ -12,7 +12,7 @@
             android:id="@+id/prompt"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"/>
-    <com.jelvix.reactr.reactr.models.CameraSurfaceView
+    <com.eyepinch.reactr.reactr.models.CameraSurfaceView
             android:id="@+id/camerapreview"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent" />

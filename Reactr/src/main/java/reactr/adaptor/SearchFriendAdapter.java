@@ -8,9 +8,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jelvix.reactr.MainActivity;
-import com.jelvix.reactr.R;
-import com.jelvix.reactr.reactr.models.FriendEntity;
+import com.eyepinch.reactr.MainActivity;
+import com.eyepinch.reactr.R;
+import com.eyepinch.reactr.reactr.models.FriendEntity;
 
 import java.util.ArrayList;
 
@@ -42,6 +42,9 @@ public class SearchFriendAdapter extends FriendsAddedAdapter {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+               ImageButton i=(ImageButton)view;
+                i.setImageResource(R.drawable.remove_friend_orange);
                 new AddFriendAsyncTask().execute((FriendEntity)getItem(position));
             }
         });

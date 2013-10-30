@@ -275,7 +275,7 @@ class ActivityChooserView extends ViewGroup implements ActivityChooserModelClien
      *
      * <strong>Note:</strong> Clients would like to set this drawable
      * as a clue about the action the chosen activity will perform. For
-     * jelvix, if a share activity is to be chosen the drawable should
+     * eyepinch, if a share activity is to be chosen the drawable should
      * give a clue that sharing is to be performed.
      *
      * @param drawable The drawable.
@@ -289,7 +289,7 @@ class ActivityChooserView extends ViewGroup implements ActivityChooserModelClien
      * overflow list.
      *
      * description as a clue about the action performed by the button.
-     * For jelvix, if a share activity is to be chosen the content
+     * For eyepinch, if a share activity is to be chosen the content
      * description should be something like "Share with".
      *
      * @param resourceId The content description resource id.
@@ -475,7 +475,7 @@ class ActivityChooserView extends ViewGroup implements ActivityChooserModelClien
      * Sets a content description of the default action button. This
      * resource should be a string taking one formatting argument and
      * will be used for formatting the content description of the button
-     * dynamically as the default target changes. For jelvix, a resource
+     * dynamically as the default target changes. For eyepinch, a resource
      * pointing to the string "share with %1$s" will result in a content
      * description "share with Bluetooth" for the Bluetooth activity.
      *

@@ -1,4 +1,4 @@
-package com.jelvix.reactr.fragments;
+package com.eyepinch.reactr.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,11 +12,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.jelvix.reactr.MainActivity;
-import com.jelvix.reactr.R;
-import com.jelvix.reactr.ReactrBase;
-import com.jelvix.reactr.reactr.models.FriendEntity;
-import com.jelvix.reactr.reactr.models.MessageEntity;
+import com.eyepinch.reactr.MainActivity;
+import com.eyepinch.reactr.R;
+import com.eyepinch.reactr.ReactrBase;
+import com.eyepinch.reactr.reactr.models.FriendEntity;
+import com.eyepinch.reactr.reactr.models.MessageEntity;
 
 import java.util.ArrayList;
 
@@ -34,6 +34,7 @@ public class MailBoxFragment extends SherlockFragment {
     private ListView messageList;
     private View actionBarView;
     Integer m_PreviousTotalCount = 0;
+    public static  int messagePosition=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,12 +80,19 @@ public class MailBoxFragment extends SherlockFragment {
                         return;
                     if (m_PreviousTotalCount == totalItemCount)
                         return;
-                    boolean loadMore = firstVisibleItem + visibleItemCount >= totalItemCount;
+                    boolean loadMore = firstVisibleItem + visibleItemCount>= totalItemCount;
                     if (loadMore)
                     {
                         m_PreviousTotalCount = totalItemCount;
                         ReactrBase.showLoader(getSherlockActivity());
                         new LoadMessageAsyncTask().execute(totalItemCount, totalItemCount + 15);
+                    }
+                    if(messagePosition!=0 && messagePosition>visibleItemCount)
+                    {
+                      //ReactrBase.showLoader(getSherlockActivity());
+                      new LoadMessageAsyncTask().execute(totalItemCount, totalItemCount + messagePosition);
+                      absListView.smoothScrollToPosition(messagePosition);
+                      messagePosition=0;
                     }
                 }
             }
@@ -109,6 +117,7 @@ public class MailBoxFragment extends SherlockFragment {
     View.OnClickListener goToTakePhoto = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
             ReactrBase.switchFraagment(getSherlockActivity(), new CreatePhotoFragment());
         }
     };
@@ -123,20 +132,6 @@ public class MailBoxFragment extends SherlockFragment {
         @Override
         protected void onPostExecute(ArrayList<MessageEntity> messageEntities) {
             adapter.addMessagesInList(messageEntities);
-            ReactrBase.hideLoader();
-        }
-    }
-
-    public class LoadNewMessageAsyncTask extends AsyncTask<Integer, Void, ArrayList<MessageEntity>>{
-
-        @Override
-        protected ArrayList<MessageEntity> doInBackground(Integer... voids) {
-            return api.getMessages(0, 15);
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<MessageEntity> messageEntities) {
-            adapter.refreshList(messageEntities);
             ReactrBase.hideLoader();
         }
     }

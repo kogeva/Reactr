@@ -1,11 +1,9 @@
-package com.jelvix.reactr;
+package com.eyepinch.reactr;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-
-import com.jelvix.reactr.R;
 
 import java.util.HashMap;
 

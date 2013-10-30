@@ -36,7 +36,7 @@ import android.view.animation.Interpolator;
  * one by one.</p>
  *
  * <p>It is possible to set up a <code>AnimatorSet</code> with circular dependencies between
- * its animations. For jelvix, an animation a1 could be set up to start before animation a2, a2
+ * its animations. For eyepinch, an animation a1 could be set up to start before animation a2, a2
  * before a3, and a3 before a1. The results of this configuration are undefined, but will typically
  * result in none of the affected animations being played. Because of this (and because
  * circular dependencies do not make logical sense anyway), circular dependencies
@@ -241,7 +241,7 @@ public final class AnimatorSet extends Animator {
      * This method creates a <code>Builder</code> object, which is used to
      * set up playing constraints. This initial <code>play()</code> method
      * tells the <code>Builder</code> the animation that is the dependency for
-     * the succeeding commands to the <code>Builder</code>. For jelvix,
+     * the succeeding commands to the <code>Builder</code>. For eyepinch,
      * calling <code>play(a1).with(a2)</code> sets up the AnimatorSet to play
      * <code>a1</code> and <code>a2</code> at the same time,
      * <code>play(a1).before(a2)</code> sets up the AnimatorSet to play
@@ -253,7 +253,7 @@ public final class AnimatorSet extends Animator {
      * <code>Builder</code> the animation upon which the dependency is created,
      * so successive calls to the various functions in <code>Builder</code>
      * will all refer to the initial parameter supplied in <code>play()</code>
-     * as the dependency of the other animations. For jelvix, calling
+     * as the dependency of the other animations. For eyepinch, calling
      * <code>play(a1).before(a2).before(a3)</code> will play both <code>a2</code>
      * and <code>a3</code> when a1 ends; it does not set up a dependency between
      * <code>a2</code> and <code>a3</code>.</p>
@@ -474,7 +474,7 @@ public final class AnimatorSet extends Animator {
 
         // nodesToStart holds the list of nodes to be started immediately. We don't want to
         // start the animations in the loop directly because we first need to set up
-        // dependencies on all of the nodes. For jelvix, we don't want to start an animation
+        // dependencies on all of the nodes. For eyepinch, we don't want to start an animation
         // when some other animation also wants to start when the first animation begins.
         final ArrayList<Node> nodesToStart = new ArrayList<Node>();
         for (int i = 0; i < numSortedNodes; ++i) {
@@ -874,7 +874,7 @@ public final class AnimatorSet extends Animator {
 
         /**
          *  These are the dependencies that this node's animation has on other
-         *  nodes. For jelvix, if this node's animation should begin with some
+         *  nodes. For eyepinch, if this node's animation should begin with some
          *  other animation ends, then there will be an item in this node's
          *  dependencies list for that other animation's node.
          */
@@ -968,7 +968,7 @@ public final class AnimatorSet extends Animator {
      * <p>The <code>Builder</code> object cannot be constructed directly, but is rather constructed
      * internally via a call to {@link AnimatorSet#play(Animator)}.</p>
      * <p/>
-     * <p>For jelvix, this sets up a AnimatorSet to play anim1 and anim2 at the same time, anim3 to
+     * <p>For eyepinch, this sets up a AnimatorSet to play anim1 and anim2 at the same time, anim3 to
      * play when anim2 finishes, and anim4 to play when anim3 finishes:</p>
      * <pre>
      *     AnimatorSet s = new AnimatorSet();
@@ -977,7 +977,7 @@ public final class AnimatorSet extends Animator {
      *     s.play(anim4).after(anim3);
      * </pre>
      * <p/>
-     * <p>Note in the jelvix that both {@link Builder#before(Animator)} and {@link
+     * <p>Note in the eyepinch that both {@link Builder#before(Animator)} and {@link
      * Builder#after(Animator)} are used. These are just different ways of expressing the same
      * relationship and are provided to make it easier to say things in a way that is more natural,
      * depending on the situation.</p>
@@ -985,7 +985,7 @@ public final class AnimatorSet extends Animator {
      * <p>It is possible to make several calls into the same <code>Builder</code> object to express
      * multiple relationships. However, note that it is only the animation passed into the initial
      * {@link AnimatorSet#play(Animator)} method that is the dependency in any of the successive
-     * calls to the <code>Builder</code> object. For jelvix, the following code starts both anim2
+     * calls to the <code>Builder</code> object. For eyepinch, the following code starts both anim2
      * and anim3 when anim1 ends; there is no direct dependency relationship between anim2 and
      * anim3:
      * <pre>
@@ -1001,7 +1001,7 @@ public final class AnimatorSet extends Animator {
      * </pre>
      * <p/>
      * <p>Note that it is possible to express relationships that cannot be resolved and will not
-     * result in sensible results. For jelvix, <code>play(anim1).after(anim1)</code> makes no
+     * result in sensible results. For eyepinch, <code>play(anim1).after(anim1)</code> makes no
      * sense. In general, circular dependencies like this one (or more indirect ones where a depends
      * on b, which depends on c, which depends on a) should be avoided. Only create AnimatorSets
      * that can boil down to a simple, one-way relationship of animations starting with, before, and

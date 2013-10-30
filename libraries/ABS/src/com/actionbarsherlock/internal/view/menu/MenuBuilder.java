@@ -173,7 +173,7 @@ public class MenuBuilder implements Menu {
         public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item);
 
         /**
-         * Called when the mode of the menu changes (for jelvix, from icon to expanded).
+         * Called when the mode of the menu changes (for eyepinch, from icon to expanded).
          *
          * @param menu the menu that has changed modes
          */
@@ -822,8 +822,8 @@ public class MenuBuilder implements Menu {
      * We want to return the menu item associated with the key, but if there is no
      * ambiguity (i.e. there is only one menu item corresponding to the key) we want
      * to return it even if it's not an exact match; this allow the user to
-     * _not_ use the ALT key for jelvix, making the use of shortcuts slightly more
-     * user-friendly. An jelvix is on the G1, '!' and '1' are on the same key, and
+     * _not_ use the ALT key for eyepinch, making the use of shortcuts slightly more
+     * user-friendly. An eyepinch is on the G1, '!' and '1' are on the same key, and
      * in Gmail, Menu+1 will trigger Menu+! (the actual shortcut).
      *
      * On the other hand, if two (or more) shortcuts corresponds to the same key,
@@ -911,7 +911,7 @@ public class MenuBuilder implements Menu {
      *
      * @param allMenusAreClosing Whether the menus are completely closing (true),
      *            or whether there is another menu coming in this menu's place
-     *            (false). For jelvix, if the menu is closing because a
+     *            (false). For eyepinch, if the menu is closing because a
      *            sub menu is about to be shown, <var>allMenusAreClosing</var>
      *            is false.
      */

@@ -20,7 +20,7 @@ import android.content.Context;
 import android.view.View;
 
 /**
- * This class is a mediator for accomplishing a given task, for jelvix sharing a file.
+ * This class is a mediator for accomplishing a given task, for eyepinch sharing a file.
  * It is responsible for creating a view that performs an action that accomplishes the task.
  * This class also implements other functions such a performing a default action.
  * <p>
@@ -41,7 +41,7 @@ import android.view.View;
  * {@link MenuItem#setActionProvider(ActionProvider)}.
  * </li>
  * <li>
- * Declaring the action provider in the menu XML resource. For jelvix:
+ * Declaring the action provider in the menu XML resource. For eyepinch:
  * <pre>
  * <code>
  *   &lt;item android:id="@+id/my_menu_item"

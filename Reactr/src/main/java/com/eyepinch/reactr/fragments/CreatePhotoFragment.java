@@ -1,4 +1,4 @@
-package com.jelvix.reactr.fragments;
+package com.eyepinch.reactr.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -27,11 +27,11 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.jelvix.reactr.MainActivity;
-import com.jelvix.reactr.R;
-import com.jelvix.reactr.ReactrBase;
-import com.jelvix.reactr.reactr.models.CameraSurfaceView;
-import com.jelvix.reactr.reactr.models.MessageEntity;
+import com.eyepinch.reactr.MainActivity;
+import com.eyepinch.reactr.R;
+import com.eyepinch.reactr.ReactrBase;
+import com.eyepinch.reactr.reactr.models.CameraSurfaceView;
+import com.eyepinch.reactr.reactr.models.MessageEntity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     private static final int PICTURE_SIZE_MAX_WIDTH = 1280;
     private static final int PREVIEW_SIZE_MAX_WIDTH = 640;
 
-    private ImageButton shootButton;
+     ImageButton shootButton;
     private ImageButton switchCamera;
     private ToggleButton toggleFlash;
     private MessageEntity messageEntity;
@@ -125,6 +125,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
     private View.OnClickListener shootClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            shootButton.setEnabled(false);
             camera.takePicture(myShutterCallback, myPictureCallback_RAW, myPictureCallback_JPG);
         }
     };
@@ -283,6 +284,7 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         //        Log.d("CAMERA", e.getMessage());
         //    }
             //     drawingView.setVisibility(View.GONE);
+            shootButton.setEnabled(true);
             if (messageEntity == null)
                 ReactrBase.switchFraagment(getSherlockActivity(), new AddMessageFragment(data, cameraInfo.facing));
             else

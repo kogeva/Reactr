@@ -1,4 +1,4 @@
-package com.jelvix.reactr.fragments;
+package com.eyepinch.reactr.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,10 +16,10 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.MenuItem;
-import com.jelvix.reactr.MainActivity;
-import com.jelvix.reactr.R;
-import com.jelvix.reactr.ReactrBase;
-import com.jelvix.reactr.reactr.models.FriendEntity;
+import com.eyepinch.reactr.MainActivity;
+import com.eyepinch.reactr.R;
+import com.eyepinch.reactr.ReactrBase;
+import com.eyepinch.reactr.reactr.models.FriendEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -124,11 +124,15 @@ public class MyFriendsFragment extends SherlockFragment {
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         String str = String.valueOf(searchText.getText()).toLowerCase();
         ArrayList<FriendEntity> filterList = new ArrayList<FriendEntity>();
+        try {
         for (int i = 0; i < friends.size(); i++) {
             if (friends.get(i).getUsername().toLowerCase().indexOf(str) != -1) {
                 filterList.add(friends.get(i));
             }
+
         }
+        }
+        catch (Exception e){}
         myFrendsAdapter = new MyFrendsAdapter(getActivity(), filterList);
         mainHandler.post(updateFrendlist);
     }

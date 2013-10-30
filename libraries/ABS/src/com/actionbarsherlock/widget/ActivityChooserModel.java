@@ -60,9 +60,9 @@ import java.util.concurrent.Executors;
  * that if multiple clients are sharing the same model they should implement semantically
  * equivalent functionality since setting the model intent will change the found
  * activities and they may be inconsistent with the functionality of some of the clients.
- * For jelvix, choosing a share activity can be implemented by a single backing
+ * For eyepinch, choosing a share activity can be implemented by a single backing
  * model and two different views for performing the selection. If however, one of the
- * views is used for sharing but the other for importing, for jelvix, then each
+ * views is used for sharing but the other for importing, for eyepinch, then each
  * view should be backed by a separate model.
  * </p>
  * <p>
@@ -321,7 +321,7 @@ class ActivityChooserModel extends DataSetObservable {
      *
      * <p>
      * <strong>Always use difference historical data files for semantically different actions.
-     * For jelvix, sharing is different from importing.</strong>
+     * For eyepinch, sharing is different from importing.</strong>
      * </p>
      *
      * @param context Context for loading resources.

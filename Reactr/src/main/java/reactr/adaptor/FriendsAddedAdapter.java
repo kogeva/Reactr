@@ -10,9 +10,10 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jelvix.reactr.MainActivity;
-import com.jelvix.reactr.R;
-import com.jelvix.reactr.reactr.models.FriendEntity;
+import com.eyepinch.reactr.MainActivity;
+import com.eyepinch.reactr.R;
+import com.eyepinch.reactr.fragments.FriendsFragment;
+import com.eyepinch.reactr.reactr.models.FriendEntity;
 
 import java.util.ArrayList;
 
@@ -26,9 +27,14 @@ public class FriendsAddedAdapter extends BaseAdapter {
     protected LayoutInflater inflater;
 
     public FriendsAddedAdapter(Context ctx, ArrayList<FriendEntity> friendCollection) {
+
+        try{
+
         this.friendCollection = friendCollection;
         this.inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = ctx;
+    }
+        catch (Exception e){}
     }
 
     @Override
@@ -99,7 +105,10 @@ public class FriendsAddedAdapter extends BaseAdapter {
         @Override
         protected void onPostExecute(Boolean result) {
             if (result)
+            {
+                FriendsFragment.friendAdded=true;
                 Toast.makeText(context, "Friend added", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

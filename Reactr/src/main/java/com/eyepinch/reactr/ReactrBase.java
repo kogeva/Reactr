@@ -1,4 +1,4 @@
-package com.jelvix.reactr;
+package com.eyepinch.reactr;
 
 
 import android.app.Activity;
@@ -17,7 +17,7 @@ import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.jelvix.reactr.reactr.models.FriendEntity;
+import com.eyepinch.reactr.reactr.models.FriendEntity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,11 +52,16 @@ public class ReactrBase {
         {
             String str = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
                     .replaceAll("[^0-9]", "");
+            if(str.length()>=10)
+            {
+               str=str.substring(str.length()-10);
+
             try {
                 contacts.put(Long.parseLong(str), cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)));
             } catch (Exception e)
             {
 
+            }
             }
         }
         return contacts;
@@ -139,7 +144,8 @@ public class ReactrBase {
         {
             contactsString  = contactsString.concat(entryContacts.getKey().toString()+",");
         }
-        contactsString = contactsString.substring(0, contactsString.length() -1);
+           contactsString = contactsString.substring(0, contactsString.length() -1);
+
         return  contactsString;
     }
 
@@ -185,6 +191,8 @@ public class ReactrBase {
             }
         }
 
+
+
         groups.add(reactrUsers);
         groups.add(contactUsers);
 
@@ -204,23 +212,6 @@ public class ReactrBase {
     }
 
 
-    public static ArrayList<FriendEntity> addInFriendContactNameByName(ArrayList<FriendEntity> friends, HashMap<Long, String> contacts, String username)
-    {
-        ArrayList<FriendEntity> tempFrends=new ArrayList<FriendEntity>();
-        for (int i = 0; i < friends.size(); i++)
-        {
-            for (Map.Entry<Long, String> entryContacts : contacts.entrySet())
-            {
-                if (entryContacts.getKey().equals(friends.get(i).getPhone()))
-                    friends.get(i).setNameInContacts(entryContacts.getValue());
-            }
-
-            if (friends.get(i).getUsername().toLowerCase().indexOf(username) != -1){
-                tempFrends.add(friends.get(i));
-            }
-        }
-        return tempFrends;
-    }
     public  static boolean isOnline(Activity a) {
         ConnectivityManager cm =
                 (ConnectivityManager) a.getSystemService(Context.CONNECTIVITY_SERVICE);

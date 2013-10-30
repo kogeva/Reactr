@@ -1,4 +1,4 @@
-package com.jelvix.reactr;
+package com.eyepinch.reactr;
 
 
 import android.app.NotificationManager;
@@ -12,10 +12,9 @@ import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.jelvix.reactr.fragments.MailBoxFragment;
-import com.jelvix.reactr.reactr.models.MessageEntity;
+import com.eyepinch.reactr.fragments.MailBoxFragment;
+import com.eyepinch.reactr.reactr.models.MessageEntity;
 import com.google.android.c2dm.C2DMBaseReceiver;
-import com.jelvix.reactr.R;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.jelvix.reactr;
+package com.eyepinch.reactr;
 
 
 import android.os.Bundle;
@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-
-import com.jelvix.reactr.R;
 
 import org.json.JSONObject;
 

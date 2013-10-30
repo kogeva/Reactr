@@ -1,4 +1,4 @@
-package com.jelvix.reactr.fragments;
+package com.eyepinch.reactr.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,16 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.jelvix.reactr.MainActivity;
-import com.jelvix.reactr.R;
-import com.jelvix.reactr.ReactrBase;
-import com.jelvix.reactr.StartActivity;
-import com.jelvix.reactr.reactr.models.MenuItem;
+import com.eyepinch.reactr.MainActivity;
+import com.eyepinch.reactr.R;
+import com.eyepinch.reactr.ReactrBase;
+import com.eyepinch.reactr.StartActivity;
+import com.eyepinch.reactr.reactr.models.MenuItem;
 
 import java.util.ArrayList;
 
 import reactr.adaptor.MenuAdapter;
-import com.jelvix.reactr.reactr.models.ReactrConstants;
+import com.eyepinch.reactr.reactr.models.ReactrConstants;
 import com.google.android.c2dm.C2DMessaging;
 
 public class MenuFragment extends ListFragment {

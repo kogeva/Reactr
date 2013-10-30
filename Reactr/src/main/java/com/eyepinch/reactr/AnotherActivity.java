@@ -1,4 +1,4 @@
-package com.jelvix.reactr;
+package com.eyepinch.reactr;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -12,8 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.jelvix.reactr.reactr.models.ReactrConstants;
-import com.jelvix.reactr.R;
+import com.eyepinch.reactr.reactr.models.ReactrConstants;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;

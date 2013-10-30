@@ -1,4 +1,4 @@
-package com.jelvix.reactr.fragments;
+package com.eyepinch.reactr.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,8 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.jelvix.reactr.MainActivity;
-import com.jelvix.reactr.R;
+import com.eyepinch.reactr.MainActivity;
+import com.eyepinch.reactr.R;
 
 import java.util.ArrayList;
 

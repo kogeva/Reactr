@@ -1,4 +1,4 @@
-package com.jelvix.reactr;
+package com.eyepinch.reactr;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.c2dm.C2DMessaging;
-import com.jelvix.reactr.R;
 //import com.testflightapp.lib.TestFlight;
 import org.json.JSONException;
 import org.json.JSONObject;

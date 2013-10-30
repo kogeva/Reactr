@@ -39,75 +39,7 @@ public class ImageHelper {
         return output;
     }
 
-    public static Bitmap getCircularBitmap(Bitmap bitmap) {
-        Bitmap output;
 
-        if (bitmap.getWidth() > bitmap.getHeight()) {
-            output = Bitmap.createBitmap(bitmap.getHeight(), bitmap.getHeight(), Config.ARGB_8888);
-        } else {
-            output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getWidth(), Config.ARGB_8888);
-        }
-
-        Canvas canvas = new Canvas(output);
-
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-
-        float r = 0;
-
-        if (bitmap.getWidth() > bitmap.getHeight()) {
-            r = bitmap.getHeight() / 2;
-        } else {
-            r = bitmap.getWidth() / 2;
-        }
-
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawCircle(r, r, r, paint);
-        paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-        output=addWhiteBorder(output, 5);
-        return output;
-    }
-
-
-   static private Bitmap addWhiteBorder(Bitmap bmp, int borderSize) {
-        Bitmap bmpWithBorder = Bitmap.createBitmap(bmp.getWidth() + borderSize * 2, bmp.getHeight() + borderSize * 2, bmp.getConfig());
-        Canvas canvas = new Canvas(bmpWithBorder);
-        canvas.drawColor(Color.WHITE);
-        canvas.drawBitmap(bmp, borderSize, borderSize, null);
-        return bmpWithBorder;
-    }
-
-    static public Bitmap myRoundBitmap(Bitmap bitmap){
-        int w = bitmap.getWidth();
-        int h = bitmap.getHeight();
-
-        int radius = Math.min(h / 2, w / 2);
-        Bitmap output = Bitmap.createBitmap(w + 30, h + 30, Config.ARGB_8888);
-
-        Paint p = new Paint();
-        p.setAntiAlias(true);
-
-        Canvas c = new Canvas(output);
-        c.drawARGB(0, 0, 0, 0);
-        p.setStyle(Paint.Style.FILL);
-
-        c.drawCircle((w / 2) + 4, (h / 2) + 4, radius, p);
-
-        p.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-
-        c.drawBitmap(bitmap, 4, 4, p);
-        p.setXfermode(null);
-        p.setStyle(Paint.Style.STROKE);
-        p.setColor(Color.WHITE);
-        p.setStrokeWidth(3);
-        c.drawCircle((w / 2) + 4, (h / 2) + 4, radius, p);
-
-        return output;
-    }
     //borderDips
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap_in, int color, Context context) {
 

@@ -1,4 +1,4 @@
-package com.jelvix.reactr.fragments;
+package com.eyepinch.reactr.fragments;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -17,10 +17,10 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.jelvix.reactr.MainActivity;
-import com.jelvix.reactr.R;
-import com.jelvix.reactr.ReactrBase;
-import com.jelvix.reactr.reactr.models.FriendEntity;
+import com.eyepinch.reactr.MainActivity;
+import com.eyepinch.reactr.R;
+import com.eyepinch.reactr.ReactrBase;
+import com.eyepinch.reactr.reactr.models.FriendEntity;
 
 import org.json.JSONObject;
 
@@ -42,8 +42,8 @@ public class FriendsFragment extends SherlockFragment {
     private ExpandableListView friendsInContact;
     private ListView searchFriendsView;
     private ArrayList<FriendEntity> friendCollection;
-    private ArrayList<FriendEntity> whoAddMe;
     private ArrayList<FriendEntity> searchFriendsCollection;
+    private ArrayList<FriendEntity> whoAddMe;
     private ArrayList<ArrayList<JSONObject>> contactUserGroups;
     private EditText searchEditText;
     private ContactsListAdaptor contactsListAdaptor;
@@ -55,6 +55,7 @@ public class FriendsFragment extends SherlockFragment {
     private View actionBarView;
     private Bitmap statePhoto;
     private String stateText;
+    public  static boolean friendAdded=false;
 
     public FriendsFragment(Bitmap photo, String text)
     {
@@ -153,6 +154,22 @@ public class FriendsFragment extends SherlockFragment {
         @Override
         public void run() {
             searchFriendsCollection = api.searchFriendsWithoutMe(searchEditText.getText().toString(), ((MainActivity)getActivity()).getUsername());
+            //////
+          try  {
+
+            for(int i=0;i<searchFriendsCollection.size();i++)
+            {
+                for (int j=0;j<friendCollection.size();j++)
+                    if (friendCollection.get(j).getUsername().equals(searchFriendsCollection.get(i).getUsername()))
+                    {
+                        searchFriendsCollection.remove(i);
+                        break;
+                    }
+            }
+
+            ///////
+            }
+          catch(Exception e){}
             searchFriendAdapter = new SearchFriendAdapter(getSherlockActivity(),searchFriendsCollection, api);
             uiHandler.post(updateSearchFrendList);
         }

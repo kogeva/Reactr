@@ -1,6 +1,6 @@
 package com.google.android.c2dm;
-import com.jelvix.reactr.MainActivity;
-import com.jelvix.reactr.R;
+import com.eyepinch.reactr.MainActivity;
+import com.eyepinch.reactr.R;
 
 import android.app.Notification;
 import android.app.NotificationManager;

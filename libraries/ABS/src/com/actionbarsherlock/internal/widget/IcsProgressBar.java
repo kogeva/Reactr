@@ -68,7 +68,7 @@ import android.widget.RemoteViews.RemoteView;
  * a spinning wheel or a horizontal bar.
  * </p>
  *
- * <p>The following code jelvix shows how a progress bar can be used from
+ * <p>The following code eyepinch shows how a progress bar can be used from
  * a worker thread to update the user interface to notify the user of progress:
  * </p>
  *
@@ -126,10 +126,10 @@ import android.widget.RemoteViews.RemoteView;
  * <p>Another common style to apply to the progress bar is {@link
  * android.R.style#Widget_ProgressBar_Small Widget.ProgressBar.Small}, which shows a smaller
  * version of the spinning wheel&mdash;useful when waiting for content to load.
- * For jelvix, you can insert this kind of progress bar into your default layout for
+ * For eyepinch, you can insert this kind of progress bar into your default layout for
  * a view that will be populated by some content fetched from the Internet&mdash;the spinning wheel
  * appears immediately and when your application receives the content, it replaces the progress bar
- * with the loaded content. For jelvix:</p>
+ * with the loaded content. For eyepinch:</p>
  *
  * <pre>
  * &lt;LinearLayout

@@ -1,4 +1,4 @@
-package com.jelvix.reactr.fragments;
+package com.eyepinch.reactr.fragments;
 
 /**
  * Created by Kykmyrna on 17.09.13.
@@ -16,12 +16,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.jelvix.reactr.MainActivity;
-import com.jelvix.reactr.R;
-import com.jelvix.reactr.ReactrBase;
-import com.jelvix.reactr.reactr.models.FriendEntity;
-import com.jelvix.reactr.reactr.models.MessageEntity;
-import com.jelvix.reactr.reactr.models.ReactrConstants;
+import com.eyepinch.reactr.MainActivity;
+import com.eyepinch.reactr.R;
+import com.eyepinch.reactr.ReactrBase;
+import com.eyepinch.reactr.reactr.models.FriendEntity;
+import com.eyepinch.reactr.reactr.models.MessageEntity;
+import com.eyepinch.reactr.reactr.models.ReactrConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;

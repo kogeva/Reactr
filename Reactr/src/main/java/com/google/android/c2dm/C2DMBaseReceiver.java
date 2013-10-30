@@ -28,8 +28,8 @@ import android.content.Intent;
 import android.os.PowerManager;
 import android.util.Log;
 
-import com.jelvix.reactr.MainActivity;
-import com.jelvix.reactr.R;
+import com.eyepinch.reactr.MainActivity;
+import com.eyepinch.reactr.R;
 
 /**
  * Base class for C2D message receiver. Includes constants for the

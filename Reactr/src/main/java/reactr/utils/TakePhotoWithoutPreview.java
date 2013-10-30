@@ -12,7 +12,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
-import com.jelvix.reactr.fragments.ShowMessageFragment;
+import com.eyepinch.reactr.fragments.ShowMessageFragment;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
