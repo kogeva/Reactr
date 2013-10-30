@@ -271,19 +271,6 @@ public class CreatePhotoFragment extends SherlockFragment implements SurfaceHold
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
             Log.d("CAMERA", "onPictureTaken");
-        //    FileOutputStream outStream = null;
-        //    try {
-        //        outStream = new FileOutputStream("/sdcard/test.jpg");
-         //       outStream.write(data);
-         //       outStream.close();
-        //    }
-        //    catch (FileNotFoundException e){
-        //       Log.d("CAMERA", e.getMessage());
-         //   }
-        //    catch (IOException e){
-        //        Log.d("CAMERA", e.getMessage());
-        //    }
-            //     drawingView.setVisibility(View.GONE);
             shootButton.setEnabled(true);
             if (messageEntity == null)
                 ReactrBase.switchFraagment(getSherlockActivity(), new AddMessageFragment(data, cameraInfo.facing));
