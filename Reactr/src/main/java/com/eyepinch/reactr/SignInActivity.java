@@ -202,7 +202,7 @@ public class SignInActivity extends Activity {
                     prefEditor.putString("session_hash", result.getString("session_hash"));
                     prefEditor.putString("username", username);
                     prefEditor.putString("phone", phone);
-                    prefEditor.putString("privacy_message", "false");
+                    prefEditor.putString("privacy_message", "true");
                     prefEditor.putString("email", email);
                     prefEditor.commit();
                     handler.post(switchToSlideActivity);
