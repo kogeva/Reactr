@@ -34,8 +34,7 @@ public class CameraSurfaceView extends SurfaceView {
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int height = MeasureSpec.getSize(heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
-        /////////Ýòîò ó÷àñòîê êîäà ïîìîãàåò óáðàòü ïîëîñû
-        //Äîáàâèëè ê øèðèíå è âûñîòå îäèíàêîâîå ÷èñëî ÷òîá íå ïîâëèÿëî íà ñîîòíîøåíèå
+
 
         width+=150;
         height+=150;
