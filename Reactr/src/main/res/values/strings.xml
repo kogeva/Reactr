@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello_world">Reactr</string>
 
+    <string name="hello_world">Reactr</string>
     <string name="app_name">Reactr</string>
     <string name="action_settings">Settings</string>
 
-    <!--login layout-->
+    <!-- login layout -->
     <string name="password_text">Password</string>
     <string name="login_button_text">Log In</string>
     <string name="email_text">Email Address</string>
 
-    <!--Signup1 layout-->
-    <string name="signup1_text">By creating an account, you agree to the    <a style="color: #FFF" href="activity-run://AnotherActivityHost?caption=Another%20Activity&amp;text=terms">Terms of Use</a>
-        and you acknowledge that you have read the   <a href="activity-run://AnotherActivityHost?caption=Another%20Activity&amp;text=privacy">Privacy Policy</a>.
-
-    </string>
+    <!-- Signup1 layout -->
+    <string name="signup1_text">By creating an account, you agree to the    <a style="color: #FFF" href="activity-run://AnotherActivityHost?caption=Another%20Activity&amp;text=terms">Terms of Use</a>        and you acknowledge that you have read the   <a href="activity-run://AnotherActivityHost?caption=Another%20Activity&amp;text=privacy">Privacy Policy</a>.</string>
     <string name="continue_button">Continue</string>
     <string name="birthday_text">Birthday</string>
 
-    <!--Signup2 layout-->
+    <!-- Signup2 layout -->
     <string name="signup2_text">Please select a unique username. Your username identifies you on Reactr.</string>
     <string name="username_text">Username</string>
 
-    <!--Signup3 layout-->
+    <!-- Signup3 layout -->
     <string name="signup3_text_top">Enter your mobile phone number to find friends and help them find you.</string>
     <string name="signup3_text_center">Reactr uses phone numbers from your address book to find the Reactr usernames of your friends.</string>
     <string name="signup3_text_bottom">\u0020- We will not spam or auto-add your friends.\n
@@ -31,27 +28,34 @@
        - Phone # will be stored as unique mathematical
         representation (or "hashes"), which can be used
         to see which users match, but are not the actual
-        phone numbers themselves.
-    </string>
+        phone numbers themselves.</string>
     <string name="phone_text">Mobile #</string>
 
-    <!--Signup3 layout-->
+    <!-- Signup3 layout -->
     <string name="sign_up_button">Sign Up</string>
-
     <string name="sv_ph_mes"> Save photo</string>
     <string name="sv_ph_react">Save reaction</string>
     <string name="cancel">Cancel</string>
     <string name="sign_up">Sign Up</string>
 
-    <!--Settings text-->
+    <!-- ResetPassword layout -->
+    <string name="reset_pass_btn">Submit</string>
+    <string name="pass_text">If you have forgotten your password,
+                             please enter your Email Address OR
+                             mobile # and we will email your
+                             password to you immediately.
+    </string>
+
+
+    <!-- Settings text -->
     <string name="settings_username">Username</string>
     <string name="settings_mobile">Mobile #</string>
     <string name="settings_email">Email</string>
     <string name="settings_only_friends">Only friends</string>
     <string name="settings_who_header">Who is allowed to send me photos?</string>
     <string name="settings_save_button">Save</string>
-
     <string name="yes">yes</string>
     <string name="no">no</string>
+    <string name="title_activity_reset_password">ResetPassword</string>
 
 </resources>

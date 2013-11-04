@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.c2dm.C2DMessaging;
@@ -25,6 +26,7 @@ public class LoginActivity extends Activity {
     private EditText email;
     private EditText password;
     private Button loginButton;
+    private ImageButton helpButton;
     private JSONObject responseJson;
     private SharedPreferences preferences;
     SharedPreferences.Editor prefEditor;
@@ -38,22 +40,15 @@ public class LoginActivity extends Activity {
         getActionBar().hide();
         handler = new Handler();
         context = this;
-
         preferences = getSharedPreferences("reactrPrefer", MODE_PRIVATE);
         prefEditor = preferences.edit();
-
         email = (EditText) findViewById(R.id.emailInput);
         password = (EditText) findViewById(R.id.passwordInput);
         loginButton = (Button) findViewById(R.id.loginButton);
-
+        helpButton =(ImageButton)findViewById(R.id.helpBtn);
         C2DMessaging.register(this, "856805386889");
-
-//        if (C2DMessaging.getRegistrationId(this).length() == 0) {
-//            pushNotificationId = C2DMessaging.getRegistrationId(this);
-//        } else
-//            pushNotificationId = C2DMessaging.getRegistrationId(this);
-
         loginButton.setOnClickListener(loginClick);
+        helpButton.setOnClickListener(resetClick);
     }
 
     private View.OnClickListener loginClick = new View.OnClickListener() {
@@ -70,9 +65,18 @@ public class LoginActivity extends Activity {
 
                 }
             }).start();
-            }
+        }
     };
 
+    private View.OnClickListener resetClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            Intent startReset = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+            LoginActivity.this.startActivity(startReset);
+
+        }
+    };
     Runnable checkUserDone = new Runnable() {
         @Override
         public void run() {

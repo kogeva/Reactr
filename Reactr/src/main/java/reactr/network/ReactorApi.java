@@ -52,6 +52,7 @@ public class ReactorApi {
     private final String DELETE_MESSAGE = apiUrl + "/deleteMessage/";
     private final String GET_MESSAGES = apiUrl + "/getMessages/";
     private final String LOGIN = apiUrl + "/login/";
+    private final String REMIND_PASSWORD = apiUrl + "/remindPassword/";
     private final String ST_INFO = apiUrl + "/getStaticInfo/";
     private final String READ_MSG = apiUrl + "/readMessages/";
     private final String COUNT_MESSAGES = apiUrl + "/countNotReadMessage/";
@@ -142,6 +143,28 @@ public class ReactorApi {
             Log.d("Reactor API: ", exp.getMessage());
         }
         return jsonData;
+    }
+
+
+    public boolean remindPassword(String email, String phone) {
+        postParams = new HashMap<String, ContentBody>();
+
+        try {
+            postParams.put("phone", new StringBody(phone));
+            postParams.put("email", new StringBody(email));
+        } catch (UnsupportedEncodingException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+
+        try {
+            jsonData = new JSONObject(networkManager.sendRequest(REMIND_PASSWORD, postParams));
+            if (jsonData.get("status").equals("success")) {
+                return true;
+            }
+        } catch (JSONException exp) {
+            Log.d("Reactor API: ", exp.getMessage());
+        }
+        return false;
     }
 
     public JSONArray checkUserInSystem(String phones) {
