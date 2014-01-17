@@ -25,6 +25,7 @@ import reactr.network.ReactorApi;
 public class ContactsListAdaptor extends BaseExpandableListAdapter {
 
     private Context context;
+    private Context context2;
     private ArrayList<ArrayList<JSONObject>> groupUser;
     private JSONObject user;
     private LayoutInflater inflater;
