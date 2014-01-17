@@ -31,6 +31,7 @@ public class AnotherActivity extends Activity {
     final String mimeType = "text/html";
     final String encoding = "UTF-8";
     String text;
+    String text2;
     private WebView tvPage;
     private View actionBarView;
     private HashMap<String, String> hm_st_title;
